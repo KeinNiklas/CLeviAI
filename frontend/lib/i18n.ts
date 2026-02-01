@@ -49,7 +49,7 @@ export const translations = {
         },
         navbar: {
             new_journey: "New Journey",
-            profile_dashboard: "Profile & Dashboard"
+            profile_dashboard: "Your Journeys"
         },
         uploader: {
             drop_title: "Drop your study materials here",
@@ -79,11 +79,24 @@ export const translations = {
         },
         settings: {
             title: "Settings",
+            general: "General",
             language: "Language",
             language_desc: "Select your preferred language for the interface.",
             theme: "Theme",
             theme_desc: "Choose between light and dark mode.",
-            save: "Save Changes"
+            save: "Save Changes",
+            saving: "Saving...",
+            ai_config: "AI Configuration",
+            pref_model: "Preferred Model",
+            gemini: "Google Gemini",
+            gemini_desc: "Detailed analysis & reasoning",
+            groq: "Groq (Llama 3)",
+            groq_desc: "Ultra-fast inference speed",
+            groq_key: "Groq API Key (Llama 3)",
+            gemini_key: "Gemini API Key",
+            light: "Light",
+            dark: "Dark",
+            system: "System"
         }
     },
     de: {
@@ -134,7 +147,7 @@ export const translations = {
         },
         navbar: {
             new_journey: "Neuer Plan",
-            profile_dashboard: "Profil & Dashboard"
+            profile_dashboard: "Deine Lernpläne"
         },
         uploader: {
             drop_title: "Dateien hier ablegen",
@@ -164,11 +177,24 @@ export const translations = {
         },
         settings: {
             title: "Einstellungen",
+            general: "Allgemein",
             language: "Sprache",
             language_desc: "Wähle deine bevorzugte Sprache für die Oberfläche.",
             theme: "Design",
             theme_desc: "Wähle zwischen Hell- und Dunkelmodus.",
-            save: "Änderungen speichern"
+            save: "Speichern",
+            saving: "Speichern...",
+            ai_config: "KI Konfiguration",
+            pref_model: "Bevorzugtes Modell",
+            gemini: "Google Gemini",
+            gemini_desc: "Detaillierte Analyse & Reasoning",
+            groq: "Groq (Llama 3)",
+            groq_desc: "Ultra-schnelle Inferenz",
+            groq_key: "Groq API Key (Llama 3)",
+            gemini_key: "Gemini API Key",
+            light: "Hell",
+            dark: "Dunkel",
+            system: "System"
         }
     },
 };

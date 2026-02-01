@@ -145,3 +145,62 @@ def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/settings/config")
+def get_settings_config():
+    """Return masked config and preferred model status"""
+    # Force reload from file in case it was edited manually
+    load_dotenv("key.env", override=True)
+    groq_key = os.getenv("GROQ_API_KEY", "")
+    google_key = os.getenv("GOOGLE_API_KEY", "")
+    preferred_model = os.getenv("PREFERRED_MODEL", "gemini")
+
+    return {
+        "groq_configured": bool(groq_key),
+        "google_configured": bool(google_key),
+        # Return full keys as requested
+        "groq_key": groq_key,
+        "google_key": google_key,
+        "preferred_model": preferred_model
+    }
+
+class APIKeyUpdate(BaseModel):
+    groq_api_key: Optional[str] = None
+    google_api_key: Optional[str] = None
+    preferred_model: Optional[str] = None
+
+@app.post("/settings/keys")
+def update_api_keys(keys: APIKeyUpdate):
+    try:
+        # Read existing keys
+        env_vars = {}
+        if os.path.exists("key.env"):
+            with open("key.env", "r") as f:
+                for line in f:
+                    if "=" in line:
+                        k, v = line.strip().split("=", 1)
+                        env_vars[k] = v
+        
+        # Update with new values
+        if keys.groq_api_key:
+            env_vars["GROQ_API_KEY"] = keys.groq_api_key
+            os.environ["GROQ_API_KEY"] = keys.groq_api_key 
+        if keys.google_api_key:
+            env_vars["GOOGLE_API_KEY"] = keys.google_api_key
+            os.environ["GOOGLE_API_KEY"] = keys.google_api_key
+        if keys.preferred_model:
+            env_vars["PREFERRED_MODEL"] = keys.preferred_model
+            os.environ["PREFERRED_MODEL"] = keys.preferred_model
+            
+        # Write back to file
+        with open("key.env", "w") as f:
+            for k, v in env_vars.items():
+                f.write(f"{k}={v}\n")
+                
+        # Reload services
+        global analyzer_service
+        analyzer_service = AnalyzerService()
+        
+        return {"status": "success", "message": "Settings updated"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

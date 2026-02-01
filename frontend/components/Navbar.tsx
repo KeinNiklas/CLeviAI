@@ -2,17 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
+import { Settings } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
     const { t } = useLanguage();
     const [bouncers, setBouncers] = useState<number[]>([]);
     const router = useRouter();
+    const pathname = usePathname();
     const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleLogoClick = (e: React.MouseEvent) => {
+        // ... existing logic ...
         e.preventDefault();
 
         if (clickTimeoutRef.current) {
@@ -30,6 +34,7 @@ export function Navbar() {
     };
 
     const triggerEasterEgg = () => {
+        // ... existing logic ...
         const id = Date.now() + Math.random();
         setBouncers(prev => [...prev, id]);
         // Stop after 5 seconds
@@ -60,7 +65,18 @@ export function Navbar() {
                         <nav className="flex items-center gap-6 text-sm">
                             <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/plan">{t.navbar.new_journey}</a>
                             <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/dashboard">{t.navbar.profile_dashboard}</a>
+
                         </nav>
+                    </div>
+                    <div className="ml-auto hidden md:flex items-center space-x-4">
+                        {pathname === "/" && (
+                            <div className="mr-2">
+                                <ThemeToggle />
+                            </div>
+                        )}
+                        <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/settings">
+                            <Settings className="w-5 h-5" />
+                        </a>
                     </div>
                 </div>
             </nav>

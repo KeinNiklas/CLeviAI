@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import Image from "next/image";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -33,7 +34,16 @@ export default function RootLayout({
             <nav className="border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 sticky top-0">
               <div className="container flex h-14 max-w-screen-2xl items-center px-4">
                 <div className="mr-4 hidden md:flex">
-                  <a className="mr-6 flex items-center space-x-2 font-bold" href="/">CLeviAI</a>
+                  <a className="mr-6 flex items-center space-x-2 font-bold" href="/">
+                    <Image
+                      src="/logo.jpg"
+                      alt="CLeviAI Logo"
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-orange-500/20"
+                    />
+                    <span>CLeviAI</span>
+                  </a>
                   <nav className="flex items-center gap-6 text-sm">
                     <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/plan">New Journey</a>
                     <a className="transition-colors hover:text-foreground/80 text-foreground/60" href="/dashboard">Profile & Dashboard</a>

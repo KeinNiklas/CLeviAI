@@ -7,6 +7,14 @@ from models import Topic, StudyPlan
 from services.ingestion import IngestionService
 from services.analyzer import AnalyzerService
 from services.scheduler import SchedulerService
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+if os.path.exists("key.env"):
+    load_dotenv("key.env")
+else:
+    load_dotenv()
 
 app = FastAPI(title="CLeviAI Backend")
 

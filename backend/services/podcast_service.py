@@ -7,21 +7,45 @@ class PodcastService:
     def __init__(self, groq_service: GroqService):
         self.groq_service = groq_service
 
-    def generate_script(self, topic_title: str, topic_description: str, language: str = "en") -> PodcastResponse:
+    def generate_script(self, topic_title: str, topic_description: str, language: str = "en", preset: str = "classroom") -> PodcastResponse:
         if not self.groq_service.client:
             raise Exception("Groq API not available for Podcast generation")
 
         lang_instruction = "English" if language == "en" else "German"
         
+        # Preset Logic
+        if preset == "deep_dive":
+            characters_prompt = """
+            Characters:
+            1. "Host": Analytical, skeptical, asks deep questions.
+            2. "Expert": Highly technical, explains complex details.
+            """
+        elif preset == "story":
+            characters_prompt = """
+            Characters:
+            1. "Narrator": Engaging storyteller, uses metaphors, calm pace.
+            (Monologue style)
+            """
+        elif preset == "story":
+            characters_prompt = """
+            Characters:
+            1. "Narrator": Engaging storyteller, uses metaphors, calm pace.
+            (Monologue style)
+            """
+        else: # Default: classroom
+            characters_prompt = """
+            Characters:
+            1. "Expert": Knowledgeable, calm, uses analogies.
+            2. "Student": Curious, asks clarifying questions.
+            """
+
         prompt = f"""
         Create a short, engaging podcast script about the following study topic.
         
         Topic: {topic_title}
         Context: {topic_description}
         
-        Characters:
-        1. "Expert": Knowledgeable, calm, uses analogies.
-        2. "Student": Curious, asks clarifying questions, reacts with "Wow" or "I see".
+        {characters_prompt}
         
         Format:
         - The dialogue should remain under 2 minutes (approx 15-20 exchanges).
@@ -68,16 +92,22 @@ class PodcastService:
         if not self.groq_service.client:
              raise Exception("Groq API not available for Audio generation")
 
-        # Voice Selection
+        # Voice Selection Map
         # Valid: autumn diana hannah austin daniel troy
-        # Strategy:
-        # Expert (Male) -> Austin or Daniel
-        # Student (Female) -> Diana or Hannah
-        voice = "austin" # Default Expert
-        if speaker == "Student":
-            voice = "diana"
-        elif speaker == "Expert":
-            voice = "daniel"
+        voice = "austin" # Default
+        
+        speaker_lower = speaker.lower()
+        if "student" in speaker_lower or "host" in speaker_lower:
+             voice = "diana" # Female, bright
+        speaker_lower = speaker.lower()
+        if "student" in speaker_lower or "host" in speaker_lower:
+             voice = "diana" # Female, bright
+        elif "expert" in speaker_lower:
+             voice = "daniel" # Male, deep
+        elif "narrator" in speaker_lower:
+             voice = "troy" # Male, storytelling
+        elif "narrator" in speaker_lower:
+             voice = "troy" # Male, storytelling
             
         # Model Selection
         # English: canopylabs/orpheus-v1-english

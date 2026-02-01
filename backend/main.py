@@ -153,11 +153,12 @@ class PodcastRequest(BaseModel):
     topic_title: str
     topic_description: str
     language: str = "en"
+    preset: str = "classroom"
 
 @app.post("/podcast/generate", response_model=PodcastResponse)
 def generate_podcast(req: PodcastRequest):
     try:
-        return podcast_service.generate_script(req.topic_title, req.topic_description, req.language)
+        return podcast_service.generate_script(req.topic_title, req.topic_description, req.language, req.preset)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -175,4 +176,8 @@ def generate_audio(req: AudioRequest):
         audio_bytes = podcast_service.generate_audio_segment(req.text, req.speaker, req.language)
         return StreamingResponse(io.BytesIO(audio_bytes), media_type="audio/wav")
     except Exception as e:
+        error_str = str(e).lower()
+        if "rate limit" in error_str or "429" in error_str:
+             print(f"Rate Limit Hit: {e}")
+             raise HTTPException(status_code=429, detail="Rate Limit Exceeded")
         raise HTTPException(status_code=500, detail=str(e))

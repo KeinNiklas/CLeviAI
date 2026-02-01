@@ -9,7 +9,8 @@ class GroqService:
         self.api_key = os.getenv("GROQ_API_KEY")
         if self.api_key:
             self.client = Groq(api_key=self.api_key)
-            self.model = "llama-3.3-70b-versatile" 
+            # Switch to 8b-instant to avoid Rate Limits (TPD) on 70b
+            self.model = "llama-3.1-8b-instant" 
         else:
             self.client = None
 

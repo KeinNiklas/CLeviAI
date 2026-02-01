@@ -2,14 +2,14 @@ import os
 import json
 import google.generativeai as genai
 from typing import List
-from models import Topic, Flashcard
+from models import Topic, Flashcard, ChallengeType
 
 class GeminiService:
     def __init__(self):
         self.api_key = os.getenv("GOOGLE_API_KEY")
         if self.api_key:
             genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel('gemini-flash-latest')
+            self.model = genai.GenerativeModel('gemini-1.5-flash') # Updated to latest alias if needed/available
         else:
             self.model = None
 
@@ -30,23 +30,35 @@ class GeminiService:
         1. A title
         2. A brief description
         3. An estimated number of hours to master it
-        4. 3-5 Flashcards for "Active Recall" practice (Question and Answer)
+        4. A list of "Games" to test knowledge. These should be a mix of:
+            - "QUIZ": A multiple choice question with ONE correct answer and 3 distinct, plausible WRONG answers (distractors).
+            - "MATCH": A set of 4 term-definition pairs to match.
         
         IMPORTANT: Provide the response in {lang_instruction} language.
 
         Text:
-        {text[:20000]}... (truncated if too long)
+        {text[:25000]}... (truncated if too long)
 
         Return ONLY valid JSON in the following format:
         {{
             "topics": [
                 {{
                     "title": "Topic Title ({lang_instruction})",
-                    "description": "Short description in {lang_instruction}",
+                    "description": "Short description",
                     "hours": 1.5,
-                    "flashcards": [
-                        {{ "question": "What is X?", "answer": "X is Y" }},
-                        {{ "question": "Explain Z", "answer": "Z works by..." }}
+                    "games": [
+                        {{
+                            "type": "QUIZ",
+                            "question": "What is X?",
+                            "correct_answer": "X is Y",
+                            "distractors": ["X is Z", "X is A", "X is B"] 
+                        }},
+                        {{
+                            "type": "MATCH",
+                            "question": "Match the terms",
+                            "correct_answer": "ignored",
+                            "pair": "Term1:Def1;Term2:Def2;Term3:Def3;Term4:Def4"
+                        }}
                     ]
                 }}
             ]
@@ -55,7 +67,6 @@ class GeminiService:
 
         try:
             # Generate content requests JSON format implicitly via prompt instructions
-            # For stricter JSON mode, we can use generation_config={'response_mime_type': 'application/json'}
             response = self.model.generate_content(
                 prompt,
                 generation_config={"response_mime_type": "application/json"}
@@ -71,14 +82,23 @@ class GeminiService:
             
             topics = []
             for i, item in enumerate(topics_data):
-                # Parse flashcards
-                flashcards_data = item.get("flashcards", [])
+                # Parse games
+                games_data = item.get("games", [])
+                games = []
+                for g in games_data:
+                    games.append(ChallengeType(
+                        type=g.get("type", "QUIZ"),
+                        question=g.get("question", "Unknown Question"),
+                        correct_answer=g.get("correct_answer", ""),
+                        distractors=g.get("distractors", []),
+                        pair=g.get("pair", None)
+                    ))
+                
+                # Backward compatibility for flashcards if needed, or just map games to flashcards for legacy views
                 flashcards = []
-                for fc in flashcards_data:
-                    flashcards.append({
-                        "question": fc.get("question", "Unknown Question"),
-                        "answer": fc.get("answer", "Unknown Answer")
-                    })
+                for g in games:
+                    if g.type == "QUIZ":
+                         flashcards.append(Flashcard(question=g.question, answer=g.correct_answer))
 
                 topics.append(Topic(
                     id=f"{material_id}_{i}",
@@ -86,7 +106,8 @@ class GeminiService:
                     description=item.get("description", ""),
                     estimated_hours=float(item.get("hours", 1.0)),
                     material_id=material_id,
-                    flashcards=flashcards
+                    flashcards=flashcards,
+                    games=games
                 ))
             return topics
 

@@ -6,7 +6,7 @@ import { format, parseISO } from "date-fns";
 import { Star, Check, Lock, RotateCw, BookOpen, ThumbsUp, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { FlashcardViewer } from "./FlashcardViewer";
+import { GameShell, Challenge } from "../game/GameShell";
 
 interface Flashcard {
     question: string;
@@ -19,6 +19,7 @@ interface Topic {
     description: string;
     estimated_hours: number;
     flashcards?: Flashcard[];
+    games?: Challenge[]; // Add games support
     status?: string; // "OPEN", "MASTERED", "STRUGGLING"
 }
 
@@ -37,8 +38,47 @@ interface GamifiedJourneyMapProps {
     plan: StudyPlan;
 }
 
+// Helper to convert flashcards/topics to challenges if no dedicated game data exists
+const generateChallenges = (topic: Topic): Challenge[] => {
+    const challenges: Challenge[] = [];
+
+    // 1. Create a Match Game from first 4 flashcards
+    if (topic.flashcards && topic.flashcards.length >= 4) {
+        const set = topic.flashcards.slice(0, 4);
+        const pairString = set.map(f => `${f.question}:${f.answer}`).join(";");
+        challenges.push({
+            type: "MATCH",
+            question: "Matches! Connect the terms.",
+            correct_answer: "",
+            pair: pairString
+        });
+    }
+
+    // 2. Create Quiz questions
+    topic.flashcards?.forEach(f => {
+        // Simple distractors: picks random other answers from the same deck
+        const otherAnswers = topic.flashcards
+            ?.filter(x => x.answer !== f.answer)
+            .map(x => x.answer)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+
+        if (otherAnswers && otherAnswers.length === 3) {
+            challenges.push({
+                type: "QUIZ",
+                question: f.question,
+                correct_answer: f.answer,
+                distractors: otherAnswers
+            });
+        }
+    });
+
+    // Shuffle challenges
+    return challenges.sort(() => Math.random() - 0.5);
+};
+
 export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
-    const [selectedTopic, setSelectedTopic] = React.useState<Topic | null>(null);
+    const [activeGame, setActiveGame] = React.useState<{ topic: Topic, challenges: Challenge[] } | null>(null);
     const [localPlan, setLocalPlan] = React.useState<StudyPlan>(plan);
 
     // Sync local plan if prop changes (e.g. reload)
@@ -46,19 +86,19 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         setLocalPlan(plan);
     }, [plan]);
 
-    const updateStatus = async (topic: Topic, newStatus: string) => {
+    const updateStatus = async (topicId: string, newStatus: string) => {
         // Optimistic UI Update
         const updatedSchedule = localPlan.schedule.map(day => ({
             ...day,
             topics: day.topics.map(t =>
-                t.id === topic.id ? { ...t, status: newStatus } : t
+                t.id === topicId ? { ...t, status: newStatus } : t
             )
         }));
         setLocalPlan({ ...localPlan, schedule: updatedSchedule });
 
         // Backend Call
         try {
-            await fetch(`http://localhost:8000/plans/${plan.id}/topics/${topic.id}`, {
+            await fetch(`http://localhost:8000/plans/${plan.id}/topics/${topicId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: newStatus }),
@@ -68,12 +108,34 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         }
     };
 
+    const handleTopicClick = (topic: Topic) => {
+        // Prefer explicit games, fallback to generated from flashcards
+        let challenges: Challenge[] = topic.games as any || [];
+        if (challenges.length === 0) {
+            challenges = generateChallenges(topic);
+        }
+
+        if (challenges.length === 0) {
+            alert("No content available for this topic yet.");
+            return;
+        }
+
+        setActiveGame({ topic, challenges });
+    };
+
+    const handleGameComplete = (success: boolean) => {
+        if (success && activeGame) {
+            updateStatus(activeGame.topic.id, "MASTERED");
+        }
+        setActiveGame(null);
+    };
+
     return (
         <div className="w-full max-w-3xl mx-auto py-8">
             <h2 className="text-3xl font-bold text-center mb-12">Your Learning Path</h2>
 
+            {/* Path Visualizer */}
             <div className="relative flex flex-col items-center space-y-16">
-
                 {localPlan.schedule.map((day, dayIndex) => (
                     <div key={dayIndex} className="w-full flex flex-col items-center relative">
                         {/* Day Header */}
@@ -102,10 +164,10 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                         className={`flex items-center ${isLeft ? 'flex-row' : 'flex-row-reverse'} justify-center relative`}
                                     >
                                         {/* Node */}
-                                        <div className="relative group cursor-pointer" onClick={() => setSelectedTopic(topic)}>
+                                        <div className="relative group cursor-pointer" onClick={() => handleTopicClick(topic)}>
                                             {/* Node Circle */}
                                             <div className={`
-                                                w-24 h-24 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform hover:scale-110 active:scale-95
+                                                w-24 h-24 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform hover:scale-110 active:scale-95 z-20 bg-background
                                                 ${isMastered ? 'bg-yellow-500/10 border-yellow-500' : isStruggling ? 'bg-destructive/10 border-destructive' : 'bg-card border-border hover:border-primary'}
                                             `}>
                                                 {isMastered ? (
@@ -117,42 +179,11 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                                 )}
                                             </div>
 
-                                            {/* Tooltip / Label */}
-                                            <div className={`
-                                                absolute top-1/2 -translate-y-1/2 ${isLeft ? 'left-28 text-left' : 'right-28 text-right'} 
-                                                w-56 z-20 pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 transition-opacity
-                                            `}>
-                                                <div className="bg-popover border border-border p-4 rounded-xl shadow-2xl relative">
-                                                    <h4 className="font-bold text-sm leading-tight mb-2">{topic.title}</h4>
-
-                                                    <div className="flex flex-col gap-2 mt-3 pointer-events-auto">
-                                                        <Button
-                                                            size="sm"
-                                                            variant={isMastered ? "default" : "outline"}
-                                                            className={isMastered ? "bg-yellow-500 hover:bg-yellow-600 text-black" : ""}
-                                                            onClick={(e) => { e.stopPropagation(); updateStatus(topic, "MASTERED"); }}
-                                                        >
-                                                            <ThumbsUp className="w-3 h-3 mr-1" />
-                                                            I Know This
-                                                        </Button>
-
-                                                        <Button
-                                                            size="sm"
-                                                            variant={isStruggling ? "destructive" : "outline"}
-                                                            onClick={(e) => { e.stopPropagation(); updateStatus(topic, "STRUGGLING"); }}
-                                                        >
-                                                            <AlertCircle className="w-3 h-3 mr-1" />
-                                                            Need Practice
-                                                        </Button>
-
-                                                        {topic.flashcards && topic.flashcards.length > 0 && (
-                                                            <div className="mt-1 pt-2 border-t border-border flex justify-center text-xs text-primary font-medium">
-                                                                <RotateCw className="w-3 h-3 mr-1" />
-                                                                Practice available
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
+                                            {/* Label (Always visible now for clarity, or on hover) */}
+                                            <div className={`absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 text-center`}>
+                                                <span className="text-sm font-medium text-muted-foreground bg-background/50 px-2 py-1 rounded-md backdrop-blur-sm">
+                                                    {topic.title}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -171,11 +202,13 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
 
             </div>
 
-            {selectedTopic && (
-                <FlashcardViewer
-                    topicTitle={selectedTopic.title}
-                    flashcards={selectedTopic.flashcards || []}
-                    onClose={() => setSelectedTopic(null)}
+            {/* Game Overlay */}
+            {activeGame && (
+                <GameShell
+                    title={activeGame.topic.title}
+                    challenges={activeGame.challenges}
+                    onComplete={handleGameComplete}
+                    onClose={() => setActiveGame(null)}
                 />
             )}
         </div>

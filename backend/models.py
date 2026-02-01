@@ -14,6 +14,13 @@ class Flashcard(BaseModel):
     question: str
     answer: str
 
+class ChallengeType(BaseModel):
+    type: str  # "QUIZ", "MATCH", "TRUE_FALSE"
+    question: str
+    correct_answer: str
+    distractors: List[str] = []  # Wrong answers for Quiz
+    pair: Optional[str] = None   # For matching, the corresponding pair
+
 class Topic(BaseModel):
     id: str
     title: str
@@ -21,6 +28,7 @@ class Topic(BaseModel):
     estimated_hours: float
     material_id: str  # Link back to source material
     flashcards: List[Flashcard] = []
+    games: List[ChallengeType] = [] # New field for gamified content
     status: str = "OPEN"  # OPEN, MASTERED, STRUGGLING
 
 class DaySchedule(BaseModel):

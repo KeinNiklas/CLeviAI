@@ -3,85 +3,97 @@ from typing import List
 from models import Topic, DaySchedule, StudyPlan
 import math
 
+from services.store import JSONStore
+
 class SchedulerService:
+    def __init__(self):
+        self.store = JSONStore()
+
     def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int) -> StudyPlan:
         today = date.today()
+        # ... (rest of logic unchanged until return) ...
         days_remaining = (exam_date - today).days
         
         if days_remaining <= 0:
             raise ValueError("Exam date must be in the future.")
 
-        # Heuristic: Parallel courses reduce available capacity for THIS course
-        # Base capacity per day (e.g., 6 hours total study time)
-        # If 0 parallel: 6h available.
-        # If 2 parallel: 6 / (1 + 2) = 2h available per day.
-        base_daily_capacity = 6.0
-        effective_daily_capacity = base_daily_capacity / (1 + parallel_courses)
+        # Calculate Total Load
+        total_hours_needed = sum(t.estimated_hours for t in topics)
+        
+        # Adaptive Pacing Calculation
+        # We want to spread the load evenly, but respect the parallel courses constraint
+        # effectively determining if the "even spread" is feasible within the capacity 
+        # normally left by parallel courses.
+        
+        daily_target_hours = 0.0
+        if days_remaining > 0:
+            daily_target_hours = total_hours_needed / days_remaining
+            
+        # Check against capacity constraint (soft check)
+        # Base capacity ~6h. 2 courses -> 2h available.
+        # If we need 3h/day but only have 2h available, we warn (or just schedule long days).
+        # For this implementation, we prioritize the EXAM DATE. So we schedule what is needed
+        # even if it exceeds the "comfortable" capacity derived from parallel courses.
+        # But we can flag days as "Overload".
         
         schedule: List[DaySchedule] = []
         current_date_idx = 0
-        current_day_topics = []
-        current_day_hours = 0.0
+        topic_idx = 0
         
-        # Simple greedy allocation
-        for topic in topics:
-            remaining_topic_hours = topic.estimated_hours
+        while current_date_idx < days_remaining and topic_idx < len(topics):
+            current_date = today + timedelta(days=current_date_idx)
+            current_day_topics = []
+            current_day_hours = 0.0
             
-            while remaining_topic_hours > 0:
-                if current_date_idx >= days_remaining:
-                    # Cram remaining into last day or overflow
-                    current_date_idx = days_remaining - 1
+            # Fill the day until we hit the daily target
+            # Loop while we haven't met target OR (we haven't added anything yet AND we still have topics)
+            # This ensures at least one topic per day if there are many small days, 
+            # or fills up to target.
+            while topic_idx < len(topics):
+                topic = topics[topic_idx]
                 
-                space_in_day = max(0, effective_daily_capacity - current_day_hours)
+                # If adding this topic keeps us relatively close to target, or if the day is empty:
+                # Condition: Empty Day OR (Current + New <= Target * 1.2 tolerance)
+                # But if the topic itself is huge (bigger than target), we must add it alone.
                 
-                if space_in_day < 0.5 and current_day_hours > 0:
-                    # Move to next day if day is largely full
-                    schedule.append(DaySchedule(
-                        date=today + timedelta(days=len(schedule)),
-                        topics=current_day_topics,
-                        total_hours=round(current_day_hours, 1)
-                    ))
-                    current_day_topics = []
-                    current_day_hours = 0.0
-                    current_date_idx += 1
-                    continue
-
-                # Allocate what fits or all of it
-                hours_to_allocate = min(remaining_topic_hours, space_in_day)
-                # If space is tiny but we have a small remainder, just finish it (soft cap)
-                if hours_to_allocate < remaining_topic_hours and (remaining_topic_hours - hours_to_allocate) < 0.5:
-                    hours_to_allocate = remaining_topic_hours
-
-                # Update current day
-                # We clone the topic to handle split (simplification: just listing it)
-                # Ideally we'd say "Topic X (Part 1)" but for now just list the topic
-                current_day_topics.append(topic)
-                current_day_hours += hours_to_allocate
-                remaining_topic_hours -= hours_to_allocate
-                
-                # Check if day is full
-                if current_day_hours >= effective_daily_capacity:
-                    schedule.append(DaySchedule(
-                        date=today + timedelta(days=len(schedule)),
-                        topics=current_day_topics,
-                        total_hours=round(current_day_hours, 1)
-                    ))
-                    current_day_topics = []
-                    current_day_hours = 0.0
-                    current_date_idx += 1
-        
-        # Append last day if not empty
-        if current_day_topics:
+                if current_day_hours == 0:
+                    current_day_topics.append(topic)
+                    current_day_hours += topic.estimated_hours
+                    topic_idx += 1
+                elif (current_day_hours + topic.estimated_hours) <= (daily_target_hours * 1.2):
+                     current_day_topics.append(topic)
+                     current_day_hours += topic.estimated_hours
+                     topic_idx += 1
+                else:
+                    # Day is full enough
+                    break
+            
             schedule.append(DaySchedule(
-                date=today + timedelta(days=len(schedule)),
+                date=current_date,
                 topics=current_day_topics,
                 total_hours=round(current_day_hours, 1)
             ))
+            current_date_idx += 1
+            
+        # If we ran out of days but still have topics (Cramming)
+        if topic_idx < len(topics):
+            # Add remaining topics to the last day (Panic Mode)
+            last_day = schedule[-1]
+            while topic_idx < len(topics):
+                topic = topics[topic_idx]
+                last_day.topics.append(topic)
+                last_day.total_hours += topic.estimated_hours
+                topic_idx += 1
+            last_day.total_hours = round(last_day.total_hours, 1)
 
-        return StudyPlan(
-            id=f"plan_{today.isoformat()}",
+        plan = StudyPlan(
+            id=f"plan_{today.isoformat()}_{len(topics)}",
             exam_date=exam_date,
             parallel_courses=parallel_courses,
             schedule=schedule,
             created_at=today
         )
+        
+        # Save to store
+        self.store.save_plan(plan)
+        return plan

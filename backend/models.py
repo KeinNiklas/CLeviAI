@@ -9,12 +9,18 @@ class StudyMaterial(BaseModel):
     summary: Optional[str] = None
     upload_date: date
 
+
+class Flashcard(BaseModel):
+    question: str
+    answer: str
+
 class Topic(BaseModel):
     id: str
     title: str
     description: str
     estimated_hours: float
     material_id: str  # Link back to source material
+    flashcards: List[Flashcard] = []
 
 class DaySchedule(BaseModel):
     date: date

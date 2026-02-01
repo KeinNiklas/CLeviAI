@@ -2,15 +2,22 @@
 
 import * as React from "react";
 import { format, parseISO } from "date-fns";
-import { Calendar, Clock, BookOpen, CheckCircle2 } from "lucide-react";
+import { Calendar, Clock, BookOpen, CheckCircle2, RotateCw } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { FlashcardViewer } from "./FlashcardViewer";
+
+interface Flashcard {
+    question: string;
+    answer: string;
+}
 
 interface Topic {
     id: string;
     title: string;
     description: string;
     estimated_hours: number;
+    flashcards?: Flashcard[];
 }
 
 interface DaySchedule {
@@ -29,6 +36,8 @@ interface StudyTimelineProps {
 }
 
 export function StudyTimeline({ plan }: StudyTimelineProps) {
+    const [selectedTopic, setSelectedTopic] = React.useState<Topic | null>(null);
+
     return (
         <div className="space-y-8 w-full max-w-4xl mx-auto py-8">
             <div className="flex items-center justify-between">
@@ -60,7 +69,7 @@ export function StudyTimeline({ plan }: StudyTimelineProps) {
                         <div className="grid grid-cols-1 gap-4">
                             {day.topics.map((topic) => (
                                 <Card key={topic.id} className="p-4 bg-card hover:bg-accent/5 transition-colors border-border">
-                                    <div className="flex items-start justify-between">
+                                    <div className="flex items-start justify-between mb-4">
                                         <div>
                                             <h4 className="font-semibold text-lg flex items-center">
                                                 <BookOpen className="w-4 h-4 mr-2 text-primary" />
@@ -74,12 +83,32 @@ export function StudyTimeline({ plan }: StudyTimelineProps) {
                                             {topic.estimated_hours}h
                                         </div>
                                     </div>
+
+                                    <div className="flex items-center justify-end border-t border-border pt-3">
+                                        <Button
+                                            variant="secondary"
+                                            size="sm"
+                                            className="text-primary hover:text-primary/80"
+                                            onClick={() => setSelectedTopic(topic)}
+                                        >
+                                            <RotateCw className="w-4 h-4 mr-2" />
+                                            Practice ({topic.flashcards?.length || 0})
+                                        </Button>
+                                    </div>
                                 </Card>
                             ))}
                         </div>
                     </div>
                 ))}
             </div>
+
+            {selectedTopic && (
+                <FlashcardViewer
+                    topicTitle={selectedTopic.title}
+                    flashcards={selectedTopic.flashcards || []}
+                    onClose={() => setSelectedTopic(null)}
+                />
+            )}
         </div>
     );
 }

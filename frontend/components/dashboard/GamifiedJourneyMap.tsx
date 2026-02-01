@@ -3,10 +3,13 @@
 
 import * as React from "react";
 import { format, parseISO } from "date-fns";
+
+import { de, enUS as en } from "date-fns/locale";
 import { Star, Check, Lock, RotateCw, BookOpen, ThumbsUp, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GameShell, Challenge } from "../game/GameShell";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface Flashcard {
     question: string;
@@ -78,6 +81,7 @@ const generateChallenges = (topic: Topic): Challenge[] => {
 };
 
 export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
+    const { t, language } = useLanguage();
     const [activeGame, setActiveGame] = React.useState<{ topic: Topic, challenges: Challenge[] } | null>(null);
     const [localPlan, setLocalPlan] = React.useState<StudyPlan>(plan);
 
@@ -132,7 +136,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
 
     return (
         <div className="w-full max-w-3xl mx-auto py-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Your Learning Path</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">{t.dashboard.your_path}</h2>
 
             {/* Path Visualizer */}
             <div className="relative flex flex-col items-center space-y-16">
@@ -141,10 +145,10 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                         {/* Day Header */}
                         <div className="z-10 bg-secondary/80 backdrop-blur border border-border px-6 py-2 rounded-full mb-8 shadow-sm">
                             <h3 className="font-bold text-lg">
-                                {format(parseISO(day.date), "MMMM do")}
+                                {format(parseISO(day.date), "do MMMM", { locale: language === 'de' ? de : en })}
                             </h3>
                             <p className="text-xs text-center text-muted-foreground uppercase tracking-widest">
-                                {day.total_hours}h Goal
+                                {day.total_hours}h {t.dashboard.goal}
                             </p>
                         </div>
 

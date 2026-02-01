@@ -3,10 +3,12 @@
 
 import * as React from "react";
 import { format } from "date-fns";
+import { de, enUS as en } from "date-fns/locale";
 import { Calendar, ChevronRight, LayoutDashboard, Loader2, BookOpen, Trash2, Trophy, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GamifiedJourneyMap } from "@/components/dashboard/GamifiedJourneyMap";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface StudyPlan {
     id: string;
@@ -20,6 +22,7 @@ interface StudyPlan {
 }
 
 export default function DashboardPage() {
+    const { t, language } = useLanguage();
     const [plans, setPlans] = React.useState<StudyPlan[]>([]);
     const [selectedPlan, setSelectedPlan] = React.useState<StudyPlan | null>(null);
     const [loading, setLoading] = React.useState(true);
@@ -121,7 +124,7 @@ export default function DashboardPage() {
             <div className="container mx-auto max-w-6xl space-y-8">
                 <header className="flex items-center space-x-4 mb-8 border-b border-border pb-6">
                     <LayoutDashboard className="w-8 h-8 text-primary" />
-                    <h1 className="text-3xl font-bold">Your Learning Profile</h1>
+                    <h1 className="text-3xl font-bold">{t.dashboard.your_plans}</h1>
                 </header>
 
                 {loading ? (
@@ -138,7 +141,7 @@ export default function DashboardPage() {
                             }}
                             className="mb-4"
                         >
-                            ← Back to Overview
+                            ← {t.dashboard.back_overview}
                         </Button>
 
                         {/* Title Section in Detail View */}
@@ -178,8 +181,8 @@ export default function DashboardPage() {
                         {plans.length === 0 ? (
                             <div className="col-span-full text-center py-20 text-muted-foreground">
                                 <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                                <p>No learning journeys found yet.</p>
-                                <a href="/plan" className="text-primary hover:underline mt-2 block">Create your first plan</a>
+                                <p>{t.dashboard.no_plans}</p>
+                                <a href="/plan" className="text-primary hover:underline mt-2 block">{t.dashboard.create_first}</a>
                             </div>
                         ) : (
                             plans.map((plan) => {
@@ -240,7 +243,7 @@ export default function DashboardPage() {
                                         )}
 
                                         <p className="text-sm text-muted-foreground mb-4 relative z-10">
-                                            Target: {format(new Date(plan.exam_date), "MMM d, yyyy")}
+                                            {t.dashboard.target}: {format(new Date(plan.exam_date), "dd.MM.yyyy", { locale: language === 'de' ? de : en })}
                                         </p>
 
                                         <div className="w-full bg-secondary/50 h-2 rounded-full mb-4 overflow-hidden relative z-10">
@@ -249,13 +252,13 @@ export default function DashboardPage() {
                                                 style={{ width: `${progress}%` }}
                                             />
                                         </div>
-                                        <p className="text-xs text-right text-muted-foreground mb-4 relative z-10">{progress}% Mastery</p>
+                                        <p className="text-xs text-right text-muted-foreground mb-4 relative z-10">{progress}% {t.dashboard.mastery}</p>
 
                                         <div className="flex items-center justify-between text-xs text-muted-foreground mt-4 pt-4 border-t border-border/50 relative z-10">
                                             <span>
-                                                {plan.schedule ? plan.schedule.length : 0} Study Days
+                                                {plan.schedule ? plan.schedule.length : 0} {t.dashboard.study_days}
                                             </span>
-                                            <span>Created {format(new Date(plan.created_at), "MMM d")}</span>
+                                            <span>{t.dashboard.created_on} {format(new Date(plan.created_at), "dd.MM.yyyy", { locale: language === 'de' ? de : en })}</span>
                                         </div>
 
                                         {/* Subtle background progress fill */}

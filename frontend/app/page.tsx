@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/Card";
 import { useLanguage } from "@/lib/LanguageContext";
 import { ArrowRight, BookOpen, Brain, Sparkles, Upload } from "lucide-react";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -15,11 +16,16 @@ export default function Home() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
 
+      {/* Theme Toggle */}
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+
       <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
         {/* Badge */}
-        <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 mb-4 backdrop-blur-md animate-fade-in-up">
+        <div className="inline-flex items-center space-x-2 bg-secondary/50 border border-border rounded-full px-3 py-1 mb-4 backdrop-blur-md animate-fade-in-up">
           <Sparkles className="w-4 h-4 text-amber-400" />
-          <span className="text-sm font-medium text-slate-300">
+          <span className="text-sm font-medium text-muted-foreground">
             {t.hero.badge}
           </span>
         </div>
@@ -83,9 +89,9 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <Card className="hover:bg-white/5 transition-colors text-left group border-white/10">
+    <Card className="bg-transparent hover:bg-white/5 transition-colors text-left group border-white/10">
       <div className="p-6 space-y-4">
-        <div className="p-3 bg-white/5 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10">
+        <div className="p-3 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10">
           {icon}
         </div>
         <h3 className="text-xl font-semibold">{title}</h3>

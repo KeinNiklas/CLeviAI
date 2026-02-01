@@ -1,6 +1,49 @@
 @import "tailwindcss";
 
 :root {
+  /* Light Theme Palette (Refined) */
+  --background: #f8fafc;
+  /* Slate 50 - Off-white background for depth */
+  --foreground: #0f172a;
+  /* Slate 900 - Darker for better text contrast */
+
+  --card: #ffffff;
+  /* White cards to pop against background */
+  --card-foreground: #0f172a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+
+  --primary: #4f46e5;
+  /* Indigo 600 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #e2e8f0;
+  /* Slate 200 - Darker secondary for visibility */
+  --secondary-foreground: #0f172a;
+
+  --muted: #f1f5f9;
+  /* Slate 100 */
+  --muted-foreground: #475569;
+  /* Slate 600 - Darker for readability */
+
+  --accent: #e0e7ff;
+  /* Indigo 100 - More colorful accent */
+  --accent-foreground: #312e81;
+  /* Indigo 900 */
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #cbd5e1;
+  /* Slate 300 - Clearer borders */
+  --input: #cbd5e1;
+  --ring: #4f46e5;
+
+  --radius: 0.75rem;
+}
+
+.dark {
   /* Elegant Dark Theme Palette */
   --background: #020617;
   /* Slate 950 */
@@ -36,8 +79,6 @@
   --border: #1e293b;
   --input: #1e293b;
   --ring: #6366f1;
-
-  --radius: 0.75rem;
 }
 
 @theme inline {

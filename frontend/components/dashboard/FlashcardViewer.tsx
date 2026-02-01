@@ -72,7 +72,10 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
                             style={{ transformStyle: 'preserve-3d' }}
                         >
                             {/* Front */}
-                            <div className="absolute inset-0 backface-hidden bg-card border border-border shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors">
+                            <div
+                                className="absolute inset-0 backface-hidden bg-card border border-border shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:border-primary/50 transition-colors"
+                                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                            >
                                 <HelpCircle className="w-10 h-10 text-primary mb-4 opacity-50" />
                                 <h4 className="text-xl font-medium text-muted-foreground mb-4 uppercase tracking-widest text-xs">Question</h4>
                                 <p className="text-2xl font-semibold leading-relaxed">{currentCard.question}</p>
@@ -81,7 +84,8 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
 
                             {/* Back */}
                             <div
-                                className="absolute inset-0 backface-hidden bg-primary/5 border border-primary/20 shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center text-center rotate-y-180"
+                                className="absolute inset-0 backface-hidden bg-card border border-primary/20 shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center text-center rotate-y-180"
+                                style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                             >
                                 <CheckCircle2 className="w-10 h-10 text-primary mb-4" />
                                 <h4 className="text-xl font-medium text-primary mb-4 uppercase tracking-widest text-xs">Answer</h4>

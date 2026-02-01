@@ -62,6 +62,7 @@ class PlanRequest(BaseModel):
     topics: List[Topic]
     exam_date: date
     parallel_courses: int
+    name: str = "My Study Plan"
 
 @app.post("/create-plan", response_model=StudyPlan)
 def create_plan(request: PlanRequest):
@@ -69,11 +70,25 @@ def create_plan(request: PlanRequest):
         plan = scheduler_service.create_plan(
             topics=request.topics,
             exam_date=request.exam_date,
-            parallel_courses=request.parallel_courses
+            parallel_courses=request.parallel_courses,
+            name=request.name
         )
         return plan
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class RenameRequest(BaseModel):
+    name: str
+
+@app.put("/plans/{plan_id}", response_model=StudyPlan)
+def rename_plan(plan_id: str, request: RenameRequest):
+    try:
+        plan = scheduler_service.rename_plan(plan_id, request.name)
+        if not plan:
+            raise HTTPException(status_code=404, detail="Plan not found")
+        return plan
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

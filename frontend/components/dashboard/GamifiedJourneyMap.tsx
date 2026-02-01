@@ -3,10 +3,12 @@
 
 import * as React from "react";
 import { format, parseISO } from "date-fns";
+import { enUS, de } from "date-fns/locale";
 import { Star, Check, Lock, RotateCw, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { FlashcardViewer } from "./FlashcardViewer";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface Flashcard {
     question: string;
@@ -37,10 +39,9 @@ interface GamifiedJourneyMapProps {
 }
 
 export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
+    const { t, language } = useLanguage();
+    const currentLocale = language === "de" ? de : enUS;
     const [selectedTopic, setSelectedTopic] = React.useState<Topic | null>(null);
-
-    // Flatten logic for simple path rendering
-    // But we want to group by Days headers
 
     return (
         <div className="w-full max-w-3xl mx-auto py-8">
@@ -53,10 +54,10 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                         {/* Day Header */}
                         <div className="z-10 bg-secondary/80 backdrop-blur border border-border px-6 py-2 rounded-full mb-8 shadow-sm">
                             <h3 className="font-bold text-lg">
-                                {format(parseISO(day.date), "MMMM do")}
+                                {format(parseISO(day.date), "d. MMMM", { locale: currentLocale })}
                             </h3>
                             <p className="text-xs text-center text-muted-foreground uppercase tracking-widest">
-                                {day.total_hours}h Goal
+                                {day.total_hours}h {t.dashboard.goal}
                             </p>
                         </div>
 
@@ -69,7 +70,6 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                             {day.topics.map((topic, topicIndex) => {
                                 // Alternating Layout
                                 const isLeft = topicIndex % 2 === 0;
-                                const isCompleted = dayIndex < 0; // Logic for future: check if date is past
                                 const isActive = dayIndex === 0 && topicIndex === 0; // Logic: simplified active state
 
                                 return (
@@ -103,7 +103,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                                     {topic.flashcards && topic.flashcards.length > 0 && (
                                                         <div className="mt-2 flex items-center text-xs text-primary font-medium">
                                                             <RotateCw className="w-3 h-3 mr-1" />
-                                                            Practice available
+                                                            {language === "de" ? "Übung verfügbar" : "Practice available"}
                                                         </div>
                                                     )}
                                                 </div>
@@ -121,7 +121,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                     <div className="w-20 h-20 rounded-full bg-yellow-500/20 border-4 border-yellow-500 flex items-center justify-center text-4xl shadow-[0_0_30px_rgba(234,179,8,0.5)]">
                         🏆
                     </div>
-                    <div className="mt-4 font-bold text-xl text-yellow-500">Exam Ready!</div>
+                    <div className="mt-4 font-bold text-xl text-yellow-500">{language === "de" ? "Prüfungsbereit!" : "Exam Ready!"}</div>
                 </div>
 
             </div>

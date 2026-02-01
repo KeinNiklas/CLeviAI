@@ -1,5 +1,5 @@
 from datetime import date, timedelta
-from typing import List
+from typing import List, Optional
 from models import Topic, DaySchedule, StudyPlan
 import math
 
@@ -9,7 +9,7 @@ class SchedulerService:
     def __init__(self):
         self.store = JSONStore()
 
-    def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int) -> StudyPlan:
+    def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, name: str = "My Study Plan") -> StudyPlan:
         today = date.today()
         # ... (rest of logic unchanged until return) ...
         days_remaining = (exam_date - today).days
@@ -21,21 +21,10 @@ class SchedulerService:
         total_hours_needed = sum(t.estimated_hours for t in topics)
         
         # Adaptive Pacing Calculation
-        # We want to spread the load evenly, but respect the parallel courses constraint
-        # effectively determining if the "even spread" is feasible within the capacity 
-        # normally left by parallel courses.
-        
         daily_target_hours = 0.0
         if days_remaining > 0:
             daily_target_hours = total_hours_needed / days_remaining
             
-        # Check against capacity constraint (soft check)
-        # Base capacity ~6h. 2 courses -> 2h available.
-        # If we need 3h/day but only have 2h available, we warn (or just schedule long days).
-        # For this implementation, we prioritize the EXAM DATE. So we schedule what is needed
-        # even if it exceeds the "comfortable" capacity derived from parallel courses.
-        # But we can flag days as "Overload".
-        
         schedule: List[DaySchedule] = []
         current_date_idx = 0
         topic_idx = 0
@@ -45,16 +34,8 @@ class SchedulerService:
             current_day_topics = []
             current_day_hours = 0.0
             
-            # Fill the day until we hit the daily target
-            # Loop while we haven't met target OR (we haven't added anything yet AND we still have topics)
-            # This ensures at least one topic per day if there are many small days, 
-            # or fills up to target.
             while topic_idx < len(topics):
                 topic = topics[topic_idx]
-                
-                # If adding this topic keeps us relatively close to target, or if the day is empty:
-                # Condition: Empty Day OR (Current + New <= Target * 1.2 tolerance)
-                # But if the topic itself is huge (bigger than target), we must add it alone.
                 
                 if current_day_hours == 0:
                     current_day_topics.append(topic)
@@ -65,7 +46,6 @@ class SchedulerService:
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
                 else:
-                    # Day is full enough
                     break
             
             schedule.append(DaySchedule(
@@ -77,7 +57,6 @@ class SchedulerService:
             
         # If we ran out of days but still have topics (Cramming)
         if topic_idx < len(topics):
-            # Add remaining topics to the last day (Panic Mode)
             last_day = schedule[-1]
             while topic_idx < len(topics):
                 topic = topics[topic_idx]
@@ -88,6 +67,7 @@ class SchedulerService:
 
         plan = StudyPlan(
             id=f"plan_{today.isoformat()}_{len(topics)}",
+            name=name,
             exam_date=exam_date,
             parallel_courses=parallel_courses,
             schedule=schedule,
@@ -95,5 +75,14 @@ class SchedulerService:
         )
         
         # Save to store
+        self.store.save_plan(plan)
+        return plan
+
+    def rename_plan(self, plan_id: str, new_name: str) -> Optional[StudyPlan]:
+        plan = self.store.get_plan(plan_id)
+        if not plan:
+            return None
+        
+        plan.name = new_name
         self.store.save_plan(plan)
         return plan

@@ -32,7 +32,12 @@ export const translations = {
             up_next: "Up Next",
             start: "Start",
             days: "Days",
-            modules: "Modules"
+            modules: "Modules",
+            rename_tooltip: "Rename Plan",
+            save: "Save",
+            cancel: "Cancel",
+            goal: "Goal",
+            hours: "Hours"
         },
         uploader: {
             drop_title: "Drop your study materials here",
@@ -52,6 +57,8 @@ export const translations = {
             step1_desc: "Upload your script, notes, or book (PDF/DOCX).",
             step2_title: "Step 2: Configuration",
             step2_desc: "Customize your routine based on your schedule.",
+            label_name: "Plan Name",
+            placeholder_name: "e.g., Biology Semester 1",
             label_date: "Exam Date",
             label_parallel: "Parallel Courses (Workload)",
             note_parallel: "Higher values will spread specific topics over more days.",
@@ -100,7 +107,12 @@ export const translations = {
             up_next: "Als nächstes",
             start: "Starten",
             days: "Tage",
-            modules: "Module"
+            modules: "Module",
+            rename_tooltip: "Plan umbenennen",
+            save: "Speichern",
+            cancel: "Abbrechen",
+            goal: "Ziel",
+            hours: "Stunden"
         },
         uploader: {
             drop_title: "Dateien hier ablegen",
@@ -120,6 +132,8 @@ export const translations = {
             step1_desc: "Lade dein Skript, Notizen oder Bücher hoch (PDF/DOCX).",
             step2_title: "Schritt 2: Konfiguration",
             step2_desc: "Passe deinen Plan an deinen Zeitplan an.",
+            label_name: "Plan Name",
+            placeholder_name: "z.B., Biologie Semester 1",
             label_date: "Prüfungsdatum",
             label_parallel: "Parallele Kurse (Arbeitslast)",
             note_parallel: "Höhere Werte verteilen Themen auf mehr Tage.",

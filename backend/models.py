@@ -29,6 +29,7 @@ class DaySchedule(BaseModel):
 
 class StudyPlan(BaseModel):
     id: str
+    name: str = "My Study Plan"
     exam_date: date
     parallel_courses: int
     schedule: List[DaySchedule]

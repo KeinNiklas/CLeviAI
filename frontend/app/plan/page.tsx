@@ -20,6 +20,7 @@ export default function CreatePlanPage() {
     const { t } = useLanguage();
     const [step, setStep] = React.useState<"UPLOAD" | "SETTINGS" | "RESULT">("UPLOAD");
     const [topics, setTopics] = React.useState<Topic[]>([]);
+    const [planName, setPlanName] = React.useState("");
     const [examDate, setExamDate] = React.useState("");
     const [parallelCourses, setParallelCourses] = React.useState(0);
     const [plan, setPlan] = React.useState<any>(null);
@@ -42,6 +43,7 @@ export default function CreatePlanPage() {
                     topics,
                     exam_date: examDate,
                     parallel_courses: parallelCourses,
+                    name: planName || t.plan.placeholder_name, // Default fallback
                 }),
             });
 
@@ -83,6 +85,17 @@ export default function CreatePlanPage() {
                         </div>
 
                         <Card className="p-6 space-y-6 max-w-xl mx-auto bg-card border-border">
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium">{t.plan.label_name}</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-2 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder={t.plan.placeholder_name}
+                                    value={planName}
+                                    onChange={(e) => setPlanName(e.target.value)}
+                                />
+                            </div>
+
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium">{t.plan.label_date}</label>
                                 <input

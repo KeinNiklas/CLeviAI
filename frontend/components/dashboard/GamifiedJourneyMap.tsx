@@ -3,7 +3,7 @@
 
 import * as React from "react";
 import { format, parseISO } from "date-fns";
-import { Star, Check, Lock, RotateCw, BookOpen } from "lucide-react";
+import { Star, Check, Lock, RotateCw, BookOpen, ThumbsUp, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { FlashcardViewer } from "./FlashcardViewer";
@@ -19,6 +19,7 @@ interface Topic {
     description: string;
     estimated_hours: number;
     flashcards?: Flashcard[];
+    status?: string; // "OPEN", "MASTERED", "STRUGGLING"
 }
 
 interface DaySchedule {
@@ -38,9 +39,34 @@ interface GamifiedJourneyMapProps {
 
 export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
     const [selectedTopic, setSelectedTopic] = React.useState<Topic | null>(null);
+    const [localPlan, setLocalPlan] = React.useState<StudyPlan>(plan);
 
-    // Flatten logic for simple path rendering
-    // But we want to group by Days headers
+    // Sync local plan if prop changes (e.g. reload)
+    React.useEffect(() => {
+        setLocalPlan(plan);
+    }, [plan]);
+
+    const updateStatus = async (topic: Topic, newStatus: string) => {
+        // Optimistic UI Update
+        const updatedSchedule = localPlan.schedule.map(day => ({
+            ...day,
+            topics: day.topics.map(t =>
+                t.id === topic.id ? { ...t, status: newStatus } : t
+            )
+        }));
+        setLocalPlan({ ...localPlan, schedule: updatedSchedule });
+
+        // Backend Call
+        try {
+            await fetch(`http://localhost:8000/plans/${plan.id}/topics/${topic.id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: newStatus }),
+            });
+        } catch (error) {
+            console.error("Failed to update status", error);
+        }
+    };
 
     return (
         <div className="w-full max-w-3xl mx-auto py-8">
@@ -48,7 +74,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
 
             <div className="relative flex flex-col items-center space-y-16">
 
-                {plan.schedule.map((day, dayIndex) => (
+                {localPlan.schedule.map((day, dayIndex) => (
                     <div key={dayIndex} className="w-full flex flex-col items-center relative">
                         {/* Day Header */}
                         <div className="z-10 bg-secondary/80 backdrop-blur border border-border px-6 py-2 rounded-full mb-8 shadow-sm">
@@ -62,15 +88,13 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
 
                         {/* Topics Path */}
                         <div className="grid grid-cols-1 gap-12 w-full max-w-md relative">
-                            {/* Connecting Line Segments (Simplified visual hack) */}
-                            {/* Ideally SVG, but here using a central border line behind everything */}
+                            {/* Connecting Line Segments */}
                             <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/50 to-primary/20 -translate-x-1/2 -z-10 rounded-full" />
 
                             {day.topics.map((topic, topicIndex) => {
-                                // Alternating Layout
                                 const isLeft = topicIndex % 2 === 0;
-                                const isCompleted = dayIndex < 0; // Logic for future: check if date is past
-                                const isActive = dayIndex === 0 && topicIndex === 0; // Logic: simplified active state
+                                const isMastered = topic.status === "MASTERED";
+                                const isStruggling = topic.status === "STRUGGLING";
 
                                 return (
                                     <div
@@ -82,10 +106,12 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                             {/* Node Circle */}
                                             <div className={`
                                                 w-24 h-24 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform hover:scale-110 active:scale-95
-                                                ${isActive ? 'bg-primary border-primary-foreground animate-bounce-subtle' : 'bg-card border-border hover:border-primary'}
+                                                ${isMastered ? 'bg-yellow-500/10 border-yellow-500' : isStruggling ? 'bg-destructive/10 border-destructive' : 'bg-card border-border hover:border-primary'}
                                             `}>
-                                                {isActive ? (
-                                                    <Star className="w-10 h-10 text-primary-foreground fill-current" />
+                                                {isMastered ? (
+                                                    <Star className="w-10 h-10 text-yellow-500 fill-current" />
+                                                ) : isStruggling ? (
+                                                    <AlertCircle className="w-10 h-10 text-destructive" />
                                                 ) : (
                                                     <BookOpen className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors" />
                                                 )}
@@ -94,18 +120,38 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                             {/* Tooltip / Label */}
                                             <div className={`
                                                 absolute top-1/2 -translate-y-1/2 ${isLeft ? 'left-28 text-left' : 'right-28 text-right'} 
-                                                w-48 z-10 pointer-events-none group-hover:pointer-events-auto
+                                                w-56 z-20 pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 transition-opacity
                                             `}>
-                                                <div className="bg-popover border border-border p-3 rounded-lg shadow-lg opacity-80 md:opacity-100 transition-opacity">
-                                                    <h4 className="font-bold text-sm leading-tight">{topic.title}</h4>
-                                                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{topic.description}</p>
+                                                <div className="bg-popover border border-border p-4 rounded-xl shadow-2xl relative">
+                                                    <h4 className="font-bold text-sm leading-tight mb-2">{topic.title}</h4>
 
-                                                    {topic.flashcards && topic.flashcards.length > 0 && (
-                                                        <div className="mt-2 flex items-center text-xs text-primary font-medium">
-                                                            <RotateCw className="w-3 h-3 mr-1" />
-                                                            Practice available
-                                                        </div>
-                                                    )}
+                                                    <div className="flex flex-col gap-2 mt-3 pointer-events-auto">
+                                                        <Button
+                                                            size="sm"
+                                                            variant={isMastered ? "default" : "outline"}
+                                                            className={isMastered ? "bg-yellow-500 hover:bg-yellow-600 text-black" : ""}
+                                                            onClick={(e) => { e.stopPropagation(); updateStatus(topic, "MASTERED"); }}
+                                                        >
+                                                            <ThumbsUp className="w-3 h-3 mr-1" />
+                                                            I Know This
+                                                        </Button>
+
+                                                        <Button
+                                                            size="sm"
+                                                            variant={isStruggling ? "destructive" : "outline"}
+                                                            onClick={(e) => { e.stopPropagation(); updateStatus(topic, "STRUGGLING"); }}
+                                                        >
+                                                            <AlertCircle className="w-3 h-3 mr-1" />
+                                                            Need Practice
+                                                        </Button>
+
+                                                        {topic.flashcards && topic.flashcards.length > 0 && (
+                                                            <div className="mt-1 pt-2 border-t border-border flex justify-center text-xs text-primary font-medium">
+                                                                <RotateCw className="w-3 h-3 mr-1" />
+                                                                Practice available
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +167,6 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                     <div className="w-20 h-20 rounded-full bg-yellow-500/20 border-4 border-yellow-500 flex items-center justify-center text-4xl shadow-[0_0_30px_rgba(234,179,8,0.5)]">
                         🏆
                     </div>
-                    <div className="mt-4 font-bold text-xl text-yellow-500">Exam Ready!</div>
                 </div>
 
             </div>

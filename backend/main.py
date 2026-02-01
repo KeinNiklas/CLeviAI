@@ -87,3 +87,19 @@ def get_plan(plan_id: str):
     if not plan:
         raise HTTPException(status_code=404, detail="Plan not found")
     return plan
+
+@app.delete("/plans/{plan_id}")
+def delete_plan(plan_id: str):
+    scheduler_service.store.delete_plan(plan_id)
+    return {"status": "success", "message": "Plan deleted"}
+
+class StatusUpdate(BaseModel):
+    status: str
+
+@app.patch("/plans/{plan_id}/topics/{topic_id}")
+def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
+    try:
+        scheduler_service.store.update_topic_status(plan_id, topic_id, update.status)
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

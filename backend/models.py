@@ -21,6 +21,7 @@ class Topic(BaseModel):
     estimated_hours: float
     material_id: str  # Link back to source material
     flashcards: List[Flashcard] = []
+    status: str = "OPEN"  # OPEN, MASTERED, STRUGGLING
 
 class DaySchedule(BaseModel):
     date: date

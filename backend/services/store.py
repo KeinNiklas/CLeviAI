@@ -42,3 +42,29 @@ class JSONStore:
             if p.id == plan_id:
                 return p
         return None
+
+    def delete_plan(self, plan_id: str):
+        plans = self.get_all_plans()
+        updated_plans = [p for p in plans if p.id != plan_id]
+        if len(plans) != len(updated_plans):
+            with open(PLANS_FILE, "w") as f:
+                json.dump([p.model_dump(mode='json') for p in updated_plans], f, indent=2)
+
+    def update_topic_status(self, plan_id: str, topic_id: str, new_status: str):
+        plans = self.get_all_plans()
+        changed = False
+        
+        for plan in plans:
+            if plan.id == plan_id:
+                for day in plan.schedule:
+                    for topic in day.topics:
+                        if topic.id == topic_id:
+                            topic.status = new_status
+                            changed = True
+                            break
+                    if changed: break
+            if changed: break
+        
+        if changed:
+            with open(PLANS_FILE, "w") as f:
+                json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)

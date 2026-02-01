@@ -1,12 +1,12 @@
-
 "use client";
 
 import * as React from "react";
 import { format, parseISO } from "date-fns";
-import { Star, Check, Lock, RotateCw, BookOpen, ThumbsUp, AlertCircle } from "lucide-react";
+import { Star, Check, Lock, RotateCw, BookOpen, ThumbsUp, AlertCircle, Headphones, Play, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GameShell, Challenge } from "../game/GameShell";
+import { PodcastPlayer } from "./PodcastPlayer";
 
 interface Flashcard {
     question: string;
@@ -79,6 +79,8 @@ const generateChallenges = (topic: Topic): Challenge[] => {
 
 export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
     const [activeGame, setActiveGame] = React.useState<{ topic: Topic, challenges: Challenge[] } | null>(null);
+    const [selectedTopic, setSelectedTopic] = React.useState<Topic | null>(null); // For Menu Modal
+    const [podcastTopic, setPodcastTopic] = React.useState<Topic | null>(null);   // For Player
     const [localPlan, setLocalPlan] = React.useState<StudyPlan>(plan);
 
     // Sync local plan if prop changes (e.g. reload)
@@ -96,7 +98,6 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         }));
         setLocalPlan({ ...localPlan, schedule: updatedSchedule });
 
-        // Backend Call
         try {
             await fetch(`http://localhost:8000/plans/${plan.id}/topics/${topicId}`, {
                 method: "PATCH",
@@ -109,10 +110,16 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
     };
 
     const handleTopicClick = (topic: Topic) => {
-        // Prefer explicit games, fallback to generated from flashcards
-        let challenges: Challenge[] = topic.games as any || [];
+        setSelectedTopic(topic);
+    };
+
+    const startChallenges = () => {
+        if (!selectedTopic) return;
+
+        // Prefer explicit games, fallback to generated
+        let challenges: Challenge[] = selectedTopic.games as any || [];
         if (challenges.length === 0) {
-            challenges = generateChallenges(topic);
+            challenges = generateChallenges(selectedTopic);
         }
 
         if (challenges.length === 0) {
@@ -120,7 +127,14 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
             return;
         }
 
-        setActiveGame({ topic, challenges });
+        setActiveGame({ topic: selectedTopic, challenges });
+        setSelectedTopic(null);
+    };
+
+    const startPodcast = () => {
+        if (!selectedTopic) return;
+        setPodcastTopic(selectedTopic);
+        setSelectedTopic(null);
     };
 
     const handleGameComplete = (success: boolean) => {
@@ -179,7 +193,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                                                 )}
                                             </div>
 
-                                            {/* Label (Always visible now for clarity, or on hover) */}
+                                            {/* Label */}
                                             <div className={`absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 text-center`}>
                                                 <span className="text-sm font-medium text-muted-foreground bg-background/50 px-2 py-1 rounded-md backdrop-blur-sm">
                                                     {topic.title}
@@ -199,8 +213,36 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                         🏆
                     </div>
                 </div>
-
             </div>
+
+            {/* Topic Selection Modal */}
+            {selectedTopic && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in">
+                    <Card className="w-full max-w-sm p-6 bg-background border-border shadow-2xl relative">
+                        <Button variant="ghost" className="absolute top-2 right-2" size="icon" onClick={() => setSelectedTopic(null)}>
+                            <X className="w-4 h-4" />
+                            <span className="sr-only">Close</span>
+                        </Button>
+
+                        <div className="text-center mb-6">
+                            <h3 className="text-xl font-bold mb-2">{selectedTopic.title}</h3>
+                            <p className="text-sm text-muted-foreground">{selectedTopic.description || "Ready to master this topic?"}</p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <Button className="w-full h-12 text-lg" onClick={startChallenges}>
+                                <Play className="w-5 h-5 mr-2 fill-current" />
+                                Start Questions
+                            </Button>
+
+                            <Button variant="outline" className="w-full h-12 text-lg border-primary/20 hover:bg-primary/5" onClick={startPodcast}>
+                                <Headphones className="w-5 h-5 mr-2" />
+                                Listen to Podcast
+                            </Button>
+                        </div>
+                    </Card>
+                </div>
+            )}
 
             {/* Game Overlay */}
             {activeGame && (
@@ -209,6 +251,15 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
                     challenges={activeGame.challenges}
                     onComplete={handleGameComplete}
                     onClose={() => setActiveGame(null)}
+                />
+            )}
+
+            {/* Podcast Player Overlay */}
+            {podcastTopic && (
+                <PodcastPlayer
+                    topicTitle={podcastTopic.title}
+                    topicDescription={podcastTopic.description}
+                    onClose={() => setPodcastTopic(null)}
                 />
             )}
         </div>

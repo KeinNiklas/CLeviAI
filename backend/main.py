@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
-from models import Topic, StudyPlan
+from models import Topic, StudyPlan, PodcastResponse
 from services.ingestion import IngestionService
 from services.analyzer import AnalyzerService
 from services.scheduler import SchedulerService
@@ -143,5 +143,36 @@ def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
     try:
         scheduler_service.store.update_topic_status(plan_id, topic_id, update.status)
         return {"status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+from services.podcast_service import PodcastService
+podcast_service = PodcastService(analyzer_service.groq_service)
+
+class PodcastRequest(BaseModel):
+    topic_title: str
+    topic_description: str
+    language: str = "en"
+
+@app.post("/podcast/generate", response_model=PodcastResponse)
+def generate_podcast(req: PodcastRequest):
+    try:
+        return podcast_service.generate_script(req.topic_title, req.topic_description, req.language)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class AudioRequest(BaseModel):
+    text: str
+    speaker: str
+    language: str = "en"
+
+from fastapi.responses import StreamingResponse
+import io
+
+@app.post("/podcast/audio")
+def generate_audio(req: AudioRequest):
+    try:
+        audio_bytes = podcast_service.generate_audio_segment(req.text, req.speaker, req.language)
+        return StreamingResponse(io.BytesIO(audio_bytes), media_type="audio/wav")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

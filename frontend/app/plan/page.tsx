@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { FileUploader } from "@/components/upload/FileUploader";
 import { StudyTimeline } from "@/components/dashboard/StudyTimeline";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface Topic {
     id: string;
@@ -16,6 +17,7 @@ interface Topic {
 }
 
 export default function CreatePlanPage() {
+    const { t } = useLanguage();
     const [step, setStep] = React.useState<"UPLOAD" | "SETTINGS" | "RESULT">("UPLOAD");
     const [topics, setTopics] = React.useState<Topic[]>([]);
     const [examDate, setExamDate] = React.useState("");
@@ -60,14 +62,14 @@ export default function CreatePlanPage() {
         <div className="min-h-screen bg-background text-foreground py-20 px-4">
             <div className="container mx-auto max-w-4xl">
                 <h1 className="text-4xl font-bold text-center mb-12">
-                    Create Your Study Routine
+                    {t.plan.title}
                 </h1>
 
                 {step === "UPLOAD" && (
                     <div className="space-y-6 animate-fade-in-up">
                         <div className="text-center">
-                            <h2 className="text-xl font-semibold mb-2">Step 1: Upload Materials</h2>
-                            <p className="text-muted-foreground">Upload your script, notes, or book (PDF/DOCX).</p>
+                            <h2 className="text-xl font-semibold mb-2">{t.plan.step1_title}</h2>
+                            <p className="text-muted-foreground">{t.plan.step1_desc}</p>
                         </div>
                         <FileUploader onUploadComplete={handleUploadComplete} />
                     </div>
@@ -76,13 +78,13 @@ export default function CreatePlanPage() {
                 {step === "SETTINGS" && (
                     <div className="space-y-8 animate-fade-in-up">
                         <div className="text-center">
-                            <h2 className="text-xl font-semibold mb-2">Step 2: Configuration</h2>
-                            <p className="text-muted-foreground">Customize your routine based on your schedule.</p>
+                            <h2 className="text-xl font-semibold mb-2">{t.plan.step2_title}</h2>
+                            <p className="text-muted-foreground">{t.plan.step2_desc}</p>
                         </div>
 
                         <Card className="p-6 space-y-6 max-w-xl mx-auto bg-card border-border">
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium">Exam Date</label>
+                                <label className="block text-sm font-medium">{t.plan.label_date}</label>
                                 <input
                                     type="date"
                                     className="w-full p-2 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary outline-none"
@@ -92,7 +94,7 @@ export default function CreatePlanPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium">Parallel Courses (Workload)</label>
+                                <label className="block text-sm font-medium">{t.plan.label_parallel}</label>
                                 <div className="flex items-center space-x-4">
                                     <input
                                         type="range"
@@ -106,12 +108,12 @@ export default function CreatePlanPage() {
                                     <span className="font-bold text-xl w-8 text-center">{parallelCourses}</span>
                                 </div>
                                 <p className="text-xs text-muted-foreground">
-                                    Higher values will spread specific topics over more days.
+                                    {t.plan.note_parallel}
                                 </p>
                             </div>
 
                             <div className="pt-4 border-t border-border">
-                                <h3 className="font-semibold mb-4">Detected Topics ({topics.length})</h3>
+                                <h3 className="font-semibold mb-4">{t.plan.topics_title} ({topics.length})</h3>
                                 <div className="max-h-60 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
                                     {topics.map((topic) => (
                                         <div key={topic.id} className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg text-sm">
@@ -131,11 +133,11 @@ export default function CreatePlanPage() {
                                 {loading ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Calculating Schedule...
+                                        {t.plan.btn_calculate}
                                     </>
                                 ) : (
                                     <>
-                                        Generate Routine
+                                        {t.plan.btn_routine}
                                         <ArrowRight className="w-4 h-4 ml-2" />
                                     </>
                                 )}
@@ -150,7 +152,7 @@ export default function CreatePlanPage() {
                         <div className="flex justify-center mt-8">
                             <Button variant="ghost" onClick={() => setStep("SETTINGS")}>
                                 <Settings className="w-4 h-4 mr-2" />
-                                Adjust Settings
+                                {t.plan.btn_adjust}
                             </Button>
                         </div>
                     </div>

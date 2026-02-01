@@ -13,13 +13,15 @@ class GeminiService:
         else:
             self.model = None
 
-    def analyze_text(self, text: str, material_id: str) -> List[Topic]:
+    def analyze_text(self, text: str, material_id: str, language: str = "en") -> List[Topic]:
         """
         Analyzes the given text using Google Gemini to extract study topics.
         """
         if not self.model:
             print("Warning: No Google API Key found. Returning empty list.")
             return []
+
+        lang_instruction = "English" if language == "en" else "German"
 
         prompt = f"""
         You are a helpful study assistant.
@@ -30,6 +32,8 @@ class GeminiService:
         3. An estimated number of hours to master it
         4. 3-5 Flashcards for "Active Recall" practice (Question and Answer)
         
+        IMPORTANT: Provide the response in {lang_instruction} language.
+
         Text:
         {text[:20000]}... (truncated if too long)
 
@@ -37,8 +41,8 @@ class GeminiService:
         {{
             "topics": [
                 {{
-                    "title": "Topic Title",
-                    "description": "Short description",
+                    "title": "Topic Title ({lang_instruction})",
+                    "description": "Short description in {lang_instruction}",
                     "hours": 1.5,
                     "flashcards": [
                         {{ "question": "What is X?", "answer": "X is Y" }},

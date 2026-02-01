@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
@@ -39,16 +39,22 @@ def health_check():
     return {"status": "healthy"}
 
 @app.post("/analyze-document", response_model=List[Topic])
-async def analyze_document(file: UploadFile = File(...)):
+@app.post("/analyze-document", response_model=List[Topic])
+async def analyze_document(files: List[UploadFile] = File(...), language: str = Form("en")):
     try:
-        # 1. Ingest
-        text = await IngestionService.extract_text(file)
-        if not text or len(text.strip()) == 0:
-            raise HTTPException(status_code=400, detail="Could not extract text from file.")
-        
-        # 2. Analyze
-        topics = analyzer_service.analyze_text(text, material_id=file.filename)
-        return topics
+        all_topics = []
+        for file in files:
+            # 1. Ingest
+            text = await IngestionService.extract_text(file)
+            if not text or len(text.strip()) == 0:
+                print(f"Skipping empty or unreadable file: {file.filename}")
+                continue
+            
+            # 2. Analyze
+            topics = analyzer_service.analyze_text(text, material_id=file.filename, language=language)
+            all_topics.extend(topics)
+            
+        return all_topics
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

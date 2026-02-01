@@ -43,7 +43,7 @@ export default function Home() {
 
         {/* CTA Actions */}
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4 animate-fade-in-up delay-300">
-          <Link href="/course/demo">
+          <Link href="/plan">
             <Button size="lg" className="group">
               {t.hero.cta_start}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

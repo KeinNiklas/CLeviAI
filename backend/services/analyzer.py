@@ -11,17 +11,25 @@ class AnalyzerService:
         self.groq_service = GroqService()
 
     def analyze_text(self, text: str, material_id: str, language: str = "en") -> List[Topic]:
-        try:
-            # Try Primary (Gemini)
-            return self.gemini_service.analyze_text(text, material_id, language)
-        except Exception as e:
-            error_str = str(e)
-            
-            # Check for Quota Exceeded (429) or Service Unavailable
-            # Note: Explicitly check if Groq key is available before falling back
-            if ("429" in error_str or "Quota" in error_str) and self.groq_service.client:
-                print(f"⚠️ GEMINI QUOTA EXCEEDED. FALLING BACK TO GROQ API (Llama 3)...")
+        preferred = os.getenv("PREFERRED_MODEL", "gemini").lower()
+        
+        if preferred == "groq" and self.groq_service.client:
+            print(f"🚀 Using Preferred Model: GROQ (Llama 3)")
+            try:
                 return self.groq_service.analyze_text(text, material_id, language)
-            
-            # If not quota error OR groq not configured, re-raise
-            raise e
+            except Exception as e:
+                print(f"⚠️ Groq failed, falling back to Gemini: {e}")
+                return self.gemini_service.analyze_text(text, material_id, language)
+        else:
+            # Default to Gemini
+            try:
+                return self.gemini_service.analyze_text(text, material_id, language)
+            except Exception as e:
+                error_str = str(e)
+                # Check for Quota Exceeded (429) or Service Unavailable
+                if ("429" in error_str or "Quota" in error_str) and self.groq_service.client:
+                    print(f"⚠️ GEMINI QUOTA EXCEEDED. FALLING BACK TO GROQ API (Llama 3)...")
+                    return self.groq_service.analyze_text(text, material_id, language)
+                
+                # If not quota error OR groq not configured, re-raise
+                raise e

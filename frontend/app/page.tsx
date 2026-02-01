@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/Card";
 import { useLanguage } from "@/lib/LanguageContext";
 import { ArrowRight, BookOpen, Brain, Sparkles, Upload } from "lucide-react";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -15,11 +14,6 @@ export default function Home() {
       {/* Background Gradients - Warm/Fire Theme */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Theme Toggle */}
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
 
       <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
         {/* Badge */}
@@ -52,9 +46,9 @@ export default function Home() {
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-          <Link href="/settings">
+          <Link href="/dashboard">
             <Button variant="outline" size="lg">
-              Settings
+              {t.navbar.profile_dashboard}
             </Button>
           </Link>
         </div>

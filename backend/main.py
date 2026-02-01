@@ -1,0 +1,72 @@
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List
+from datetime import date
+from models import Topic, StudyPlan
+from services.ingestion import IngestionService
+from services.analyzer import AnalyzerService
+from services.scheduler import SchedulerService
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+if os.path.exists("key.env"):
+    load_dotenv("key.env")
+else:
+    load_dotenv()
+
+app = FastAPI(title="CLeviAI Backend")
+
+# Setup CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+analyzer_service = AnalyzerService()
+scheduler_service = SchedulerService()
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to CLeviAI API"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+@app.post("/analyze-document", response_model=List[Topic])
+async def analyze_document(file: UploadFile = File(...)):
+    try:
+        # 1. Ingest
+        text = await IngestionService.extract_text(file)
+        if not text or len(text.strip()) == 0:
+            raise HTTPException(status_code=400, detail="Could not extract text from file.")
+        
+        # 2. Analyze
+        topics = analyzer_service.analyze_text(text, material_id=file.filename)
+        return topics
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+class PlanRequest(BaseModel):
+    topics: List[Topic]
+    exam_date: date
+    parallel_courses: int
+
+@app.post("/create-plan", response_model=StudyPlan)
+def create_plan(request: PlanRequest):
+    try:
+        plan = scheduler_service.create_plan(
+            topics=request.topics,
+            exam_date=request.exam_date,
+            parallel_courses=request.parallel_courses
+        )
+        return plan
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

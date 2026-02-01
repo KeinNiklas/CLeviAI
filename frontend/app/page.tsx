@@ -1,65 +1,96 @@
-import Image from "next/image";
+"use client";
+
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { useLanguage } from "@/lib/LanguageContext";
+import { ArrowRight, BookOpen, Brain, Sparkles, Upload } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
+      {/* Background Gradients */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+      <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
+        {/* Badge */}
+        <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 mb-4 backdrop-blur-md animate-fade-in-up">
+          <Sparkles className="w-4 h-4 text-amber-400" />
+          <span className="text-sm font-medium text-slate-300">
+            {t.hero.badge}
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Hero Title */}
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl animate-fade-in-up delay-100">
+          {t.hero.title_start} <br />
+          <span className="gradient-text">{t.hero.title_gradient}</span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-fade-in-up delay-200">
+          {t.hero.subtitle}
+        </p>
+
+        {/* CTA Actions */}
+        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4 animate-fade-in-up delay-300">
+          <Link href="/course/demo">
+            <Button size="lg" className="group">
+              {t.hero.cta_start}
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+          <Link href="/settings">
+            <Button variant="outline" size="lg">
+              Settings
+            </Button>
+          </Link>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full max-w-5xl animate-fade-in-up delay-500">
+          <FeatureCard
+            icon={<Upload className="w-6 h-6 text-blue-400" />}
+            title={t.features.upload_title}
+            description={t.features.upload_desc}
+          />
+          <FeatureCard
+            icon={<Brain className="w-6 h-6 text-purple-400" />}
+            title={t.features.ai_title}
+            description={t.features.ai_desc}
+          />
+          <FeatureCard
+            icon={<BookOpen className="w-6 h-6 text-pink-400" />}
+            title={t.features.course_title}
+            description={t.features.course_desc}
+          />
         </div>
       </main>
     </div>
+  );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Card className="hover:bg-white/5 transition-colors text-left group border-white/10">
+      <div className="p-6 space-y-4">
+        <div className="p-3 bg-white/5 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10">
+          {icon}
+        </div>
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p className="text-muted-foreground leading-relaxed">{description}</p>
+      </div>
+    </Card>
   );
 }

@@ -7,9 +7,9 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
 interface Topic {
-    id: str;
-    title: str;
-    description: str;
+    id: string;
+    title: string;
+    description: string;
     estimated_hours: number;
 }
 

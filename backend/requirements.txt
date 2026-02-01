@@ -4,7 +4,6 @@ python-multipart
 llama-index
 langchain
 pypdf
-openai
 python-dotenv
 chromadb
 python-docx

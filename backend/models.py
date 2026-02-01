@@ -38,8 +38,11 @@ class DaySchedule(BaseModel):
 
 class StudyPlan(BaseModel):
     id: str
+    title: str = "My Learning Journey" # Default title
     exam_date: date
     parallel_courses: int
+    daily_goal_hours: float = 2.0
+    study_days: List[int] = [0,1,2,3,4,5,6] # Default all days (0=Mon, 6=Sun)
     schedule: List[DaySchedule]
     # Metadata for the plan logic
     created_at: date

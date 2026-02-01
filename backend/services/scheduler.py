@@ -9,87 +9,96 @@ class SchedulerService:
     def __init__(self):
         self.store = JSONStore()
 
-    def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int) -> StudyPlan:
+    def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, 
+                    title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:
         today = date.today()
-        # ... (rest of logic unchanged until return) ...
-        days_remaining = (exam_date - today).days
         
+        days_remaining = (exam_date - today).days
         if days_remaining <= 0:
             raise ValueError("Exam date must be in the future.")
 
-        # Calculate Total Load
-        total_hours_needed = sum(t.estimated_hours for t in topics)
+        # 1. Calculate Available Study Days (Capacity)
+        available_dates = []
+        for d in range(days_remaining + 1): 
+            day_date = today + timedelta(days=d)
+            if day_date.weekday() in study_days:
+                available_dates.append(day_date)
         
-        # Adaptive Pacing Calculation
-        # We want to spread the load evenly, but respect the parallel courses constraint
-        # effectively determining if the "even spread" is feasible within the capacity 
-        # normally left by parallel courses.
+        if not available_dates:
+             # Fallback if no days match (e.g. only Sunday selected but exam is Friday)
+             # Force add weekends or everything to avoid failure? 
+             # For now, let's just use all dates if filter results in 0
+             available_dates = [today + timedelta(days=d) for d in range(days_remaining + 1)]
+
+        # 2. Calculate Pacing
+        total_topics_hours = sum(t.estimated_hours for t in topics)
+        # Even spread: total hours / number of available days
+        calculated_daily_pace = total_topics_hours / max(1, len(available_dates))
         
-        daily_target_hours = 0.0
-        if days_remaining > 0:
-            daily_target_hours = total_hours_needed / days_remaining
-            
-        # Check against capacity constraint (soft check)
-        # Base capacity ~6h. 2 courses -> 2h available.
-        # If we need 3h/day but only have 2h available, we warn (or just schedule long days).
-        # For this implementation, we prioritize the EXAM DATE. So we schedule what is needed
-        # even if it exceeds the "comfortable" capacity derived from parallel courses.
-        # But we can flag days as "Overload".
+        # Use the *larger* of (calculated pace vs user goal) IF we want to force them to work harder?
+        # NO, we must ensure completion. So calculated_daily_pace is the MINIMUM requirement.
+        # If user Goal is HIGHER, we can front-load (finish early).
+        # Let's target the "calculated_daily_pace" to ensures smoothness.
         
+        target_pace = calculated_daily_pace
+
+        # 3. Distribute Topics
         schedule: List[DaySchedule] = []
-        current_date_idx = 0
         topic_idx = 0
         
-        while current_date_idx < days_remaining and topic_idx < len(topics):
-            current_date = today + timedelta(days=current_date_idx)
+        for current_date in available_dates:
+            if topic_idx >= len(topics):
+                break # Done!
+
             current_day_topics = []
             current_day_hours = 0.0
             
-            # Fill the day until we hit the daily target
-            # Loop while we haven't met target OR (we haven't added anything yet AND we still have topics)
-            # This ensures at least one topic per day if there are many small days, 
-            # or fills up to target.
             while topic_idx < len(topics):
                 topic = topics[topic_idx]
                 
-                # If adding this topic keeps us relatively close to target, or if the day is empty:
-                # Condition: Empty Day OR (Current + New <= Target * 1.2 tolerance)
-                # But if the topic itself is huge (bigger than target), we must add it alone.
-                
+                # Check fit
+                # IF day is empty -> Add it
+                # IF (current + next) <= target * 1.3 (tolerance) -> Add it
                 if current_day_hours == 0:
-                    current_day_topics.append(topic)
-                    current_day_hours += topic.estimated_hours
-                    topic_idx += 1
-                elif (current_day_hours + topic.estimated_hours) <= (daily_target_hours * 1.2):
+                     current_day_topics.append(topic)
+                     current_day_hours += topic.estimated_hours
+                     topic_idx += 1
+                elif (current_day_hours + topic.estimated_hours) <= (target_pace * 1.35): # 35% tolerance for chunkiness
                      current_day_topics.append(topic)
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
                 else:
-                    # Day is full enough
-                    break
+                    break # Day full
             
             schedule.append(DaySchedule(
                 date=current_date,
                 topics=current_day_topics,
                 total_hours=round(current_day_hours, 1)
             ))
-            current_date_idx += 1
             
-        # If we ran out of days but still have topics (Cramming)
+        # 4. Handle Leftovers (Panic Mode)
+        # If topics remain after running through all available dates
         if topic_idx < len(topics):
-            # Add remaining topics to the last day (Panic Mode)
-            last_day = schedule[-1]
-            while topic_idx < len(topics):
-                topic = topics[topic_idx]
-                last_day.topics.append(topic)
-                last_day.total_hours += topic.estimated_hours
-                topic_idx += 1
-            last_day.total_hours = round(last_day.total_hours, 1)
+            # Add to the very last scheduled day (Cramming)
+            if schedule:
+                last_day = schedule[-1]
+                while topic_idx < len(topics):
+                    topic = topics[topic_idx]
+                    last_day.topics.append(topic)
+                    last_day.total_hours += topic.estimated_hours
+                    topic_idx += 1
+                last_day.total_hours = round(last_day.total_hours, 1)
+            else:
+                 # Should not happen if available_dates > 0
+                 pass
 
         plan = StudyPlan(
             id=f"plan_{today.isoformat()}_{len(topics)}",
+            title=title,
             exam_date=exam_date,
             parallel_courses=parallel_courses,
+            study_days=study_days,
+            daily_goal_hours=daily_goal,
             schedule=schedule,
             created_at=today
         )

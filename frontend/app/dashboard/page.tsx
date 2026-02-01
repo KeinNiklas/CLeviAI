@@ -3,23 +3,30 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { Calendar, ChevronRight, LayoutDashboard, Loader2, BookOpen, Trash2, Trophy } from "lucide-react";
+import { Calendar, ChevronRight, LayoutDashboard, Loader2, BookOpen, Trash2, Trophy, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GamifiedJourneyMap } from "@/components/dashboard/GamifiedJourneyMap";
 
 interface StudyPlan {
     id: string;
+    title?: string;
     exam_date: string;
     parallel_courses: number;
     schedule: any[];
     created_at: string;
+    daily_goal_hours?: number;
+    study_days?: number[];
 }
 
 export default function DashboardPage() {
     const [plans, setPlans] = React.useState<StudyPlan[]>([]);
     const [selectedPlan, setSelectedPlan] = React.useState<StudyPlan | null>(null);
     const [loading, setLoading] = React.useState(true);
+
+    // Rename State
+    const [editingPlanId, setEditingPlanId] = React.useState<string | null>(null);
+    const [editTitle, setEditTitle] = React.useState("");
 
     React.useEffect(() => {
         fetchPlans();
@@ -39,6 +46,41 @@ export default function DashboardPage() {
         }
     };
 
+    const startEditing = (e: React.MouseEvent, plan: StudyPlan) => {
+        e.stopPropagation();
+        setEditingPlanId(plan.id);
+        setEditTitle(plan.title || "My Learning Journey");
+    };
+
+    const cancelEditing = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setEditingPlanId(null);
+        setEditTitle("");
+    };
+
+    const saveTitle = async (e: React.MouseEvent, planId: string) => {
+        e.stopPropagation();
+        if (!editTitle.trim()) return;
+
+        try {
+            const response = await fetch(`http://localhost:8000/plans/${planId}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title: editTitle }),
+            });
+
+            if (response.ok) {
+                setPlans(plans.map(p => p.id === planId ? { ...p, title: editTitle } : p));
+                if (selectedPlan?.id === planId) {
+                    setSelectedPlan({ ...selectedPlan, title: editTitle });
+                }
+                setEditingPlanId(null);
+            }
+        } catch (error) {
+            console.error("Failed to rename plan:", error);
+        }
+    };
+
     const handleDelete = async (e: React.MouseEvent, planId: string) => {
         e.stopPropagation();
         if (!confirm("Are you sure you want to delete this journey?")) return;
@@ -49,7 +91,6 @@ export default function DashboardPage() {
             });
             if (response.ok) {
                 setPlans(plans.filter(p => p.id !== planId));
-                // If the deleted plan was selected, deselect it
                 if (selectedPlan?.id === planId) {
                     setSelectedPlan(null);
                 }
@@ -93,15 +134,43 @@ export default function DashboardPage() {
                             variant="ghost"
                             onClick={() => {
                                 setSelectedPlan(null);
-                                fetchPlans(); // Refresh to get latest status updates
+                                fetchPlans();
                             }}
                             className="mb-4"
                         >
                             ← Back to Overview
                         </Button>
-                        <h2 className="text-2xl font-semibold mb-6 flex items-center justify-center text-muted-foreground">
-                            Journey to Excellence
-                        </h2>
+
+                        {/* Title Section in Detail View */}
+                        <div className="flex items-center justify-center mb-6 space-x-2">
+                            {editingPlanId === selectedPlan.id ? (
+                                <div className="flex items-center space-x-2 bg-card border border-border rounded-lg p-1 shadow-lg z-50">
+                                    <input
+                                        value={editTitle}
+                                        onChange={(e) => setEditTitle(e.target.value)}
+                                        className="text-2xl font-semibold bg-transparent border-none outline-none focus:ring-0 w-64 text-center"
+                                        autoFocus
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                    <Button size="icon" variant="ghost" className="h-8 w-8 text-green-500 hover:bg-green-500/10" onClick={(e) => saveTitle(e, selectedPlan.id)}>
+                                        <Check className="w-4 h-4" />
+                                    </Button>
+                                    <Button size="icon" variant="ghost" className="h-8 w-8 text-red-500 hover:bg-red-500/10" onClick={cancelEditing}>
+                                        <X className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="group flex items-center justify-center cursor-pointer" onClick={(e) => startEditing(e, selectedPlan)}>
+                                    <h2 className="text-2xl font-semibold text-muted-foreground mr-2 group-hover:text-foreground transition-colors">
+                                        {selectedPlan.title || "My Learning Journey"}
+                                    </h2>
+                                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground">
+                                        <Pencil className="w-4 h-4" />
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+
                         <GamifiedJourneyMap plan={selectedPlan} />
                     </div>
                 ) : (
@@ -126,8 +195,18 @@ export default function DashboardPage() {
                                                 <Calendar className="w-6 h-6 text-primary" />
                                             </div>
 
-                                            <div className="flex items-center space-x-2">
-                                                {progress === 100 && <Trophy className="w-5 h-5 text-yellow-500 animate-pulse" />}
+                                            <div className="flex items-center space-x-1">
+                                                {progress === 100 && <Trophy className="w-5 h-5 text-yellow-500 animate-pulse mr-2" />}
+
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-8 w-8 text-muted-foreground hover:text-primary hover:bg-primary/10"
+                                                    onClick={(e) => startEditing(e, plan)}
+                                                >
+                                                    <Pencil className="w-4 h-4" />
+                                                </Button>
+
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
@@ -139,7 +218,27 @@ export default function DashboardPage() {
                                             </div>
                                         </div>
 
-                                        <h3 className="font-semibold text-lg mb-2 relative z-10">Exam Preparation</h3>
+                                        {editingPlanId === plan.id ? (
+                                            <div className="mb-2 flex items-center space-x-1 relative z-20 bg-background/80 backdrop-blur rounded p-1 border border-primary/20" onClick={e => e.stopPropagation()}>
+                                                <input
+                                                    value={editTitle}
+                                                    onChange={(e) => setEditTitle(e.target.value)}
+                                                    className="font-semibold text-lg bg-transparent border-none outline-none w-full min-w-0"
+                                                    autoFocus
+                                                />
+                                                <Button size="icon" variant="ghost" className="h-6 w-6 text-green-500 hover:bg-green-500/10 shrink-0" onClick={(e) => saveTitle(e, plan.id)}>
+                                                    <Check className="w-3 h-3" />
+                                                </Button>
+                                                <Button size="icon" variant="ghost" className="h-6 w-6 text-red-500 hover:bg-red-500/10 shrink-0" onClick={cancelEditing}>
+                                                    <X className="w-3 h-3" />
+                                                </Button>
+                                            </div>
+                                        ) : (
+                                            <h3 className="font-semibold text-lg mb-2 relative z-10 truncate pr-2" title={plan.title}>
+                                                {plan.title || "My Learning Journey"}
+                                            </h3>
+                                        )}
+
                                         <p className="text-sm text-muted-foreground mb-4 relative z-10">
                                             Target: {format(new Date(plan.exam_date), "MMM d, yyyy")}
                                         </p>
@@ -153,7 +252,9 @@ export default function DashboardPage() {
                                         <p className="text-xs text-right text-muted-foreground mb-4 relative z-10">{progress}% Mastery</p>
 
                                         <div className="flex items-center justify-between text-xs text-muted-foreground mt-4 pt-4 border-t border-border/50 relative z-10">
-                                            <span>{plan.parallel_courses} Parallel Courses</span>
+                                            <span>
+                                                {plan.schedule ? plan.schedule.length : 0} Study Days
+                                            </span>
                                             <span>Created {format(new Date(plan.created_at), "MMM d")}</span>
                                         </div>
 
@@ -168,7 +269,7 @@ export default function DashboardPage() {
                         )}
                     </div>
                 )}
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

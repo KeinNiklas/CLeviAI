@@ -21,7 +21,10 @@ export default function CreatePlanPage() {
     const [step, setStep] = React.useState<"UPLOAD" | "SETTINGS" | "RESULT">("UPLOAD");
     const [topics, setTopics] = React.useState<Topic[]>([]);
     const [examDate, setExamDate] = React.useState("");
-    const [parallelCourses, setParallelCourses] = React.useState(0);
+    const [planTitle, setPlanTitle] = React.useState("My Learning Journey");
+    const [dailyGoal, setDailyGoal] = React.useState(2.0);
+    const [studyDays, setStudyDays] = React.useState<number[]>([0, 1, 2, 3, 4]); // Mon-Fri default
+    const [parallelCourses, setParallelCourses] = React.useState(0); // Legacy/Unused now but kept for compatibility
     const [plan, setPlan] = React.useState<any>(null);
     const [loading, setLoading] = React.useState(false);
 
@@ -42,17 +45,23 @@ export default function CreatePlanPage() {
                     topics,
                     exam_date: examDate,
                     parallel_courses: parallelCourses,
+                    title: planTitle,
+                    daily_goal: dailyGoal,
+                    study_days: studyDays
                 }),
             });
 
-            if (!response.ok) throw new Error("Failed to generate plan");
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || "Failed to generate plan");
+            }
 
             const planData = await response.json();
             setPlan(planData);
             setStep("RESULT");
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert("Failed to generate plan. Please try again.");
+            alert(`Error: ${error.message}`);
         } finally {
             setLoading(false);
         }
@@ -83,6 +92,18 @@ export default function CreatePlanPage() {
                         </div>
 
                         <Card className="p-6 space-y-6 max-w-xl mx-auto bg-card border-border">
+                            {/* Title Request */}
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium">Journey Name</label>
+                                <input
+                                    type="text"
+                                    className="w-full p-2 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder="e.g. Finals Prep 2024"
+                                    value={planTitle}
+                                    onChange={(e) => setPlanTitle(e.target.value)}
+                                />
+                            </div>
+
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium">{t.plan.label_date}</label>
                                 <input
@@ -93,23 +114,56 @@ export default function CreatePlanPage() {
                                 />
                             </div>
 
+                            {/* Daily Goal Slider */}
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium">{t.plan.label_parallel}</label>
+                                <label className="block text-sm font-medium">Daily Goal (Hours)</label>
                                 <div className="flex items-center space-x-4">
                                     <input
                                         type="range"
-                                        min="0"
-                                        max="5"
-                                        step="1"
+                                        min="0.5"
+                                        max="8"
+                                        step="0.5"
                                         className="w-full h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
-                                        value={parallelCourses}
-                                        onChange={(e) => setParallelCourses(parseInt(e.target.value))}
+                                        value={dailyGoal}
+                                        onChange={(e) => setDailyGoal(parseFloat(e.target.value))}
                                     />
-                                    <span className="font-bold text-xl w-8 text-center">{parallelCourses}</span>
+                                    <span className="font-bold text-xl w-12 text-center">{dailyGoal}h</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">
-                                    {t.plan.note_parallel}
-                                </p>
+                            </div>
+
+                            {/* Study Days Toggles */}
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium">Study Days</label>
+                                <div className="flex justify-between gap-1">
+                                    {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => {
+                                        // Adjust index so 0=Mon, 6=Sun to match python weekday() usually? 
+                                        // Actually Python: 0=Mon, 6=Sun.
+                                        // But calendar usually displays Sun first.
+                                        // Let's use simple Map: 0=Mon...6=Sun.
+                                        // The array above is visual. Let's make it data-driven:
+                                        const days = [
+                                            { label: "M", val: 0 }, { label: "T", val: 1 }, { label: "W", val: 2 },
+                                            { label: "T", val: 3 }, { label: "F", val: 4 }, { label: "S", val: 5 }, { label: "S", val: 6 }
+                                        ];
+                                        const dayInfo = days[i];
+                                        // Wait, the map index i will suffice if we define array correctly.
+
+                                        const isSelected = studyDays.includes(dayInfo.val);
+                                        return (
+                                            <button
+                                                key={i}
+                                                onClick={() => {
+                                                    setStudyDays(prev =>
+                                                        isSelected ? prev.filter(x => x !== dayInfo.val) : [...prev, dayInfo.val]
+                                                    );
+                                                }}
+                                                className={`w-10 h-10 rounded-full text-sm font-bold transition-all ${isSelected ? 'bg-primary text-primary-foreground shadow-lg scale-110' : 'bg-secondary text-muted-foreground'}`}
+                                            >
+                                                {dayInfo.label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
                             </div>
 
                             <div className="pt-4 border-t border-border">
@@ -128,7 +182,7 @@ export default function CreatePlanPage() {
                                 className="w-full"
                                 size="lg"
                                 onClick={handleGeneratePlan}
-                                disabled={!examDate || loading}
+                                disabled={!examDate || loading || studyDays.length === 0}
                             >
                                 {loading ? (
                                     <>
@@ -149,10 +203,14 @@ export default function CreatePlanPage() {
                 {step === "RESULT" && plan && (
                     <div className="animate-fade-in-up">
                         <StudyTimeline plan={plan} />
-                        <div className="flex justify-center mt-8">
+                        <div className="flex justify-center mt-8 space-x-4">
                             <Button variant="ghost" onClick={() => setStep("SETTINGS")}>
                                 <Settings className="w-4 h-4 mr-2" />
                                 {t.plan.btn_adjust}
+                            </Button>
+                            <Button onClick={() => window.location.href = "/dashboard"} className="shadow-lg">
+                                Go to Dashboard
+                                <ArrowRight className="w-4 h-4 ml-2" />
                             </Button>
                         </div>
                     </div>

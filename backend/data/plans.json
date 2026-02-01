@@ -1,1 +1,724 @@
-[]
+[
+  {
+    "id": "plan_2026-02-01_3",
+    "title": "VWL",
+    "exam_date": "2026-04-25",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      5,
+      6
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_0",
+            "title": "Haushalts\u00f6konomie",
+            "description": "Die Haushalts\u00f6konomie besch\u00e4ftigt sich mit der Entscheidungsfindung von Haushalten bei der Allokation ihrer Ressourcen.",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Ziel eines Haushalts?",
+                "answer": "Das Ziel eines Haushalts ist die Maximierung seines Nutzens."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Ziel eines Haushalts?",
+                "correct_answer": "Das Ziel eines Haushalts ist die Maximierung seines Nutzens.",
+                "distractors": [
+                  "Das Ziel eines Haushalts ist die Minimierung seiner Ausgaben.",
+                  "Das Ziel eines Haushalts ist die Maximierung seines Einkommens.",
+                  "Das Ziel eines Haushalts ist die Minimierung seiner Bed\u00fcrfnisse."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Pr\u00e4ferenzen:Vorlieben eines Haushalts;Nutzen:Zufriedenheit durch den Konsum von G\u00fctern;Budget:Verf\u00fcgbarer Betrag f\u00fcr den Konsum;Indifferenzkurven:Kurven gleichen Nutzens"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_1",
+            "title": "Unternehmens\u00f6konomie",
+            "description": "Die Unternehmens\u00f6konomie besch\u00e4ftigt sich mit der Entscheidungsfindung von Unternehmen bei der Allokation ihrer Ressourcen.",
+            "estimated_hours": 5.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Ziel eines Unternehmens?",
+                "answer": "Das Ziel eines Unternehmens ist die Maximierung seines Gewinns."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Ziel eines Unternehmens?",
+                "correct_answer": "Das Ziel eines Unternehmens ist die Maximierung seines Gewinns.",
+                "distractors": [
+                  "Das Ziel eines Unternehmens ist die Minimierung seiner Kosten.",
+                  "Das Ziel eines Unternehmens ist die Maximierung seiner Produktion.",
+                  "Das Ziel eines Unternehmens ist die Minimierung seiner Preise."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Produktionsfunktion:Beziehung zwischen Input und Output;Kostenfunktion:Beziehung zwischen Input und Kosten;Erl\u00f6sfunktion:Beziehung zwischen Output und Erl\u00f6s;Gewinnfunktion:Beziehung zwischen Erl\u00f6s und Kosten"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 5.0
+      },
+      {
+        "date": "2026-02-08",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_2",
+            "title": "Mikro\u00f6konomie",
+            "description": "Die Mikro\u00f6konomie besch\u00e4ftigt sich mit der Analyse von M\u00e4rkten und der Entscheidungsfindung von Haushalten und Unternehmen.",
+            "estimated_hours": 6.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Mikro\u00f6konomie?",
+                "answer": "Die Mikro\u00f6konomie ist die Analyse von M\u00e4rkten und der Entscheidungsfindung von Haushalten und Unternehmen."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Mikro\u00f6konomie?",
+                "correct_answer": "Die Mikro\u00f6konomie ist die Analyse von M\u00e4rkten und der Entscheidungsfindung von Haushalten und Unternehmen.",
+                "distractors": [
+                  "Die Mikro\u00f6konomie ist die Analyse von Volkswirtschaften.",
+                  "Die Mikro\u00f6konomie ist die Analyse von Finanzm\u00e4rkten.",
+                  "Die Mikro\u00f6konomie ist die Analyse von Unternehmensstrategien."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Markt:Ort des G\u00fcter- und Dienstleistungsverkehrs;Nachfrage:G\u00fcter und Dienstleistungen, die von Haushalten nachgefragt werden;Angebot:G\u00fcter und Dienstleistungen, die von Unternehmen angeboten werden;Gleichgewicht:Zustand, in dem Nachfrage und Angebot gleich sind"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 6.0
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_10",
+    "title": "Wirtsschaft",
+    "exam_date": "2026-05-08",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      5,
+      6
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_0",
+            "title": "Arbeitsmarkt und Arbeitsmarktpolitik",
+            "description": "Understanding labor market and labor market policy",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main goal of labor market policy?",
+                "answer": "Vollbesch\u00e4ftigung"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main goal of labor market policy?",
+                "correct_answer": "Vollbesch\u00e4ftigung",
+                "distractors": [
+                  "Inflation reduction",
+                  "Economic growth",
+                  "Price stability"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Vollbesch\u00e4ftigung:Full employment;Arbeitslosigkeit:Unemployment;Erwerbspersonenpotential:Labor force potential;Besch\u00e4ftigung:Employment"
+              }
+            ],
+            "status": "MASTERED"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_1",
+            "title": "Bestimmungsgr\u00f6\u00dfen der Arbeitslosigkeit und Besch\u00e4ftigung",
+            "description": "Determinants of unemployment and employment",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the formula for the Auslastungsgrad?",
+                "answer": "Yt / Y*"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the formula for the Auslastungsgrad?",
+                "correct_answer": "Yt / Y*",
+                "distractors": [
+                  "Y* / Yt",
+                  "Yt + Y*",
+                  "Yt - Y*"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Auslastungsgrad:Capacity utilization;Erwerbspersonenpotential:Labor force potential;Arbeitslosenquote:Unemployment rate;Besch\u00e4ftigungsquote:Employment rate"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-02-08",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_2",
+            "title": "Arbeitsmarktpolitische Instrumente",
+            "description": "Labor market policy instruments",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main goal of the Agenda 2010?",
+                "answer": "Improving the framework conditions for growth and prosperity in Germany"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main goal of the Agenda 2010?",
+                "correct_answer": "Improving the framework conditions for growth and prosperity in Germany",
+                "distractors": [
+                  "Reducing unemployment",
+                  "Increasing economic growth",
+                  "Improving social security"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Agenda 2010:German labor market reform;Hartz IV:German unemployment benefit;Mindestlohn:Minimum wage;Bundesagentur f\u00fcr Arbeit:Federal Employment Agency"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-14",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_3",
+            "title": "Arbeitsmarktpolitik in Europa",
+            "description": "Labor market policy in Europe",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main goal of the European Employment Strategy?",
+                "answer": "Coordinating employment policies among EU member states"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main goal of the European Employment Strategy?",
+                "correct_answer": "Coordinating employment policies among EU member states",
+                "distractors": [
+                  "Promoting economic growth",
+                  "Reducing unemployment",
+                  "Improving social security"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Europ\u00e4ische Besch\u00e4ftigungsstrategie:European Employment Strategy;Lissabon-Strategie:Lisbon Strategy;Armutsreduktionsziel:Poverty reduction goal;Freiz\u00fcgigkeit des Faktors Arbeit:Free movement of labor"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-02-15",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_4",
+            "title": "Mittlere Frist",
+            "description": "Medium-term economic analysis",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main focus of medium-term economic analysis?",
+                "answer": "The labor market"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main focus of medium-term economic analysis?",
+                "correct_answer": "The labor market",
+                "distractors": [
+                  "The goods market",
+                  "The financial market",
+                  "The foreign exchange market"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Mittlere Frist:Medium term;Kurze Frist:Short term;Lange Frist:Long term;AS-AD-Modell:AS-AD model"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-21",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_5",
+            "title": "Inflation",
+            "description": "Inflation and its effects",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main effect of inflation on the economy?",
+                "answer": "Reduces the purchasing power of money"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main effect of inflation on the economy?",
+                "correct_answer": "Reduces the purchasing power of money",
+                "distractors": [
+                  "Increases the purchasing power of money",
+                  "Has no effect on the economy",
+                  "Leads to economic growth"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Inflation:Inflation;Deflation:Deflation;Stagflation:Stagflation;Phillipskurve:Phillips curve"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-02-22",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_0",
+            "title": "Microeconomics Introduction",
+            "description": "Introduction to microeconomics, including the theory of households and firms",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the main goal of a household in microeconomics?",
+                "answer": "To maximize utility"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the main goal of a household in microeconomics?",
+                "correct_answer": "To maximize utility",
+                "distractors": [
+                  "To minimize costs",
+                  "To maximize profits",
+                  "To minimize production"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Household:Consumes goods and services;Firm:Produces goods and services;Market:Where buyers and sellers meet;Economy:System of production and distribution"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.0
+      },
+      {
+        "date": "2026-02-28",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_1",
+            "title": "Theory of Households",
+            "description": "The theory of households, including budget constraints and indifference curves",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the budget constraint in microeconomics?",
+                "answer": "The limit on a household's spending, given its income and prices"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the budget constraint in microeconomics?",
+                "correct_answer": "The limit on a household's spending, given its income and prices",
+                "distractors": [
+                  "The minimum amount a household must spend",
+                  "The maximum amount a household can borrow",
+                  "The average amount a household saves"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Budget Constraint:Limit on household spending;Indifference Curve:Curve of equal utility;Utility:Satisfaction from consumption;Opportunity Cost:Value of next best alternative"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-03-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_2",
+            "title": "Theory of Firms",
+            "description": "The theory of firms, including production functions and cost functions",
+            "estimated_hours": 3.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the production function in microeconomics?",
+                "answer": "The relationship between inputs and outputs in production"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the production function in microeconomics?",
+                "correct_answer": "The relationship between inputs and outputs in production",
+                "distractors": [
+                  "The relationship between costs and revenues",
+                  "The relationship between supply and demand",
+                  "The relationship between prices and quantities"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Production Function:Relationship between inputs and outputs;Cost Function:Relationship between costs and output;Revenue Function:Relationship between output and revenue;Profit Function:Relationship between revenue and costs"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.5
+      },
+      {
+        "date": "2026-03-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_3",
+            "title": "Market Equilibrium",
+            "description": "The concept of market equilibrium, including supply and demand",
+            "estimated_hours": 2.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the market equilibrium in microeconomics?",
+                "answer": "The point where supply equals demand"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the market equilibrium in microeconomics?",
+                "correct_answer": "The point where supply equals demand",
+                "distractors": [
+                  "The point where supply exceeds demand",
+                  "The point where demand exceeds supply",
+                  "The point where price equals cost"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Supply:Amount producers are willing to sell;Demand:Amount consumers are willing to buy;Equilibrium:Point where supply equals demand;Disequilibrium:Point where supply does not equal demand"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.5
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_4",
+    "title": "VWL",
+    "exam_date": "2026-04-15",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      5,
+      6
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_0",
+            "title": "Introduction to Microeconomics",
+            "description": "Understanding the basics of microeconomics, including supply and demand, consumer behavior, and market structures.",
+            "estimated_hours": 5.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the primary goal of a consumer in microeconomics?",
+                "answer": "To maximize utility"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the primary goal of a consumer in microeconomics?",
+                "correct_answer": "To maximize utility",
+                "distractors": [
+                  "To minimize costs",
+                  "To maximize profits",
+                  "To minimize demand"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Supply:Amount of a product that producers are willing to sell;Demand:Amount of a product that consumers are willing to buy;Market Equilibrium:Point at which supply and demand are equal;Opportunity Cost:Value of the next best alternative"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 5.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_1",
+            "title": "Consumer Theory",
+            "description": "Analyzing consumer behavior, including preferences, budget constraints, and utility maximization.",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the term for a consumer's preference for one good over another?",
+                "answer": "Preference"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the term for a consumer's preference for one good over another?",
+                "correct_answer": "Preference",
+                "distractors": [
+                  "Budget constraint",
+                  "Utility function",
+                  "Indifference curve"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Budget Constraint:Limit on a consumer's spending;Indifference Curve:Graph of different combinations of goods that provide the same level of satisfaction;Utility Function:Mathematical representation of a consumer's preferences;Marginal Rate of Substitution:Rate at which a consumer is willing to trade one good for another"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-08",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_2",
+            "title": "Production and Cost",
+            "description": "Examining the production process, including inputs, outputs, and costs.",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the term for the relationship between the quantity of inputs and the quantity of outputs?",
+                "answer": "Production function"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the term for the relationship between the quantity of inputs and the quantity of outputs?",
+                "correct_answer": "Production function",
+                "distractors": [
+                  "Cost function",
+                  "Supply function",
+                  "Demand function"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Fixed Cost:Cost that remains the same even if the quantity of output changes;Variable Cost:Cost that changes as the quantity of output changes;Marginal Cost:Change in total cost resulting from a one-unit increase in output;Average Total Cost:Total cost divided by the quantity of output"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-14",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_3",
+            "title": "Perfect Competition",
+            "description": "Understanding the characteristics of perfect competition, including many buyers and sellers, free entry and exit, and homogeneous products.",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "What is the term for a market structure in which many firms produce a homogeneous product?",
+                "answer": "Perfect competition"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "What is the term for a market structure in which many firms produce a homogeneous product?",
+                "correct_answer": "Perfect competition",
+                "distractors": [
+                  "Monopoly",
+                  "Monopolistic competition",
+                  "Oligopoly"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Match the terms",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Perfect Competition:Market structure with many firms and free entry and exit;Monopoly:Market structure with one firm;Monopolistic Competition:Market structure with many firms and differentiated products;Oligopoly:Market structure with a few firms"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      }
+    ],
+    "created_at": "2026-02-01"
+  }
+]

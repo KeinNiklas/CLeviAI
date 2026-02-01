@@ -84,13 +84,14 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
             });
 
             if (!response.ok) {
-                throw new Error(t.uploader.error_fail);
+                const errorData = await response.json().catch(async () => ({ detail: await response.text() }));
+                throw new Error(errorData.detail || errorData.message || (typeof errorData === 'string' ? errorData : t.uploader.error_fail));
             }
 
             const data = await response.json();
             onUploadComplete(data);
-        } catch (err) {
-            setError(t.uploader.error_backend);
+        } catch (err: any) {
+            setError(err.message || t.uploader.error_backend);
             console.error(err);
         } finally {
             setLoading(false);

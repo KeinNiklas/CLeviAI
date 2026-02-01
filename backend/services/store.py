@@ -68,3 +68,26 @@ class JSONStore:
         if changed:
             with open(PLANS_FILE, "w") as f:
                 json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
+    def update_plan(self, plan_id: str, updates: dict):
+        plans = self.get_all_plans()
+        changed = False
+        
+        for plan in plans:
+            if plan.id == plan_id:
+                # Apply updates
+                updated_data = plan.model_dump()
+                updated_data.update(updates)
+                # Re-validate with Pydantic
+                new_plan = StudyPlan(**updated_data)
+                
+                # Replace logic: finding index and swapping
+                idx = plans.index(plan)
+                plans[idx] = new_plan
+                changed = True
+                break
+        
+        if changed:
+            with open(PLANS_FILE, "w") as f:
+                json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
+            return True
+        return False

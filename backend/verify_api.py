@@ -1,65 +1,32 @@
-
-import requests
-import json
+import google.generativeai as genai
 import os
-import time
+from dotenv import load_dotenv
 
-BASE_URL = "http://localhost:8006"
+# Load env variables
+load_dotenv("key.env")
 
-def verify_api():
-    print("Waiting for backend to start...")
-    time.sleep(5) # Wait for server start
-    
-    # 1. Health Check
-    try:
-        r = requests.get(f"{BASE_URL}/health")
-        print(f"Health Check: {r.status_code} {r.json()}")
-    except Exception as e:
-        print(f"Backend not reachable: {e}")
-        return
+api_key = os.getenv("GOOGLE_API_KEY")
 
-    # 2. Analyze Document
-    print("\nTesting /analyze-document...")
-    file_path = "../test_doc.txt"
-    if not os.path.exists(file_path):
-        print("Test file not found!")
-        return
+if not api_key:
+    print("ERROR: GOOGLE_API_KEY not found in key.env or environment.")
+    exit(1)
 
-    with open(file_path, "rb") as f:
-        files = {"file": ("test_doc.txt", f, "text/plain")}
-        r = requests.post(f"{BASE_URL}/analyze-document", files=files)
-    
-    if r.status_code != 200:
-        print(f"Analysis Failed: {r.status_code} {r.text}")
-        return
-    
-    topics = r.json()
-    print(f"Topics Found: {len(topics)}")
-    print(json.dumps(topics, indent=2))
+print(f"Key found: {api_key[:5]}...{api_key[-5:]}")
 
-    if not topics:
-        print("No topics found, cannot proceed to plan creation.")
-        return
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel('gemini-2.0-flash')
 
-    # 3. Create Plan
-    print("\nTesting /create-plan...")
-    payload = {
-        "topics": topics,
-        "exam_date": "2026-03-01",
-        "parallel_courses": 1
-    }
-    
-    r = requests.post(f"{BASE_URL}/create-plan", json=payload)
-    
-    if r.status_code != 200:
-        print(f"Plan Creation Failed: {r.status_code} {r.text}")
-        return
-
-    plan = r.json()
-    print("Plan Created Successfully!")
-    print(f"Plan ID: {plan.get('id')}")
-    print(f"Total Days: {len(plan.get('schedule', []))}")
-    print(json.dumps(plan, indent=2))
-
-if __name__ == "__main__":
-    verify_api()
+try:
+    print("Sending request to Gemini...")
+    response = model.generate_content("Hello! Are you working?")
+    print("Response received:")
+    print(response.text)
+    print("API is working correctly.")
+except Exception as e:
+    print(f"API Error: {e}")
+    if "429" in str(e):
+        print("QUOTA EXHAUSTED (429).")
+    elif "400" in str(e):
+        print("BAD REQUEST (400). Key might be invalid.")
+    elif "403" in str(e):
+        print("PERMISSION DENIED (403).")

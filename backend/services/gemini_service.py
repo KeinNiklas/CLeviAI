@@ -2,7 +2,7 @@ import os
 import json
 import google.generativeai as genai
 from typing import List
-from models import Topic
+from models import Topic, Flashcard
 
 class GeminiService:
     def __init__(self):
@@ -24,7 +24,11 @@ class GeminiService:
         prompt = f"""
         You are a helpful study assistant.
         Analyze the following study material text and break it down into study topics.
-        For each topic, provide a title, a brief description, and an estimated number of hours to master it.
+        For each topic, provide:
+        1. A title
+        2. A brief description
+        3. An estimated number of hours to master it
+        4. 3-5 Flashcards for "Active Recall" practice (Question and Answer)
         
         Text:
         {text[:20000]}... (truncated if too long)
@@ -35,7 +39,11 @@ class GeminiService:
                 {{
                     "title": "Topic Title",
                     "description": "Short description",
-                    "hours": 1.5
+                    "hours": 1.5,
+                    "flashcards": [
+                        {{ "question": "What is X?", "answer": "X is Y" }},
+                        {{ "question": "Explain Z", "answer": "Z works by..." }}
+                    ]
                 }}
             ]
         }}
@@ -59,12 +67,22 @@ class GeminiService:
             
             topics = []
             for i, item in enumerate(topics_data):
+                # Parse flashcards
+                flashcards_data = item.get("flashcards", [])
+                flashcards = []
+                for fc in flashcards_data:
+                    flashcards.append({
+                        "question": fc.get("question", "Unknown Question"),
+                        "answer": fc.get("answer", "Unknown Answer")
+                    })
+
                 topics.append(Topic(
                     id=f"{material_id}_{i}",
                     title=item.get("title", "Untitled Topic"),
                     description=item.get("description", ""),
                     estimated_hours=float(item.get("hours", 1.0)),
-                    material_id=material_id
+                    material_id=material_id,
+                    flashcards=flashcards
                 ))
             return topics
 

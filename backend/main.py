@@ -70,3 +70,14 @@ def create_plan(request: PlanRequest):
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/plans", response_model=List[StudyPlan])
+def get_plans():
+    return scheduler_service.store.get_all_plans()
+
+@app.get("/plans/{plan_id}", response_model=StudyPlan)
+def get_plan(plan_id: str):
+    plan = scheduler_service.store.get_plan(plan_id)
+    if not plan:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    return plan

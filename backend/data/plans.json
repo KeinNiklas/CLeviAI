@@ -1,0 +1,446 @@
+[
+  {
+    "id": "plan_2026-02-01_6",
+    "exam_date": "2026-03-21",
+    "parallel_courses": 0,
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_0",
+            "title": "Grundlagen und Zielsetzung der Vollbesch\u00e4ftigung",
+            "description": "Analyse der Vollbesch\u00e4ftigung als klassisches Ziel der Wirtschafts- und Stabilisierungspolitik. Unterscheidung zwischen der weiten Definition (alle Produktionsfaktoren: Arbeit, Boden, Kapital) und der engen Definition (Faktor Arbeit) sowie deren sozialethische Bedeutung.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_1",
+            "title": "Messung und Bestimmung von Besch\u00e4ftigung und Arbeitslosigkeit",
+            "description": "Erl\u00e4uterung des Auslastungsgrades des Produktionspotentials (Y/Y*) und des Erwerbspersonenpotentials (A/A*). Beinhaltet die Klassifizierung der Bev\u00f6lkerung (Erwerbsf\u00e4hige, Erwerbspersonen, Arbeitslose) und die Berechnung der Stillen Reserve sowie relevanter Kennzahlen (z.B. Erwerbsquote).",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_2",
+            "title": "Arten und Ursachen der Arbeitslosigkeit",
+            "description": "Detaillierte Untersuchung der sieben Hauptformen der Arbeitslosigkeit: saisonal, friktionell (fluktuationsbedingt), konjunkturell, lohnbedingt (klassisch), strukturell, verdeckt und wachstumsdefizit\u00e4r, inklusive deren spezifischer Ursachen und Bek\u00e4mpfungsans\u00e4tze.",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_3",
+            "title": "Politische Instrumente und Interpretationen",
+            "description": "Gegen\u00fcberstellung der liberalen (neoklassisch/Angebotsorientierung) und keynesianischen (Nachfrageorientierung) Ans\u00e4tze zur Bek\u00e4mpfung von Arbeitslosigkeit. Fokus auf B\u00fcrokratieabbau, Lohnzur\u00fcckhaltung vs. Deficit Spending und Staatsnachfrage.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_4",
+            "title": "Die Agenda 2010 in Deutschland (2005)",
+            "description": "Fallstudie zur tiefgreifenden Reform der deutschen Sozialsysteme und des Arbeitsmarktes unter Bundeskanzler Gerhard Schr\u00f6der. Beinhaltet \u00c4nderungen bei Arbeitslosengeld (Hartz IV), Zumutbarkeit von Arbeit, Bildungsf\u00f6rderung und die Modernisierung der Krankenkassen (GMG).",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          }
+        ],
+        "total_hours": 6.0
+      },
+      {
+        "date": "2026-02-02",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_4",
+            "title": "Die Agenda 2010 in Deutschland (2005)",
+            "description": "Fallstudie zur tiefgreifenden Reform der deutschen Sozialsysteme und des Arbeitsmarktes unter Bundeskanzler Gerhard Schr\u00f6der. Beinhaltet \u00c4nderungen bei Arbeitslosengeld (Hartz IV), Zumutbarkeit von Arbeit, Bildungsf\u00f6rderung und die Modernisierung der Krankenkassen (GMG).",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_5",
+            "title": "Arbeitsmarktpolitik in der Europ\u00e4ischen Union",
+            "description": "Analyse der EU-Ziele bez\u00fcglich Vollbesch\u00e4ftigung und sozialem Schutz (Vertrag von Lissabon, AEUV). Rolle der Europ\u00e4ischen Besch\u00e4ftigungsstrategie (EU2020), das Armutsreduktionsziel und die Koordinierung der sozialen Sicherheit im Kontext der Freiz\u00fcgigkeit des Faktors Arbeit.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": []
+          }
+        ],
+        "total_hours": 1.5
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_5",
+    "exam_date": "2026-05-21",
+    "parallel_courses": 0,
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_0",
+            "title": "Ziele und Bedeutungen der Vollbesch\u00e4ftigung",
+            "description": "Analyse von Vollbesch\u00e4ftigung als klassisches Ziel der Wirtschafts- und Stabilisierungspolitik. Es wird die soziale und \u00f6konomische Bedeutung von Arbeit beleuchtet sowie die Unterscheidung zwischen der weiten (alle Produktionsfaktoren) und der engen (nur Faktor Arbeit) Zielbeschreibung erl\u00e4utert.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist Vollbesch\u00e4ftigung im weiten Sinne?",
+                "answer": "Die Vollauslastung aller Produktionsfaktoren: Boden, Arbeit und Kapital (Auslastungsgrad des gesamten Produktionspotentials)."
+              },
+              {
+                "question": "Warum hat das Ziel \u2018Vollbesch\u00e4ftigung\u2019 des Faktors Arbeit einen besonders hohen gesellschaftlichen Stellenwert (enge Zielbeschreibung)?",
+                "answer": "Aufgrund des sozialpolitischen Hintergrunds, da Arbeitslosigkeit zu Not, Statusverlust und mangelndem Selbstvertrauen f\u00fchrt und antidemokratisches Potential birgt."
+              },
+              {
+                "question": "Was bedeutet die Nichtauslastung des Faktors Kapital und Boden \u00f6konomisch gesehen?",
+                "answer": "Entgangene Rendite, geringeren Wohlstand und geringeres Wachstum der insgesamt m\u00f6glichen Potentiale."
+              },
+              {
+                "question": "Welche Merkmale (quantitativ und qualitativ) umfasst die Definition der ehemaligen BfA f\u00fcr Vollbesch\u00e4ftigung?",
+                "answer": "Alle arbeitswilligen und arbeitsf\u00e4higen Personen m\u00fcssen eine vollwertige Arbeit haben, die ihren pers\u00f6nlichen Voraussetzungen und zeitlichen W\u00fcnschen entspricht."
+              }
+            ]
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_1",
+            "title": "Messung und Bestimmungsgr\u00f6\u00dfen von Besch\u00e4ftigung und Arbeitslosigkeit",
+            "description": "Erkl\u00e4rung der Messmethoden f\u00fcr den Auslastungsgrad des Produktionspotentials (Yt/Y*) und des Erwerbspersonenpotentials (At/A*). Zudem werden die Einteilung der Bev\u00f6lkerung und die Ermittlung der Stillen Reserve sowie relevanter Kennzahlen (ALQ, Erwerbsquote) behandelt.",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Wie wird der Auslastungsgrad des Produktionspotentials berechnet?",
+                "answer": "Quotient aus tats\u00e4chlicher Produktion (Yt) und potentieller (m\u00f6glicher) Produktion (Y*): Auslastungsgrad = Yt / Y*."
+              },
+              {
+                "question": "Was umfasst das Erwerbspersonenpotential (EP)?",
+                "answer": "Jene Personen, die bei 'g\u00fcnstiger' Arbeitsmarktlage bereit, geeignet und nach pers\u00f6nlichen Voraussetzungen in der Lage sind, erwerbst\u00e4tig zu sein."
+              },
+              {
+                "question": "Definieren Sie die 'Stille Reserve' auf dem Arbeitsmarkt.",
+                "answer": "Die Differenz zwischen den Erwerbsf\u00e4higen (EF) und der Summe der Zahl der Besch\u00e4ftigten plus der Zahl der registrierten Arbeitslosen."
+              },
+              {
+                "question": "Bei welcher Arbeitslosenquote (ALQ) spricht man im Allgemeinen von Vollbesch\u00e4ftigung des Faktors Arbeit?",
+                "answer": "Wenn die ALQ zwischen 1% und 1,5% liegt."
+              },
+              {
+                "question": "Was zeigt die Erwerbsquote an?",
+                "answer": "Den prozentualen Anteil der Erwerbst\u00e4tigen an der Gesamtbev\u00f6lkerung (Erwerbst\u00e4tige * 100 / Gesamtbev\u00f6lkerung)."
+              }
+            ]
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_2",
+            "title": "Arten der Arbeitslosigkeit und makro\u00f6konomische Bek\u00e4mpfung",
+            "description": "Detaillierte Darstellung der sieben Hauptursachen/Arten von Arbeitslosigkeit (saisonal, friktionell, konjunkturell, lohnbedingt, strukturell, verdeckt, wachstumsdefizit\u00e4r) und die damit verbundenen Bek\u00e4mpfungsans\u00e4tze. Kontrastierung der liberalen (neoklassischen) und der keynesianischen Wirtschaftsanschauungen.",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Nennen Sie die Ursache und Bek\u00e4mpfung der konjunkturellen Arbeitslosigkeit.",
+                "answer": "Ursache: Rezession und Abschwung der Konjunktur (sinkende Nachfrage). Bek\u00e4mpfung: Steigerung der Nachfrage, z.B. durch Staatsausgaben (Deficit Spending)."
+              },
+              {
+                "question": "Wie entsteht lohnbedingte (klassische) Arbeitslosigkeit?",
+                "answer": "Sie entsteht, wenn der Reallohn h\u00f6her als der Gleichgewichtslohn liegt, beispielsweise durch Tarifvertr\u00e4ge oder staatliche Mindestl\u00f6hne."
+              },
+              {
+                "question": "Was ist strukturelle Arbeitslosigkeit, und wie kann sie bek\u00e4mpft werden?",
+                "answer": "Sie entsteht, wenn die Anforderungen (Qualifikation, Region) von Angebot und Nachfrage nicht \u00fcbereinstimmen. Bek\u00e4mpfung: Steigerung der Mobilit\u00e4t, Umschulung."
+              },
+              {
+                "question": "Welche Art der Arbeitslosigkeit betonen Liberale/Neoklassiker am st\u00e4rksten, und welche die Keynesianer?",
+                "answer": "Liberale betonen st\u00e4rker die lohnbedingte, strukturelle und friktionelle Arbeitslosigkeit. Keynesianer betonen \u00fcberwiegend die konjunkturelle Komponente."
+              },
+              {
+                "question": "Was ist verdeckte Arbeitslosigkeit?",
+                "answer": "Arbeitskr\u00e4fte sind zwar besch\u00e4ftigt, aber nicht wirklich effizient und ad\u00e4quat eingesetzt (z.B. Diplom-Ingenieur f\u00e4hrt Taxi)."
+              }
+            ]
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_3",
+            "title": "Die Agenda 2010 und ihre Auswirkungen auf den Arbeitsmarkt",
+            "description": "Zentrale Inhalte und Ziele der deutschen Reformen (2003\u20132005) zur Strukturierung der Sozialsysteme und des Arbeitsmarktes, insbesondere die Einf\u00fchrung von Hartz IV, die Begrenzung des Arbeitslosengeldes und Reformen im Gesundheitswesen (GMG).",
+            "estimated_hours": 0.75,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Wann und unter welcher Regierung wurde die Agenda 2010 beschlossen?",
+                "answer": "Zwischen 2003 und 2005 unter der rot-gr\u00fcnen Regierung (Bundeskanzler Gerhard Schr\u00f6der)."
+              },
+              {
+                "question": "Was ersetzte Hartz IV (Alg 2) im Rahmen der Arbeitsmarktreform?",
+                "answer": "Die Arbeitslosenhilfe."
+              },
+              {
+                "question": "Welche neuen Anforderungen an die Zumutbarkeit von Arbeit enthielt die Agenda 2010?",
+                "answer": "Arbeitslose m\u00fcssen in h\u00f6herem Ma\u00dfe Arbeiten annehmen, die unter dem vorhergehenden Ausbildungsniveau liegen, sofern sie nicht als sittenwidrig eingestuft werden."
+              },
+              {
+                "question": "Welches Ziel verfolgte das Gesetz zur Modernisierung der Gesetzlichen Krankenversicherungen (GMG)?",
+                "answer": "Senkung der Lohnnebenkosten durch niedrigere Krankenkassenbeitr\u00e4ge."
+              }
+            ]
+          },
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_4",
+            "title": "Europ\u00e4ische Arbeitsmarktpolitik und Sozialstrategien",
+            "description": "\u00dcberblick \u00fcber die europ\u00e4ische Sozial- und Besch\u00e4ftigungspolitik, einschlie\u00dflich der Rolle des Vertrags von Lissabon und des AEUV. Behandelt werden das Subsidiarit\u00e4tsprinzip, die Europ\u00e4ische Besch\u00e4ftigungsstrategie (Europa 2020) und die Freiz\u00fcgigkeit des Faktors Arbeit.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Hauptwirkung des Vertrags von Lissabon auf die Sozialpolitik der EU?",
+                "answer": "Er st\u00e4rkt die soziale Dimension der EU und macht die Charta der Grundrechte (Kapitel Solidarit\u00e4t) rechtsverbindlich."
+              },
+              {
+                "question": "Welche Funktion hat die EU in der Sozialpolitik aufgrund des Subsidiarit\u00e4tsprinzips?",
+                "answer": "Die EU hat nur eine unterst\u00fctzende, erg\u00e4nzende und koordinierende Funktion, aber keine direkten Eingriffsm\u00f6glichkeiten in die nationalen Sozialsysteme."
+              },
+              {
+                "question": "Nennen Sie ein wichtiges Ziel der EU2020-Strategie bez\u00fcglich Armut.",
+                "answer": "Mindestens 20 Millionen Menschen sollen bis 2020 aus Armut oder sozialer Ausgrenzung herausgef\u00fchrt werden (Armutsreduktionsziel)."
+              },
+              {
+                "question": "Was bedeutet die Freiz\u00fcgigkeit des Faktors Arbeit f\u00fcr Arbeitnehmer in der EU?",
+                "answer": "Sie d\u00fcrfen in jedes Unionsland einreisen, um dort einer Erwerbst\u00e4tigkeit nachzugehen, ohne dass ihre Rechte verloren gehen."
+              }
+            ]
+          }
+        ],
+        "total_hours": 6.2
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_7",
+    "exam_date": "2026-03-25",
+    "parallel_courses": 0,
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_0",
+            "title": "Grundlagen der Haushaltstheorie",
+            "description": "Einf\u00fchrung in den Zweck des Wirtschaftens (Bed\u00fcrfnisbefriedigung), die Rolle der Haushalte als Konsumenten und die Definition grundlegender Konzepte wie Nutzen (Utility) und Pr\u00e4ferenzen.",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist der Hauptzweck des Wirtschaftens?",
+                "answer": "Bed\u00fcrfnisbefriedigung der Haushalte."
+              },
+              {
+                "question": "Was erzeugen Haushalte auf dem Markt?",
+                "answer": "Die Konsumnachfrage."
+              },
+              {
+                "question": "Was versteht man unter 'Pr\u00e4ferenzen' im Konsumverhalten?",
+                "answer": "Vorlieben und Vorz\u00fcge von Haushalten f\u00fcr bestimmte G\u00fcter oder G\u00fcterkombinationen ('bevorzugen')."
+              },
+              {
+                "question": "Wie entsteht Nutzen (Utility)?",
+                "answer": "Durch den Gebrauch oder Verbrauch von G\u00fctern und Dienstleistungen, was zur Reduktion von Mangelerscheinungen f\u00fchrt."
+              }
+            ]
+          }
+        ],
+        "total_hours": 1.0
+      },
+      {
+        "date": "2026-02-02",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_1",
+            "title": "Budgetgerade und Budgetrestriktionen",
+            "description": "Analyse der finanziellen Einschr\u00e4nkungen von Haushalten (Budget) und die Darstellung der Konsumm\u00f6glichkeiten durch die Budgetgleichung und die Budgetgerade im 2-G\u00fcter-Modell.",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Wie wird das Budget (C) eines Haushaltes definiert?",
+                "answer": "Die Summe der Einkommen eines Haushaltes aus der Bereitstellung von Produktionsfaktoren."
+              },
+              {
+                "question": "Wie lautet die Budgetgleichung im 2-G\u00fcter-Modell?",
+                "answer": "C = p1 * x1 + p2 * x2."
+              },
+              {
+                "question": "Was zeigt die Budgetgerade an?",
+                "answer": "Die geometrischen Orte der G\u00fctermengenkombinationen, die bei gegebenem Einkommen und Preisen maximal m\u00f6glich sind."
+              },
+              {
+                "question": "Was repr\u00e4sentiert die Steigung der Budgetgeraden?",
+                "answer": "Das umgekehrte Preisverh\u00e4ltnis (p2/p1) der G\u00fcter zueinander (das Substitutionsverh\u00e4ltnis des Marktes)."
+              }
+            ]
+          }
+        ],
+        "total_hours": 1.5
+      },
+      {
+        "date": "2026-02-03",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_2",
+            "title": "Pr\u00e4ferenzen, Indifferenzkurven und MRS",
+            "description": "Modellierung des Konsumentenverhaltens durch Pr\u00e4ferenzaxiome (Vollst\u00e4ndigkeit, Transitivit\u00e4t) und die graphische Darstellung durch Indifferenzkurven (Kurven gleichen Nutzens). Einf\u00fchrung in die Grenzrate der Substitution (MRS).",
+            "estimated_hours": 2.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was kennzeichnet eine Indifferenzkurve?",
+                "answer": "Alle G\u00fcterkombinationen auf der Kurve bringen den gleichen Nutzen (sind indifferent f\u00fcr den Verbraucher)."
+              },
+              {
+                "question": "Nennen Sie die drei Axiome (Annahmen) \u00fcber Pr\u00e4ferenzen.",
+                "answer": "Vollst\u00e4ndigkeit, Reflexivit\u00e4t und Transitivit\u00e4t."
+              },
+              {
+                "question": "Wie unterscheiden sich perfekte Substitute von perfekten Komplementen auf Indifferenzkurven?",
+                "answer": "Perfekte Substitute haben eine konstante, meist negative Steigung (MRS konstant); perfekte Komplemente haben einen L-f\u00f6rmigen Verlauf."
+              },
+              {
+                "question": "Was ist die Grenzrate der Substitution (MRS)?",
+                "answer": "Das Austauschverh\u00e4ltnis zweier G\u00fcter bei bekanntem (konstantem) Nutzenniveau, gleich der Steigung der Tangente an eine Indifferenzkurve."
+              }
+            ]
+          }
+        ],
+        "total_hours": 2.5
+      },
+      {
+        "date": "2026-02-04",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_3",
+            "title": "Haushaltsgleichgewicht und Marktnachfrage",
+            "description": "Bestimmung der optimalen Kaufentscheidung (Nutzenmaximierung unter Budgetrestriktion) im Haushaltsgleichgewicht und die Aggregation der individuellen Nachfrage zur Gesamtnachfrage (Marktnachfrage).",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Wie wird das Haushaltsgleichgewicht (optimale Entscheidung) bestimmt?",
+                "answer": "Der Punkt, an dem die Budgetgerade die h\u00f6chstm\u00f6gliche Indifferenzkurve tangiert. Im Tangentialpunkt gilt: MRS = umgekehrtes Preisverh\u00e4ltnis."
+              },
+              {
+                "question": "Was besagt die Tangentialbedingung im Optimum?",
+                "answer": "Die Grenzrate der Substitution (MRS) muss gleich dem umgekehrten Preisverh\u00e4ltnis der G\u00fcter sein (-p2/p1)."
+              },
+              {
+                "question": "Wie unterscheidet sich die Marktnachfrage von der individuellen Nachfrage?",
+                "answer": "Die Marktnachfrage ist die Gesamtnachfrage, die sich aus der Aggregation (Addition) aller individuellen Nachfragen aller Haushalte nach diesem Gut ergibt."
+              },
+              {
+                "question": "Nennen Sie zwei Arten von Nachfrageelastizit\u00e4ten.",
+                "answer": "Einkommenselastizit\u00e4t und Preiselastizit\u00e4t (direkt oder indirekt)."
+              }
+            ]
+          }
+        ],
+        "total_hours": 2.0
+      },
+      {
+        "date": "2026-02-05",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_4",
+            "title": "Unternehmensziele und \u00d6konomisches Prinzip",
+            "description": "Einf\u00fchrung in die Theorie der Unternehmung, Fokus auf Gewinnmaximierung, die Rolle der Unternehmen als Anbieter und die Anwendung der \u00f6konomischen Prinzipien (Minimal- und Maximalprinzip).",
+            "estimated_hours": 1.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Hauptziel von Unternehmen in der Mikro\u00f6konomie?",
+                "answer": "Gewinnmaximierung (Maximierung der Differenz zwischen Erl\u00f6s und Kosten)."
+              },
+              {
+                "question": "Wie agieren Unternehmen laut der Theorie der Unternehmung?",
+                "answer": "Sie kaufen Produktionsfaktoren (Beschaffung), verbinden sie (Produktion) und treten als Anbieter (Absatz) auf den M\u00e4rkten auf."
+              },
+              {
+                "question": "Was besagt das Maximalprinzip?",
+                "answer": "Maximaler Output bei gegebenem Input."
+              },
+              {
+                "question": "Wie wird der Gewinn (G) grunds\u00e4tzlich berechnet?",
+                "answer": "Gewinn = Erl\u00f6s (Umsatz) \u2013 Kosten."
+              }
+            ]
+          }
+        ],
+        "total_hours": 1.0
+      },
+      {
+        "date": "2026-02-06",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_5",
+            "title": "Produktionsfunktionen und technische Bedingungen",
+            "description": "Analyse des Mengenger\u00fcsts der Produktion, das den Zusammenhang zwischen Input (Produktionsfaktoren) und Output (Ertrag) beschreibt, dargestellt durch verschiedene Produktionsfunktionen (ertragsgesetzlich, Cobb-Douglas, linear).",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was beschreiben Produktionsfunktionen?",
+                "answer": "Den technischen Zusammenhang zwischen der Menge der eingesetzten Produktionsfaktoren (Input) und der resultierenden Produktionsmenge (Output)."
+              },
+              {
+                "question": "Was besagt das Gesetz vom abnehmenden Bodenertrag (Ertragsgesetz)?",
+                "answer": "Der Einsatz von zus\u00e4tzlichem Input erzeugt zun\u00e4chst steigende, dann aber nur noch fallende Ertr\u00e4ge."
+              },
+              {
+                "question": "Was ist ein Merkmal der Cobb-Douglas-Produktionsfunktion?",
+                "answer": "Sie ist degressiv und besitzt kein Output-Maximum; der Output steigt immer weiter aufw\u00e4rts."
+              },
+              {
+                "question": "Wann spricht man von einer limitationalen Produktionsfunktion (Leontjef)?",
+                "answer": "Wenn Produktionsfaktoren in einem konstanten Verh\u00e4ltnis zueinander stehen und mindestens ein Faktor begrenzt ist."
+              }
+            ]
+          }
+        ],
+        "total_hours": 2.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_6",
+            "title": "Isoquanten",
+            "description": "Graphische Darstellung von Faktorkombinationen, die den gleichen Output erzeugen. Isoquanten sind das Gegenst\u00fcck zu Indifferenzkurven in der Produktionstheorie.",
+            "estimated_hours": 0.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was sind Isoquanten?",
+                "answer": "Kurven gleichen Outputs (gleiche Quantit\u00e4ten); sie zeigen Faktorkombinationen, die gleiche Ertr\u00e4ge erbringen."
+              },
+              {
+                "question": "Welchem Konzept in der Haushaltstheorie entsprechen die Isoquanten?",
+                "answer": "Den Indifferenzkurven (Kurven gleichen Nutzens)."
+              },
+              {
+                "question": "Was ist eine Isoquantenschaar?",
+                "answer": "Die Darstellung mehrerer Ertragsebenen oder Stufen konstanter Ausbringung in einem Diagramm."
+              }
+            ]
+          }
+        ],
+        "total_hours": 0.5
+      }
+    ],
+    "created_at": "2026-02-01"
+  }
+]

@@ -38,13 +38,13 @@ class DaySchedule(BaseModel):
 
 class StudyPlan(BaseModel):
     id: str
+    user_id: str = "Dummy" # Default for migration
     title: str = "My Learning Journey" # Default title
     exam_date: date
     parallel_courses: int
     daily_goal_hours: float = 2.0
     study_days: List[int] = [0,1,2,3,4,5,6] # Default all days (0=Mon, 6=Sun)
     schedule: List[DaySchedule]
-    # Metadata for the plan logic
     # Metadata for the plan logic
     created_at: date
 
@@ -55,3 +55,34 @@ class PodcastLine(BaseModel):
 class PodcastResponse(BaseModel):
     title: str
     script: List[PodcastLine]
+
+class User(BaseModel):
+    id: str  # UUID
+    email: str
+    full_name: Optional[str] = None
+    role: str = "user" # "user" or "admin"
+    disabled: Optional[bool] = None
+    tier: str = "standard" # "standard" or "pro"
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+    full_name: Optional[str] = None
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    disabled: Optional[bool] = None
+    role: Optional[str] = None
+    tier: Optional[str] = None
+
+class UserInDB(User):
+    hashed_password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: Optional[str] = None

@@ -91,3 +91,13 @@ class JSONStore:
                 json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
             return True
         return False
+        
+    def delete_plans_by_user(self, user_id: str):
+        plans = self.get_all_plans()
+        remaining_plans = [p for p in plans if p.user_id != user_id]
+        
+        if len(plans) != len(remaining_plans):
+            with open(PLANS_FILE, "w") as f:
+                json.dump([p.model_dump(mode='json') for p in remaining_plans], f, indent=2)
+            return True
+        return False

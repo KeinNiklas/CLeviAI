@@ -1,0 +1,236 @@
+[
+    {
+        "id": "5c721343-246b-41d4-8cef-ac559c44380a",
+        "email": "test@user.com",
+        "full_name": "Test",
+        "role": "admin",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$odSas1aKcU4pRYgRwpiTcg$bbLEOnsUc/wD+QAfpDkrPMtdd7vOvSmXJaaf34KwCnA"
+    },
+    {
+        "id": "4221f6d4-e23d-40e9-b4e7-617b3f46bca0",
+        "email": "userA_89bcf8a1-7d5d-40ce-b9b2-ad0cd98781c2@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$/r9XyrnX+h8j5Pz/vzcmhA$oz3JwakAaq96dYRhswMyxfHRXV0Emzyb32d12F8KiDo"
+    },
+    {
+        "id": "b704fd81-b822-4b9b-86a0-7aeb8b2516b3",
+        "email": "userB_0c2b2273-e397-40e5-bd5f-be09b925380c@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$lXJOqXVOKQUAIERoLQWg9A$ZT2oGtk/qPUh51y2YmesY9HKZfSEGq6uPEoMrvNnjPc"
+    },
+    {
+        "id": "a9a1c62c-c918-4777-b3fd-b0965d103655",
+        "email": "userA_26e5cffe-a435-4060-aa5f-8334f86d92a9@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$iLH2HiPkXGttTcn5v5cSAg$euxtPp046GE5LXNZhUVsuMR5dFLB9SpXE61z8u5/F5Q"
+    },
+    {
+        "id": "d79b7669-bbd1-4bf6-a558-d3f7a96b89bf",
+        "email": "userB_e601ac42-89c6-4c9b-9b17-f0f1f4831d97@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$GWOs1RoDgHDOOcfYm7MWog$LAI7HI74Wsxi1IA7NsXFv1nYorq7pBRCjdIRUNsKwD4"
+    },
+    {
+        "id": "02cb53f1-2f3e-4dd4-a28f-dc1075c6b6a6",
+        "email": "rbac_test_eedb7a35-1bf2-4f88-86b0-95e9e43ec87e@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$dm6N0RpjLIVw7n1v7f2/1w$qOD944xOoD4a6UfbnM6hwhcAYNtzO2FLVrh7qHWuaNY"
+    },
+    {
+        "id": "1799e093-c72a-49fe-8c13-32c597ef4d80",
+        "email": "victim_b157cbb3-0dff-4abf-a136-3a22956cbb9e@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$c24tpXSO8R5jDAFAKIUwpg$BGTPfriI6bAzpvmwev1xO4s2Ug4q7PDKp+2E4knBG8I"
+    },
+    {
+        "id": "cfc9899d-95c1-44ac-aa86-df2407b14da8",
+        "email": "testpro@user.com",
+        "full_name": "Test Pro",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$tDbmXCsl5JxzTsn5X6v1Pg$RgrUNrN25Kf7VAfBoGscuhUazPh5kwTmSVYRsX/SnbA"
+    },
+    {
+        "id": "3295c537-cf69-4265-bc61-6b93198dd444",
+        "email": "limit_test_cf4f07d8-0c24-440e-9914-6ec3fce6684e@example.com",
+        "full_name": "Limit Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$ZAzBGKP0PmfsnXMuBcD4Hw$i3jIqQpewYQOZd1RxFoQCJLJC7UL4uI7UW4iOzo/zNo"
+    },
+    {
+        "id": "9c4f7fe4-a62f-48ab-9d51-36db12506f40",
+        "email": "limit_test_3257d8b5-ac28-4599-9237-fc5780a76a4b@example.com",
+        "full_name": "Limit Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$tHYuJWQspbR2bu1dS8l5zw$ZPzrMcQB9tf2yZzGNpllXYPfaDIs22sPJ2J37kSDPhU"
+    },
+    {
+        "id": "0c466f21-524c-4529-911d-e892a5e27aab",
+        "email": "victim_49456794-8871-496e-8312-9a071051e625@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$9N67937PGcP4n1Oq9b43Jg$T7x32g5/4b89UFYd9hj2pU7E7NuaFBC9sUvWhZ3tSPo"
+    },
+    {
+        "id": "9a00319c-26da-49c5-ad02-5a28baf83525",
+        "email": "userA_5b28e419-af2e-482b-8dee-d21597d87b76@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$4fwfw7h3rtX6v7d2DsHY+w$3fjL6uKz0Eytba9rJiiBQunMYb9S7RJAGbsh/FisLlA"
+    },
+    {
+        "id": "43b875ed-bf9c-4457-b134-171ffbbac0ed",
+        "email": "userB_0e0a1466-c81d-41f3-80ad-c631a772a1b4@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$Uwph7H3vvTemlPJeK+W8tw$sm2PAkKN4a5rcv25ZbchDpxZykwu+q0uJYqhAmEB/zw"
+    },
+    {
+        "id": "6a3275c8-6276-4355-ad85-329061dc165c",
+        "email": "rbac_test_99d963cd-bdf6-4272-9fd9-351c6a6aa586@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$/x8jBMBYy3kPAcAYQ+j9fw$We2NRaa0TBaSRV0FCgJWAiD7woK2EvxUnG7DxsPNW0A"
+    },
+    {
+        "id": "33306d34-30e2-4d05-8e7b-8c64b630e54c",
+        "email": "victim_3dcb0243-b189-453b-ac74-9a1096dba7f7@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$914LQcj5n/MeYyyl1Pr/Hw$OenI3aicOqX3pHyrf5AugcOxiYOQMJxS5Y4v1Chgopc"
+    },
+    {
+        "id": "74107115-e4ee-4823-aabe-1d15c4dafd98",
+        "email": "userA_8bbfef69-bf58-498f-8104-8159852641cb@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$V0rpfa/1fg+hNGbMubfWOg$YCr3/o5y67QN6ExSFFd46dDIlYBhDyx1NeYqa3bZmYc"
+    },
+    {
+        "id": "067a2a83-2a48-44b2-bdc4-45579a8f3726",
+        "email": "userB_db06645e-a322-49ec-84ea-3e8b5d59a508@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$3RujVGotxfi/tzZm7D0HgA$D60g545BX++BQj1y4HPZsvt9dT0K/vuzcNT204p+2RY"
+    },
+    {
+        "id": "9edf8b1a-b4b9-45d3-bc58-2d3515e60cd3",
+        "email": "rbac_test_f257ff2a-3189-4a22-b634-04cb91bc9912@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$t/bee8/ZW6tVyjmn9L6Xkg$t2FY1wo2dGTCGBGZV4GkyDY3GlRWch4z2hkPbOLABBo"
+    },
+    {
+        "id": "5bab40a4-6504-478a-a7b9-dcffd0fd39b6",
+        "email": "victim_fd8d88ba-c74a-442c-8b8c-e48a65bfbb6e@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$izFG6N37f681xtj739tb6w$VxoTNKOt/p3KaKhQo56ffcnDvSCym95jau7YjIvOAbQ"
+    },
+    {
+        "id": "5bdebda2-2c78-4367-b899-d9b2da28c9a9",
+        "email": "userA_d1adbb78-8559-4351-8a0b-d0be9e3e6653@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$ZoxR6p1Tyvm/954z5lyL0Q$CfKOMgIv+usMEqiV95ki2DFv+8TFp8iI3YL1nIsKyTg"
+    },
+    {
+        "id": "acf495c7-ca1d-4fd4-8e31-8b60e9a9db50",
+        "email": "userB_6f38d72a-b28a-447b-837f-92d96dc63c88@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$6b3XuvceAwCgtHZuDUHI2Q$WVpX0GsoDz8mI/+o940hMDKue4Gp0ziE9s6i2yX+wy8"
+    },
+    {
+        "id": "caf8f7cc-a7d8-4ef3-951d-2f1c2e44520c",
+        "email": "rbac_test_54e5321d-dcd2-4154-bca5-41bb88759b60@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$gjCGMCbknHPu3dvbO6e0Vg$OigrTx50sBi1tHNGYaCc/y9YecoeicbXGKpMejLd9/8"
+    },
+    {
+        "id": "561715e7-7400-4ca8-be88-fcfdb19dbff5",
+        "email": "victim_8243fdc7-d8e6-42aa-8517-81485f1458e6@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$WgshpLQ2BqDUmtPa2/vfew$gCFS9dO9p34iozZxfOEnDd6rATEO2odstElEghRVIJQ"
+    },
+    {
+        "id": "7d6c121a-81ca-4949-9510-c47baf67cbd7",
+        "email": "userA_62691b8b-bff9-4277-9b8e-b932f67567c5@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$irG2ds55r5WSsraWUmpNqQ$XbnfIJ+EdlWCD6sbXZ69hsA1sOPgOBM2G4Ma0vc7TMI"
+    },
+    {
+        "id": "ce638759-d46c-44c9-be67-601d08ebba82",
+        "email": "userB_11064969-2b7d-40cb-a9e7-ae06357be96e@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$1Pofw1hr7f3/X0upNcbYmw$0iejKTEmwEsduDiiNEXYtn3e7jpRQbRmi9b2xTSC7Fc"
+    },
+    {
+        "id": "b7673ea6-96c6-45ae-9975-0ced8f390053",
+        "email": "rbac_test_9356225c-0a4a-4db5-9a90-ac189728cfd8@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$1XpP6T1n7D0HoFQq5TzHuA$OVoehzj5bcRuA8bbBxKPLPALjQYkYpSMsuM4DQmlDQ8"
+    }
+]

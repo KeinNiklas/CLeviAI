@@ -2,7 +2,7 @@
 import json
 import os
 from typing import List, Optional
-from .models import StudyPlan
+from . .models import StudyPlan
 
 DATA_DIR = "data"
 PLANS_FILE = os.path.join(DATA_DIR, "plans.json")

@@ -29,7 +29,10 @@ class AnalyzerService:
                 # Check for Quota Exceeded (429) or Service Unavailable
                 if ("429" in error_str or "Quota" in error_str) and self.groq_service.client:
                     print(f"⚠️ GEMINI QUOTA EXCEEDED. FALLING BACK TO GROQ API (Llama 3)...")
-                    return self.groq_service.analyze_text(text, material_id, language)
+                    try:
+                        return self.groq_service.analyze_text(text, material_id, language)
+                    except Exception as groq_e:
+                        raise Exception(f"Gemini Quota Exceeded AND Groq Fallback Failed. Gemini Error: {e}. Groq Error: {groq_e}")
                 
                 # If not quota error OR groq not configured, re-raise
                 raise e

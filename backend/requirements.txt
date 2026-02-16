@@ -9,3 +9,5 @@ chromadb
 python-docx
 google-generativeai
 groq
+pytest
+httpx

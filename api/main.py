@@ -22,7 +22,7 @@ router = APIRouter()
 # Setup CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "https://*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -244,4 +244,4 @@ def generate_audio(req: AudioRequest):
 
 # Mount router for Vercel and local dev
 app.include_router(router)
-app.include_router(router, prefix="/api")
+app.include_router(router)

@@ -3,7 +3,7 @@ from typing import List
 from models import Topic, DaySchedule, StudyPlan
 import math
 
-from services.store import JSONStore
+from .services.store import JSONStore
 
 class SchedulerService:
     def __init__(self):

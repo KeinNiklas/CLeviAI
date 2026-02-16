@@ -1,9 +1,10 @@
 import os
 import json
 from typing import List
-from models import PodcastResponse, PodcastLine
-from services.groq_service import GroqService
-from services.gemini_service import GeminiService
+
+from .models import PodcastResponse, PodcastLine
+from .services.groq_service import GroqService
+from .services.gemini_service import GeminiService
 
 class PodcastService:
     def __init__(self, groq_service: GroqService, gemini_service: GeminiService = None):

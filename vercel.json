@@ -11,8 +11,8 @@
         }
     ],
     "functions": {
-        "backend/main.py": {
-            "runtime": "vercel-python@3.9"
+        "backend/*.py": {
+            "runtime": "@vercel/python"
         }
     }
 }

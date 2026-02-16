@@ -10,8 +10,6 @@ from services.scheduler import SchedulerService
 from dotenv import load_dotenv
 import os
 
-# Test Kommentar um Vercel Update zu erzwingen
-
 # Load environment variables
 if os.path.exists("key.env"):
     load_dotenv("key.env")

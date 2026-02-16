@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
     const fetchPlans = async () => {
         try {
-            const response = await fetch("http://localhost:8000/plans");
+            const response = await fetch("/api/plans");
             if (response.ok) {
                 const data = await response.json();
                 setPlans(data);
@@ -66,7 +66,7 @@ export default function DashboardPage() {
         if (!editTitle.trim()) return;
 
         try {
-            const response = await fetch(`http://localhost:8000/plans/${planId}`, {
+            const response = await fetch(`/api/plans/${planId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ title: editTitle }),
@@ -89,7 +89,7 @@ export default function DashboardPage() {
         if (!confirm("Are you sure you want to delete this journey?")) return;
 
         try {
-            const response = await fetch(`http://localhost:8000/plans/${planId}`, {
+            const response = await fetch(`/api/plans/${planId}`, {
                 method: "DELETE",
             });
             if (response.ok) {

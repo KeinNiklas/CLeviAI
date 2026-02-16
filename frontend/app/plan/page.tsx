@@ -36,7 +36,7 @@ export default function CreatePlanPage() {
     const handleGeneratePlan = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:8000/create-plan", {
+            const response = await fetch("/api/create-plan", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

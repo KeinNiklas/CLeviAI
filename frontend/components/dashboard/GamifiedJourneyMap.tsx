@@ -102,7 +102,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         setLocalPlan({ ...localPlan, schedule: updatedSchedule });
 
         try {
-            await fetch(`http://localhost:8000/plans/${plan.id}/topics/${topicId}`, {
+            await fetch(`/api/plans/${plan.id}/topics/${topicId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: newStatus }),

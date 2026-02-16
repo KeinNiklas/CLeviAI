@@ -78,7 +78,7 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         formData.append("language", language);
 
         try {
-            const response = await fetch("http://localhost:8000/analyze-document", {
+            const response = await fetch("/api/analyze-document", {
                 method: "POST",
                 body: formData,
             });

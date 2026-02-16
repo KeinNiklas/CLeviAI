@@ -26,7 +26,7 @@ export default function SettingsPage() {
     useEffect(() => {
         const fetchConfig = async () => {
             try {
-                const res = await fetch("http://localhost:8000/settings/config");
+                const res = await fetch("/api/settings/config");
                 if (res.ok) {
                     const data = await res.json();
                     const config = {
@@ -56,7 +56,7 @@ export default function SettingsPage() {
     const handleSaveKeys = async () => {
         setSaving(true);
         try {
-            const response = await fetch("http://localhost:8000/settings/keys", {
+            const response = await fetch("/api/settings/keys", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -208,8 +208,8 @@ export default function SettingsPage() {
                                     <button
                                         onClick={() => setPreferredModel("gemini")}
                                         className={`px-4 py-3 rounded-lg border text-left transition-all ${preferredModel === "gemini"
-                                                ? "bg-blue-500/10 border-blue-500 ring-1 ring-blue-500"
-                                                : "bg-background border-white/10 hover:border-white/20"
+                                            ? "bg-blue-500/10 border-blue-500 ring-1 ring-blue-500"
+                                            : "bg-background border-white/10 hover:border-white/20"
                                             }`}
                                     >
                                         <div className="font-semibold text-sm mb-1">{t.settings.gemini}</div>
@@ -218,8 +218,8 @@ export default function SettingsPage() {
                                     <button
                                         onClick={() => setPreferredModel("groq")}
                                         className={`px-4 py-3 rounded-lg border text-left transition-all ${preferredModel === "groq"
-                                                ? "bg-orange-500/10 border-orange-500 ring-1 ring-orange-500"
-                                                : "bg-background border-white/10 hover:border-white/20"
+                                            ? "bg-orange-500/10 border-orange-500 ring-1 ring-orange-500"
+                                            : "bg-background border-white/10 hover:border-white/20"
                                             }`}
                                     >
                                         <div className="font-semibold text-sm mb-1">{t.settings.groq}</div>

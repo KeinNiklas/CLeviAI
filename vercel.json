@@ -1,18 +1,17 @@
 {
-    "version": 2,
+    "functions": {
+        "backend/*.py": {
+            "runtime": "python3.9"
+        }
+    },
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "backend/main.py"
+            "destination": "/backend/main.py"
         },
         {
             "source": "/(.*)",
             "destination": "/frontend/$1"
         }
-    ],
-    "functions": {
-        "backend/*.py": {
-            "runtime": "@vercel/python"
-        }
-    }
+    ]
 }

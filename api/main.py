@@ -7,9 +7,9 @@ try:
     from models import Topic, StudyPlan, PodcastResponse
 except ImportError:
     from .models import Topic, StudyPlan, PodcastResponse
-from services.ingestion import IngestionService
-from services.analyzer import AnalyzerService
-from services.scheduler import SchedulerService
+from .services.ingestion import IngestionService
+from .services.analyzer import AnalyzerService
+from .services.scheduler import SchedulerService
 from dotenv import load_dotenv
 import os
 

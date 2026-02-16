@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
-from models import Topic, StudyPlan, PodcastResponse
+try:
+    from models import Topic, StudyPlan, PodcastResponse
+except ImportError:
+    from .models import Topic, StudyPlan, PodcastResponse
 from services.ingestion import IngestionService
 from services.analyzer import AnalyzerService
 from services.scheduler import SchedulerService

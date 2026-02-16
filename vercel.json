@@ -1,9 +1,4 @@
 {
-    "functions": {
-        "backend/*.py": {
-            "runtime": "python3.9"
-        }
-    },
     "rewrites": [
         {
             "source": "/api/(.*)",

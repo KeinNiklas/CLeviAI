@@ -5,36 +5,33 @@ import { Card } from "@/components/ui/Card";
 import { useLanguage } from "@/lib/LanguageContext";
 import { ArrowRight, BookOpen, Brain, Sparkles, Upload } from "lucide-react";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function Home() {
   const { t } = useLanguage();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Theme Toggle */}
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
+      {/* Background Gradients - Warm/Fire Theme */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
 
       <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
         {/* Badge */}
         <div className="inline-flex items-center space-x-2 bg-secondary/50 border border-border rounded-full px-3 py-1 mb-4 backdrop-blur-md animate-fade-in-up">
-          <Sparkles className="w-4 h-4 text-amber-400" />
+          <Sparkles className="w-4 h-4 text-amber-500" />
           <span className="text-sm font-medium text-muted-foreground">
             {t.hero.badge}
           </span>
         </div>
 
         {/* Hero Title */}
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl animate-fade-in-up delay-100">
-          {t.hero.title_start} <br />
-          <span className="gradient-text">{t.hero.title_gradient}</span>
+        <h1 className="text-7xl md:text-9xl font-extrabold tracking-tighter animate-fade-in-up delay-75 mb-6">
+          <span className="bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent">CLeviAI</span>
         </h1>
+        <h2 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl animate-fade-in-up delay-100">
+          {t.hero.title_start} <br />
+          <span className="text-foreground">{t.hero.title_gradient}</span>
+        </h2>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-fade-in-up delay-200">
@@ -49,9 +46,9 @@ export default function Home() {
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-          <Link href="/settings">
+          <Link href="/dashboard">
             <Button variant="outline" size="lg">
-              Settings
+              {t.navbar.profile_dashboard}
             </Button>
           </Link>
         </div>
@@ -59,17 +56,17 @@ export default function Home() {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full max-w-5xl animate-fade-in-up delay-500">
           <FeatureCard
-            icon={<Upload className="w-6 h-6 text-blue-400" />}
+            icon={<Upload className="w-6 h-6 text-orange-500" />}
             title={t.features.upload_title}
             description={t.features.upload_desc}
           />
           <FeatureCard
-            icon={<Brain className="w-6 h-6 text-purple-400" />}
+            icon={<Brain className="w-6 h-6 text-amber-500" />}
             title={t.features.ai_title}
             description={t.features.ai_desc}
           />
           <FeatureCard
-            icon={<BookOpen className="w-6 h-6 text-pink-400" />}
+            icon={<BookOpen className="w-6 h-6 text-yellow-500" />}
             title={t.features.course_title}
             description={t.features.course_desc}
           />
@@ -89,9 +86,9 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <Card className="bg-transparent hover:bg-white/5 transition-colors text-left group border-white/10">
+    <Card className="bg-transparent hover:bg-secondary/20 transition-colors text-left group border-border/50">
       <div className="p-6 space-y-4">
-        <div className="p-3 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10">
+        <div className="p-3 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 ring-1 ring-border/50 bg-secondary/30">
           {icon}
         </div>
         <h3 className="text-xl font-semibold">{title}</h3>

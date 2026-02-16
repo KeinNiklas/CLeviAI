@@ -3,6 +3,8 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import Image from "next/image";
+import { Navbar } from "@/components/Navbar";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -30,10 +32,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
+            <Navbar />
             {children}
           </LanguageProvider>
         </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }

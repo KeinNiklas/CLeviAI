@@ -1,46 +1,36 @@
 import os
 import json
-import google.generativeai as genai
+from groq import Groq
 from typing import List
 from models import Topic, Flashcard, ChallengeType
 
-class GeminiService:
+class GroqService:
     def __init__(self):
-        self.api_key = os.getenv("GOOGLE_API_KEY")
+        self.api_key = os.getenv("GROQ_API_KEY")
         if self.api_key:
-            genai.configure(api_key=self.api_key)
-            self.model = genai.GenerativeModel('gemini-2.0-flash') 
+            self.client = Groq(api_key=self.api_key)
+            # Switch to 8b-instant to avoid Rate Limits (TPD) on 70b
+            self.model = "llama-3.1-8b-instant" 
         else:
-            self.model = None
-
-    def check_availability(self) -> bool:
-        """
-        Lightweight check to see if API is reachable and quota is available.
-        """
-        if not self.model:
-            raise Exception("Google API Key not configured")
-        
-        try:
-            # Simple prompt to test connectivity
-            self.model.generate_content("Ping")
-            return True
-        except Exception as e:
-            # Re-raise so controller catches it
-            raise e
+            self.client = None
 
     def analyze_text(self, text: str, material_id: str, language: str = "en") -> List[Topic]:
         """
-        Analyzes the given text using Google Gemini to extract study topics.
+        Analyzes the given text using Groq (Llama 3) to extract study topics.
         """
-        if not self.model:
-            print("Warning: No Google API Key found. Returning empty list.")
-            return []
+        if not self.client:
+            raise Exception("Groq API Key not configured")
 
         lang_instruction = "English" if language == "en" else "German"
 
+        # Similar prompt to Gemini but optimized for Llama execution
         prompt = f"""
         You are a helpful study assistant.
         Analyze the following study material text and break it down into study topics.
+        
+        Text:
+        {text[:25000]}... (truncated if too long)
+        
         For each topic, provide:
         1. A title
         2. A brief description
@@ -50,9 +40,6 @@ class GeminiService:
             - "MATCH": A set of 4 term-definition pairs to match.
         
         IMPORTANT: Provide the response in {lang_instruction} language.
-
-        Text:
-        {text[:25000]}... (truncated if too long)
 
         Return ONLY valid JSON in the following format:
         {{
@@ -81,13 +68,17 @@ class GeminiService:
         """
 
         try:
-            # Generate content requests JSON format implicitly via prompt instructions
-            response = self.model.generate_content(
-                prompt,
-                generation_config={"response_mime_type": "application/json"}
+            completion = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a helpful AI that outputs only JSON."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.1,
+                response_format={"type": "json_object"}
             )
             
-            content = response.text
+            content = completion.choices[0].message.content
             data = json.loads(content)
             
             topics_data = data.get("topics", [])
@@ -109,14 +100,14 @@ class GeminiService:
                         pair=g.get("pair", None)
                     ))
                 
-                # Backward compatibility for flashcards if needed, or just map games to flashcards for legacy views
+                # Backward compatibility
                 flashcards = []
                 for g in games:
                     if g.type == "QUIZ":
                          flashcards.append(Flashcard(question=g.question, answer=g.correct_answer))
 
                 topics.append(Topic(
-                    id=f"{material_id}_{i}",
+                    id=f"{material_id}_groq_{i}",
                     title=item.get("title", "Untitled Topic"),
                     description=item.get("description", ""),
                     estimated_hours=float(item.get("hours", 1.0)),
@@ -127,10 +118,5 @@ class GeminiService:
             return topics
 
         except Exception as e:
-            with open("gemini_debug.log", "a") as f:
-                f.write(f"Error calling Gemini: {e}\n")
-            print(f"Error calling Gemini: {e}")
-            # Fallback for demonstration/verification if API fails
-            # Fallback removed - user requested explicit error
-            # Re-raise the exception to be handled by the caller
+            print(f"Error calling Groq: {e}")
             raise e

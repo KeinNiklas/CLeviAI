@@ -9,12 +9,27 @@ class StudyMaterial(BaseModel):
     summary: Optional[str] = None
     upload_date: date
 
+
+class Flashcard(BaseModel):
+    question: str
+    answer: str
+
+class ChallengeType(BaseModel):
+    type: str  # "QUIZ", "MATCH", "TRUE_FALSE"
+    question: str
+    correct_answer: str
+    distractors: List[str] = []  # Wrong answers for Quiz
+    pair: Optional[str] = None   # For matching, the corresponding pair
+
 class Topic(BaseModel):
     id: str
     title: str
     description: str
     estimated_hours: float
     material_id: str  # Link back to source material
+    flashcards: List[Flashcard] = []
+    games: List[ChallengeType] = [] # New field for gamified content
+    status: str = "OPEN"  # OPEN, MASTERED, STRUGGLING
 
 class DaySchedule(BaseModel):
     date: date
@@ -23,8 +38,20 @@ class DaySchedule(BaseModel):
 
 class StudyPlan(BaseModel):
     id: str
+    title: str = "My Learning Journey" # Default title
     exam_date: date
     parallel_courses: int
+    daily_goal_hours: float = 2.0
+    study_days: List[int] = [0,1,2,3,4,5,6] # Default all days (0=Mon, 6=Sun)
     schedule: List[DaySchedule]
     # Metadata for the plan logic
+    # Metadata for the plan logic
     created_at: date
+
+class PodcastLine(BaseModel):
+    speaker: str  # "Host" (Expert) or "Student" (Curious)
+    text: str
+
+class PodcastResponse(BaseModel):
+    title: str
+    script: List[PodcastLine]

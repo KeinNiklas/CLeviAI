@@ -1,84 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  /* Light Theme Palette (Refined) */
-  --background: #f8fafc;
-  /* Slate 50 - Off-white background for depth */
+  /* Brand Palette - Light Mode */
+  --background: #ffffff;
+  /* Clean White */
   --foreground: #0f172a;
-  /* Slate 900 - Darker for better text contrast */
+  /* Slate 900 - Deep, almost black text */
 
   --card: #ffffff;
-  /* White cards to pop against background */
   --card-foreground: #0f172a;
 
   --popover: #ffffff;
   --popover-foreground: #0f172a;
 
-  --primary: #4f46e5;
-  /* Indigo 600 */
+  /* Primary Orange - Slightly darker for better visibility on light bg if needed, 
+     but keeping it vibrant for the brand identity. */
+  --primary: #ea580c;
+  /* Orange 600 - Better contrast on white */
   --primary-foreground: #ffffff;
 
-  --secondary: #e2e8f0;
-  /* Slate 200 - Darker secondary for visibility */
+  --secondary: #f1f5f9;
+  /* Slate 100 */
   --secondary-foreground: #0f172a;
 
   --muted: #f1f5f9;
-  /* Slate 100 */
-  --muted-foreground: #475569;
-  /* Slate 600 - Darker for readability */
+  --muted-foreground: #64748b;
+  /* Slate 500 */
 
-  --accent: #e0e7ff;
-  /* Indigo 100 - More colorful accent */
-  --accent-foreground: #312e81;
-  /* Indigo 900 */
+  --accent: #fff7ed;
+  /* Orange 50 - Very light orange benefit */
+  --accent-foreground: #c2410c;
+  /* Orange 700 */
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #cbd5e1;
-  /* Slate 300 - Clearer borders */
-  --input: #cbd5e1;
-  --ring: #4f46e5;
+  --border: #e2e8f0;
+  /* Slate 200 */
+  --input: #e2e8f0;
+  --ring: #ea580c;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  /* Elegant Dark Theme Palette */
-  --background: #020617;
-  /* Slate 950 */
+  /* Brand Palette - Dark Mode (Premium "Night" Theme) */
+  --background: #020408;
+  /* Deep Black/Blueish */
   --foreground: #f8fafc;
-  /* Slate 50 */
 
-  --card: #0f172a;
-  /* Slate 900 */
+  --card: #0f1218;
+  /* Dark Surface */
   --card-foreground: #f8fafc;
 
-  --popover: #0f172a;
+  --popover: #0f1218;
   --popover-foreground: #f8fafc;
 
-  --primary: #6366f1;
-  /* Indigo 500 */
-  --primary-foreground: #ffffff;
+  --primary: #f97316;
+  /* Vibrant Orange (Orange 500) - Pops on dark */
+  --primary-foreground: #000000;
+  /* Black text on bright orange can be punchy */
 
-  --secondary: #1e293b;
-  /* Slate 800 */
+  --secondary: #1f2937;
+  /* Gray 800 */
   --secondary-foreground: #f8fafc;
 
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  /* Slate 400 */
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
 
-  --accent: #8b5cf6;
-  /* Violet 500 */
-  --accent-foreground: #ffffff;
+  --accent: #2e1065;
+  /* Deep Purple/Dark */
+  --accent-foreground: #fafafa;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #6366f1;
+  --border: #334155;
+  /* Slate 700 */
+  --input: #1f2937;
+  --ring: #f97316;
 }
 
 @theme inline {
@@ -127,4 +127,22 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }

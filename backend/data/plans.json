@@ -1,0 +1,647 @@
+[
+  {
+    "id": "plan_2026-02-01_6",
+    "title": "VWL",
+    "exam_date": "2026-07-09",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      5,
+      6
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_0",
+            "title": "Einf\u00fchrung in die VWL",
+            "description": "Grundlagen der VWL und \u00d6konomie",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die VWL?",
+                "answer": "VWL ist die Wissenschaft von der Volkswirtschaft"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die VWL?",
+                "correct_answer": "VWL ist die Wissenschaft von der Volkswirtschaft",
+                "distractors": [
+                  "VWL ist die Wissenschaft von der Betriebswirtschaft",
+                  "VWL ist die Wissenschaft von der Rechtswissenschaft",
+                  "VWL ist die Wissenschaft von der Soziologie"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Mikro\u00f6konomie:Die Lehre von den einzelnen Wirtschaftseinheiten;Makro\u00f6konomie:Die Lehre von der Gesamtwirtschaft;Geldwirtschaft:Die Lehre vom Geld und den Finanzm\u00e4rkten;Wirtschaftspolitik:Die Lehre von der staatlichen Einflussnahme auf die Wirtschaft"
+              }
+            ],
+            "status": "MASTERED"
+          }
+        ],
+        "total_hours": 2.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_1",
+            "title": "Grundprobleme der Allokation",
+            "description": "Die Grundprobleme der Allokation in der VWL",
+            "estimated_hours": 1.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das \u00f6konomische Prinzip?",
+                "answer": "Das \u00f6konomische Prinzip ist die Aussage, dass bei begrenzten Ressourcen und unbegrenzten Bed\u00fcrfnissen eine optimale Allokation der Ressourcen angestrebt wird"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das \u00f6konomische Prinzip?",
+                "correct_answer": "Das \u00f6konomische Prinzip ist die Aussage, dass bei begrenzten Ressourcen und unbegrenzten Bed\u00fcrfnissen eine optimale Allokation der Ressourcen angestrebt wird",
+                "distractors": [
+                  "Das \u00f6konomische Prinzip ist die Aussage, dass bei unbegrenzten Ressourcen und begrenzten Bed\u00fcrfnissen eine optimale Allokation der Ressourcen angestrebt wird",
+                  "Das \u00f6konomische Prinzip ist die Aussage, dass bei begrenzten Ressourcen und begrenzten Bed\u00fcrfnissen eine optimale Allokation der Ressourcen angestrebt wird",
+                  "Das \u00f6konomische Prinzip ist die Aussage, dass bei unbegrenzten Ressourcen und unbegrenzten Bed\u00fcrfnissen eine optimale Allokation der Ressourcen angestrebt wird"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Allokation:Die Verteilung von Ressourcen auf verschiedene Verwendungszwecke;Distribution:Die Verteilung von G\u00fctern und Dienstleistungen auf die Verbraucher;Produktion:Die Herstellung von G\u00fctern und Dienstleistungen;Konsum:Die Nutzung von G\u00fctern und Dienstleistungen"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 1.5
+      },
+      {
+        "date": "2026-02-08",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_2",
+            "title": "Mikro\u00f6konomie",
+            "description": "Die Mikro\u00f6konomie als Teilgebiet der VWL",
+            "estimated_hours": 2.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Mikro\u00f6konomie?",
+                "answer": "Die Mikro\u00f6konomie ist die Lehre von den einzelnen Wirtschaftseinheiten"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Mikro\u00f6konomie?",
+                "correct_answer": "Die Mikro\u00f6konomie ist die Lehre von den einzelnen Wirtschaftseinheiten",
+                "distractors": [
+                  "Die Mikro\u00f6konomie ist die Lehre von der Gesamtwirtschaft",
+                  "Die Mikro\u00f6konomie ist die Lehre vom Geld und den Finanzm\u00e4rkten",
+                  "Die Mikro\u00f6konomie ist die Lehre von der staatlichen Einflussnahme auf die Wirtschaft"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Haushalt:Die wirtschaftliche Einheit, die G\u00fcter und Dienstleistungen nachfragt;Unternehmen:Die wirtschaftliche Einheit, die G\u00fcter und Dienstleistungen anbietet;Markt:Der Ort, an dem Angebot und Nachfrage aufeinandertreffen;Preis:Der Geldbetrag, der f\u00fcr ein Gut oder eine Dienstleistung gezahlt wird"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.5
+      },
+      {
+        "date": "2026-02-14",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_3",
+            "title": "Makro\u00f6konomie",
+            "description": "Die Makro\u00f6konomie als Teilgebiet der VWL",
+            "estimated_hours": 2.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Makro\u00f6konomie?",
+                "answer": "Die Makro\u00f6konomie ist die Lehre von der Gesamtwirtschaft"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Makro\u00f6konomie?",
+                "correct_answer": "Die Makro\u00f6konomie ist die Lehre von der Gesamtwirtschaft",
+                "distractors": [
+                  "Die Makro\u00f6konomie ist die Lehre von den einzelnen Wirtschaftseinheiten",
+                  "Die Makro\u00f6konomie ist die Lehre vom Geld und den Finanzm\u00e4rkten",
+                  "Die Makro\u00f6konomie ist die Lehre von der staatlichen Einflussnahme auf die Wirtschaft"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Inflation:Die allgemeine Erh\u00f6hung des Preisniveaus;Deflation:Die allgemeine Senkung des Preisniveaus;Wachstum:Die Erh\u00f6hung der Produktion und des Bruttoinlandsprodukts;Konjunktur:Die Schwankungen der Wirtschaftst\u00e4tigkeit"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.5
+      },
+      {
+        "date": "2026-02-15",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_4",
+            "title": "Geldwirtschaft",
+            "description": "Die Geldwirtschaft als Teilgebiet der VWL",
+            "estimated_hours": 2.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Geldwirtschaft?",
+                "answer": "Die Geldwirtschaft ist die Lehre vom Geld und den Finanzm\u00e4rkten"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Geldwirtschaft?",
+                "correct_answer": "Die Geldwirtschaft ist die Lehre vom Geld und den Finanzm\u00e4rkten",
+                "distractors": [
+                  "Die Geldwirtschaft ist die Lehre von den einzelnen Wirtschaftseinheiten",
+                  "Die Geldwirtschaft ist die Lehre von der Gesamtwirtschaft",
+                  "Die Geldwirtschaft ist die Lehre von der staatlichen Einflussnahme auf die Wirtschaft"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Geld:Das allgemein anerkannte Tauschmittel;Kredit:Die \u00dcberlassung von Geld oder G\u00fctern gegen Zinsen;Zinsen:Die Entgelte f\u00fcr die \u00dcberlassung von Geld oder G\u00fctern;Geldpolitik:Die staatliche Einflussnahme auf die Geld- und Finanzm\u00e4rkte"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.0
+      },
+      {
+        "date": "2026-02-21",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf_groq_5",
+            "title": "Wirtschaftspolitik",
+            "description": "Die Wirtschaftspolitik als Teilgebiet der VWL",
+            "estimated_hours": 2.5,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 1 Grundlagen UGU (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Wirtschaftspolitik?",
+                "answer": "Die Wirtschaftspolitik ist die Lehre von der staatlichen Einflussnahme auf die Wirtschaft"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Wirtschaftspolitik?",
+                "correct_answer": "Die Wirtschaftspolitik ist die Lehre von der staatlichen Einflussnahme auf die Wirtschaft",
+                "distractors": [
+                  "Die Wirtschaftspolitik ist die Lehre von den einzelnen Wirtschaftseinheiten",
+                  "Die Wirtschaftspolitik ist die Lehre von der Gesamtwirtschaft",
+                  "Die Wirtschaftspolitik ist die Lehre vom Geld und den Finanzm\u00e4rkten"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Fiskalpolitik:Die staatliche Einflussnahme auf die Wirtschaft durch die Besteuerung und die Ausgaben;Geldpolitik:Die staatliche Einflussnahme auf die Geld- und Finanzm\u00e4rkte;Strukturpolitik:Die staatliche Einflussnahme auf die Wirtschaft durch die F\u00f6rderung von Branchen und Regionen;Au\u00dfenwirtschaftspolitik:Die staatliche Einflussnahme auf die Wirtschaft durch die Regulierung des Au\u00dfenhandels"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 2.5
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_5",
+    "title": "Test",
+    "exam_date": "2026-03-11",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      5,
+      6
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-01",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_0",
+            "title": "Haushalts\u00f6konomie",
+            "description": "Grundlagen der Haushalts\u00f6konomie, Bed\u00fcrfnisbefriedigung und Konsum",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist der Zweck des Wirtschaftens?",
+                "answer": "Bed\u00fcrfnisbefriedigung"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist der Zweck des Wirtschaftens?",
+                "correct_answer": "Bed\u00fcrfnisbefriedigung",
+                "distractors": [
+                  "Gewinnmaximierung",
+                  "Preisbildung",
+                  "Marktanteilsvergr\u00f6\u00dferung"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Bed\u00fcrfnisbefriedigung:Zweck des Wirtschaftens;Konsum:Verbrauch von G\u00fctern und Dienstleistungen;Nutzen:Reduktion von Mangelerscheinungen;Pr\u00e4ferenzen:Vorlieben und Vorz\u00fcge"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-07",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_1",
+            "title": "Pr\u00e4ferenzen und Indifferenzkurven",
+            "description": "Pr\u00e4ferenzen, Indifferenzkurven und ihre Arten",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was sind Indifferenzkurven?",
+                "answer": "Kurven gleichen Nutzens"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was sind Indifferenzkurven?",
+                "correct_answer": "Kurven gleichen Nutzens",
+                "distractors": [
+                  "Kurven gleichen Preises",
+                  "Kurven gleichen Outputs",
+                  "Kurven gleichen Inputs"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Pr\u00e4ferenzen:Vorlieben und Vorz\u00fcge;Indifferenzkurven:Kurven gleichen Nutzens;Perfekte Substitute:G\u00fcter, die vollst\u00e4ndig gegeneinander ausgetauscht werden k\u00f6nnen;Neutrale G\u00fcter:G\u00fcter, die in neutralem Verh\u00e4ltnis zueinander stehen"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-02-08",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_2",
+            "title": "Haushaltsgleichgewicht",
+            "description": "Haushaltsgleichgewicht und optimale Entscheidungen",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Haushaltsgleichgewicht?",
+                "answer": "Die optimale Entscheidung, bei der die Budgetgerade die Indifferenzkurve schneidet"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Haushaltsgleichgewicht?",
+                "correct_answer": "Die optimale Entscheidung, bei der die Budgetgerade die Indifferenzkurve schneidet",
+                "distractors": [
+                  "Die optimale Entscheidung, bei der die Budgetgerade die Preisgerade schneidet",
+                  "Die optimale Entscheidung, bei der die Indifferenzkurve die Preisgerade schneidet",
+                  "Die optimale Entscheidung, bei der die Budgetgerade die Nachfragekurve schneidet"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Haushaltsgleichgewicht:Optimale Entscheidung;Budgetgerade:Geometrischer Ort der G\u00fctermengenkombinationen;Indifferenzkurve:Kurve gleichen Nutzens;Grenzrate der Substitution:Austauschverh\u00e4ltnis zweier G\u00fcter"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-14",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_3",
+            "title": "Theorie der Unternehmung",
+            "description": "Grundlagen der Theorie der Unternehmung, Produktionsfunktionen und Kostenfunktionen",
+            "estimated_hours": 5.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Theorie der Unternehmung?",
+                "answer": "Die Theorie, die die Handlungsmuster von Unternehmen sucht"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Theorie der Unternehmung?",
+                "correct_answer": "Die Theorie, die die Handlungsmuster von Unternehmen sucht",
+                "distractors": [
+                  "Die Theorie, die die Handlungsmuster von Haushalten sucht",
+                  "Die Theorie, die die Preisbildung auf M\u00e4rkten erkl\u00e4rt",
+                  "Die Theorie, die die Marktanteilsvergr\u00f6\u00dferung von Unternehmen erkl\u00e4rt"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Theorie der Unternehmung:Handlungsmuster von Unternehmen;Produktionsfunktion:Zusammenhang zwischen Input und Output;Kostenfunktion:Zusammenhang zwischen Input und Kosten;Gewinnmaximierung:Zentrales Ziel von Unternehmen"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 5.0
+      },
+      {
+        "date": "2026-02-15",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf_groq_4",
+            "title": "Isoquanten und Faktorvariationen",
+            "description": "Isoquanten, Faktorvariationen und ihre Arten",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 2 MIKRO Kurzform (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was sind Isoquanten?",
+                "answer": "Kurven gleichen Outputs"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was sind Isoquanten?",
+                "correct_answer": "Kurven gleichen Outputs",
+                "distractors": [
+                  "Kurven gleichen Preises",
+                  "Kurven gleichen Inputs",
+                  "Kurven gleichen Nutzens"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Isoquanten:Kurven gleichen Outputs;Faktorvariationen:Ver\u00e4nderung der Faktoreinsatzmengen;Partielle Faktorvariation:Ver\u00e4nderung eines Faktors;Proportionale Faktorvariation:Ver\u00e4nderung zweier Faktoren"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      }
+    ],
+    "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-01_4",
+    "title": "sdfsf",
+    "exam_date": "2026-02-19",
+    "parallel_courses": 0,
+    "daily_goal_hours": 2.0,
+    "study_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-02",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_0",
+            "title": "Arbeitsmarkt und Arbeitsmarktpolitik",
+            "description": "Einf\u00fchrung in den Arbeitsmarkt und die Arbeitsmarktpolitik",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist Vollbesch\u00e4ftigung?",
+                "answer": "Vollbesch\u00e4ftigung ist ein Zustand, in dem alle arbeitswilligen und arbeitsf\u00e4higen Personen eine Arbeit haben."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist Vollbesch\u00e4ftigung?",
+                "correct_answer": "Vollbesch\u00e4ftigung ist ein Zustand, in dem alle arbeitswilligen und arbeitsf\u00e4higen Personen eine Arbeit haben.",
+                "distractors": [
+                  "Vollbesch\u00e4ftigung ist ein Zustand, in dem alle Personen eine Arbeit haben, unabh\u00e4ngig von ihrer Arbeitswilligkeit und -f\u00e4higkeit.",
+                  "Vollbesch\u00e4ftigung ist ein Zustand, in dem alle Unternehmen ihre Kapazit\u00e4ten voll auslasten.",
+                  "Vollbesch\u00e4ftigung ist ein Zustand, in dem alle Personen ein bestimmtes Einkommen haben."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Arbeitslosigkeit:Ein Zustand, in dem eine Person keine Arbeit hat;Vollbesch\u00e4ftigung:Ein Zustand, in dem alle arbeitswilligen und arbeitsf\u00e4higen Personen eine Arbeit haben;Erwerbspersonenpotential:Die Anzahl der Personen, die arbeitswillig und arbeitsf\u00e4hig sind;Unterbesch\u00e4ftigung:Ein Zustand, in dem eine Person nicht voll besch\u00e4ftigt ist."
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-03",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_1",
+            "title": "Bestimmungsgr\u00f6\u00dfen der Arbeitslosigkeit und Besch\u00e4ftigung",
+            "description": "Analyse der Faktoren, die die Arbeitslosigkeit und Besch\u00e4ftigung beeinflussen",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Arbeitslosenquote?",
+                "answer": "Die Arbeitslosenquote ist der Anteil der Arbeitslosen an der Gesamtzahl der Erwerbspersonen."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Arbeitslosenquote?",
+                "correct_answer": "Die Arbeitslosenquote ist der Anteil der Arbeitslosen an der Gesamtzahl der Erwerbspersonen.",
+                "distractors": [
+                  "Die Arbeitslosenquote ist der Anteil der Arbeitslosen an der Gesamtbev\u00f6lkerung.",
+                  "Die Arbeitslosenquote ist der Anteil der Besch\u00e4ftigten an der Gesamtzahl der Erwerbspersonen.",
+                  "Die Arbeitslosenquote ist der Anteil der Erwerbspersonen an der Gesamtbev\u00f6lkerung."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Arbeitslosenquote:Der Anteil der Arbeitslosen an der Gesamtzahl der Erwerbspersonen;Erwerbsquote:Der Anteil der Erwerbst\u00e4tigen an der Gesamtbev\u00f6lkerung;Unterbesch\u00e4ftigung:Ein Zustand, in dem eine Person nicht voll besch\u00e4ftigt ist;Vollbesch\u00e4ftigung:Ein Zustand, in dem alle arbeitswilligen und arbeitsf\u00e4higen Personen eine Arbeit haben."
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      },
+      {
+        "date": "2026-02-04",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_2",
+            "title": "Arbeitsmarktpolitische Instrumente",
+            "description": "\u00dcberblick \u00fcber die Instrumente der Arbeitsmarktpolitik",
+            "estimated_hours": 4.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Agenda 2010?",
+                "answer": "Die Agenda 2010 ist ein Konzept zur Reform der deutschen Sozialsysteme und des Arbeitsmarktes."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Agenda 2010?",
+                "correct_answer": "Die Agenda 2010 ist ein Konzept zur Reform der deutschen Sozialsysteme und des Arbeitsmarktes.",
+                "distractors": [
+                  "Die Agenda 2010 ist ein Konzept zur F\u00f6rderung der Wirtschaft.",
+                  "Die Agenda 2010 ist ein Konzept zur Bek\u00e4mpfung der Arbeitslosigkeit.",
+                  "Die Agenda 2010 ist ein Konzept zur Reform des Gesundheitssystems."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Agenda 2010:Ein Konzept zur Reform der deutschen Sozialsysteme und des Arbeitsmarktes;Hartz IV:Ein Konzept zur Bek\u00e4mpfung der Arbeitslosigkeit;Lohnzur\u00fcckhaltung:Ein Instrument zur F\u00f6rderung der Wirtschaft;Vereinfachung des Arbeitsplatzwechsels:Ein Instrument zur F\u00f6rderung der Besch\u00e4ftigung."
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 4.0
+      },
+      {
+        "date": "2026-02-05",
+        "topics": [
+          {
+            "id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf_groq_3",
+            "title": "Mittlere Frist",
+            "description": "Analyse der mittleren Frist in der Wirtschaft",
+            "estimated_hours": 3.0,
+            "material_id": "Skript 2025 WI-VWL-50 Teil 3b Makro 3.6-3.8 (1).pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Phillipskurve?",
+                "answer": "Die Phillipskurve ist eine Grafik, die den Zusammenhang zwischen Arbeitslosenquote und Inflationsrate darstellt."
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Phillipskurve?",
+                "correct_answer": "Die Phillipskurve ist eine Grafik, die den Zusammenhang zwischen Arbeitslosenquote und Inflationsrate darstellt.",
+                "distractors": [
+                  "Die Phillipskurve ist eine Grafik, die den Zusammenhang zwischen Wirtschaftswachstum und Inflationsrate darstellt.",
+                  "Die Phillipskurve ist eine Grafik, die den Zusammenhang zwischen Arbeitslosenquote und Wirtschaftswachstum darstellt.",
+                  "Die Phillipskurve ist eine Grafik, die den Zusammenhang zwischen Inflationsrate und Zinssatz darstellt."
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Matchen Sie die Begriffe",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Phillipskurve:Eine Grafik, die den Zusammenhang zwischen Arbeitslosenquote und Inflationsrate darstellt;AS-AD-Modell:Ein Modell, das die gesamtwirtschaftlichen Auswirkungen von staatlichen und finanzpolitischen Interventionen beschreibt;Inflation:Ein Zustand, in dem die Preise allgemein steigen;Wirtschaftswachstum:Ein Zustand, in dem die Wirtschaftsleistung steigt."
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 3.0
+      }
+    ],
+    "created_at": "2026-02-01"
+  }
+]

@@ -8,10 +8,8 @@ import { useState } from "react";
 
 export default function CourseLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { courseId: string };
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { t } = useLanguage();
@@ -79,8 +77,8 @@ export default function CourseLayout({
                     </div>
                     <span
                       className={`text-sm ${lesson.completed
-                          ? "text-muted-foreground line-through decoration-white/20"
-                          : "text-foreground group-hover:text-primary transition-colors"
+                        ? "text-muted-foreground line-through decoration-white/20"
+                        : "text-foreground group-hover:text-primary transition-colors"
                         }`}
                     >
                       {lesson.title}

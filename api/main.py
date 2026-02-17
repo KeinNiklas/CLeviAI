@@ -87,6 +87,32 @@ async def analyze_document(files: List[UploadFile] = File(...), language: str = 
              raise HTTPException(status_code=429, detail=f"Gemini API Quota Exceeded. Please try again later.")
         raise HTTPException(status_code=500, detail=str(e))
 
+# New endpoint for Gemini File API URIs (works better with Vercel)
+class FileURIRequest(BaseModel):
+    file_uri: str
+    filename: str
+    language: str = "en"
+
+@app.post("/analyze-file-uri", response_model=List[Topic])
+def analyze_file_uri(request: FileURIRequest):
+    """
+    Analyzes a file that was already uploaded to Gemini File API.
+    This endpoint accepts a Gemini File URI instead of uploading the file directly.
+    This works better with Vercel's serverless functions.
+    """
+    try:
+        topics = analyzer_service.gemini_service.analyze_file_from_uri(
+            file_uri=request.file_uri,
+            material_id=request.filename,
+            language=request.language
+        )
+        return topics
+    except Exception as e:
+        error_msg = str(e)
+        if "429" in error_msg or "Quota exceeded" in error_msg:
+            raise HTTPException(status_code=429, detail="Gemini API Quota Exceeded. Please try again later.")
+        raise HTTPException(status_code=500, detail=str(e))
+
 class PlanRequest(BaseModel):
     topics: List[Topic]
     exam_date: date

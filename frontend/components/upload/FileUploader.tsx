@@ -180,9 +180,9 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                             {t.uploader.subtitle}
                         </p>
                     </div>
-                    <label htmlFor="file-upload">
-                        <Button variant="default" size="lg" asChild>
-                            <span className="cursor-pointer">{t.uploader.button}</span>
+                    <label htmlFor="file-upload" className="cursor-pointer">
+                        <Button variant="default" size="lg" type="button">
+                            {t.uploader.button}
                         </Button>
                     </label>
                 </div>

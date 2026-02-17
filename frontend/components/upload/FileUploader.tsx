@@ -84,7 +84,17 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
             });
 
             if (!response.ok) {
-                const errorData = await response.json().catch(async () => ({ detail: await response.text() }));
+                // Clone the response so we can read it multiple times if needed
+                const responseClone = response.clone();
+                let errorData;
+
+                try {
+                    errorData = await response.json();
+                } catch {
+                    // If JSON parsing fails, try reading as text
+                    errorData = { detail: await responseClone.text() };
+                }
+
                 throw new Error(errorData.detail || errorData.message || (typeof errorData === 'string' ? errorData : t.uploader.error_fail));
             }
 

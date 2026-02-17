@@ -8,3 +8,4 @@ google-generativeai
 groq
 httpx
 pymongo[srv]
+mangum

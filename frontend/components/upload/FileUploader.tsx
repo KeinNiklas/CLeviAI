@@ -71,38 +71,78 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         setLoading(true);
         setError(null);
 
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append("files", file);
-        });
-        formData.append("language", language);
-
         try {
-            const response = await fetch("/api/analyze-document", {
-                method: "POST",
-                body: formData,
-            });
+            // Step 1: Upload each file to Gemini File API (as base64)
+            const uploadPromises = files.map(async (file) => {
+                // Convert file to base64
+                const base64Data = await new Promise<string>((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const result = reader.result as string;
+                        // Remove data URL prefix (e.g., "data:application/pdf;base64,")
+                        const base64 = result.split(',')[1];
+                        resolve(base64);
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
 
-            if (!response.ok) {
-                // Clone the response so we can read it multiple times if needed
-                const responseClone = response.clone();
-                let errorData;
+                // Upload to Gemini File API via backend
+                const uploadResponse = await fetch("/api/upload-to-gemini-base64", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        file_data: base64Data,
+                        filename: file.name,
+                        mime_type: file.type || "application/octet-stream",
+                    }),
+                });
 
-                try {
-                    errorData = await response.json();
-                } catch {
-                    // If JSON parsing fails, try reading as text
-                    errorData = { detail: await responseClone.text() };
+                if (!uploadResponse.ok) {
+                    const errorData = await uploadResponse.json();
+                    throw new Error(errorData.detail || "Failed to upload file to Gemini");
                 }
 
-                throw new Error(errorData.detail || errorData.message || (typeof errorData === 'string' ? errorData : t.uploader.error_fail));
-            }
+                const { file_uri } = await uploadResponse.json();
+                return { file_uri, filename: file.name };
+            });
 
-            const data = await response.json();
-            onUploadComplete(data);
+            const uploadedFiles = await Promise.all(uploadPromises);
+
+            // Step 2: Analyze all uploaded files
+            const analyzePromises = uploadedFiles.map(async ({ file_uri, filename }) => {
+                const analyzeResponse = await fetch("/api/analyze-file-uri", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        file_uri,
+                        filename,
+                        language,
+                    }),
+                });
+
+                if (!analyzeResponse.ok) {
+                    const errorData = await analyzeResponse.json();
+                    throw new Error(errorData.detail || "Failed to analyze file");
+                }
+
+                return await analyzeResponse.json();
+            });
+
+            const results = await Promise.all(analyzePromises);
+
+            // Flatten all topics from all files
+            const allTopics = results.flat();
+
+            onUploadComplete(allTopics);
+            setFiles([]);
         } catch (err: any) {
-            setError(err.message || t.uploader.error_backend);
-            console.error(err);
+            console.error("Upload error:", err);
+            setError(err.message || t.uploader.error_fail);
         } finally {
             setLoading(false);
         }
@@ -123,88 +163,99 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
             >
                 <input
                     type="file"
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    onChange={handleChange}
-                    accept=".pdf,.docx,.txt"
+                    id="file-upload"
                     multiple
+                    onChange={handleChange}
+                    className="hidden"
+                    accept=".pdf,.doc,.docx,.txt,image/*"
                 />
 
-                <div className="p-4 bg-secondary rounded-full shadow-inner">
-                    <Upload className="w-8 h-8 text-primary" />
-                </div>
-
-                <div className="space-y-1">
-                    <p className="font-medium text-lg">
-                        {t.uploader.drop_title}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                        {t.uploader.drop_desc}
-                    </p>
+                <div className="flex flex-col items-center gap-3">
+                    <div className="p-4 rounded-full bg-primary/10">
+                        <Upload className="w-8 h-8 text-primary" />
+                    </div>
+                    <div>
+                        <p className="text-lg font-medium">{t.uploader.title}</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                            {t.uploader.subtitle}
+                        </p>
+                    </div>
+                    <label htmlFor="file-upload">
+                        <Button variant="default" size="lg" asChild>
+                            <span className="cursor-pointer">{t.uploader.button}</span>
+                        </Button>
+                    </label>
                 </div>
             </div>
 
-            {/* Error Message */}
-            {error && (
-                <div className="flex items-center space-x-2 text-destructive bg-destructive/10 p-4 rounded-lg text-sm border border-destructive/20 animate-in fade-in slide-in-from-top-1">
-                    <AlertCircle className="w-4 h-4" />
-                    <span>{error}</span>
-                </div>
-            )}
-
-            {/* Generate Button */}
-            <Button
-                className="w-full text-lg h-12 shadow-lg hover:shadow-primary/20 transition-all"
-                size="lg"
-                onClick={handleUpload}
-                disabled={files.length === 0 || loading}
-            >
-                {loading ? (
-                    <>
-                        <Loader2 className="w-5 h-5 mr-3 animate-spin" />
-                        {t.uploader.btn_analyzing} {files.length} {files.length !== 1 ? t.uploader.files : t.uploader.file}...
-                    </>
-                ) : (
-                    <>
-                        <FileText className="w-5 h-5 mr-3" />
-                        {t.uploader.btn_generate} ({files.length} {files.length !== 1 ? t.uploader.files : t.uploader.file})
-                    </>
-                )}
-            </Button>
-
-            {/* File List Table */}
+            {/* File List */}
             {files.length > 0 && (
-                <Card className="overflow-hidden border-border/50 shadow-md">
-                    <div className="bg-secondary/30 px-4 py-3 border-b border-border/50 flex justify-between items-center">
-                        <h3 className="font-semibold text-sm">{t.uploader.table_title}</h3>
-                        <span className="text-xs text-muted-foreground">{files.length} / 10</span>
-                    </div>
-                    <div className="divide-y divide-border/20">
+                <Card className="p-4">
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between mb-3">
+                            <h3 className="font-medium">{t.uploader.files_selected}</h3>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setFiles([])}
+                                className="text-muted-foreground hover:text-destructive"
+                            >
+                                <X className="w-4 h-4 mr-1" />
+                                {t.uploader.clear_all}
+                            </Button>
+                        </div>
                         {files.map((file, index) => (
-                            <div key={`${file.name}-${index}`} className="flex items-center justify-between p-3 hover:bg-secondary/20 transition-colors">
-                                <div className="flex items-center space-x-3 overflow-hidden">
-                                    <div className="p-2 bg-primary/10 rounded-lg">
-                                        <FileText className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div className="flex flex-col min-w-0">
-                                        <span className="text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]" title={file.name}>
-                                            {file.name}
-                                        </span>
-                                        <span className="text-xs text-muted-foreground">
+                            <div
+                                key={`${file.name}-${index}`}
+                                className="flex items-center justify-between p-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
+                            >
+                                <div className="flex items-center gap-3 flex-1 min-w-0">
+                                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-sm font-medium truncate">{file.name}</p>
+                                        <p className="text-xs text-muted-foreground">
                                             {(file.size / 1024).toFixed(1)} KB
-                                        </span>
+                                        </p>
                                     </div>
                                 </div>
                                 <Button
                                     variant="ghost"
-                                    size="icon"
+                                    size="sm"
                                     onClick={() => removeFile(index)}
-                                    className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 shrink-0"
-                                    disabled={loading}
+                                    className="flex-shrink-0 text-muted-foreground hover:text-destructive"
                                 >
                                     <Trash2 className="w-4 h-4" />
                                 </Button>
                             </div>
                         ))}
+                    </div>
+                    <Button
+                        onClick={handleUpload}
+                        disabled={loading}
+                        className="w-full mt-4"
+                        size="lg"
+                    >
+                        {loading ? (
+                            <>
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                {t.uploader.analyzing}
+                            </>
+                        ) : (
+                            t.uploader.analyze
+                        )}
+                    </Button>
+                </Card>
+            )}
+
+            {/* Error Display */}
+            {error && (
+                <Card className="p-4 border-destructive/50 bg-destructive/5">
+                    <div className="flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                            <p className="text-sm font-medium text-destructive">{t.uploader.error}</p>
+                            <p className="text-sm text-destructive/80 mt-1">{error}</p>
+                        </div>
                     </div>
                 </Card>
             )}

@@ -10,7 +10,8 @@ class SchedulerService:
         self.store = JSONStore()
 
     def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, 
-                    title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:
+                    title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], 
+                    daily_goal: float = 2.0, user_id: str = "default-user") -> StudyPlan:
         today = date.today()
         
         days_remaining = (exam_date - today).days
@@ -103,6 +104,6 @@ class SchedulerService:
             created_at=today
         )
         
-        # Save to store
-        self.store.save_plan(plan)
+        # Save to store with user_id
+        self.store.save_plan(plan, user_id)
         return plan

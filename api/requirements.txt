@@ -7,3 +7,4 @@ pypdf
 google-generativeai
 groq
 httpx
+pymongo[srv]

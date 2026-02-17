@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -7,6 +7,7 @@ from models import Topic, StudyPlan, PodcastResponse
 from services.ingestion import IngestionService
 from services.analyzer import AnalyzerService
 from services.scheduler import SchedulerService
+from services.mongodb_service import MongoDBService
 from dotenv import load_dotenv
 import os
 
@@ -15,6 +16,10 @@ if os.path.exists("key.env"):
     load_dotenv("key.env")
 else:
     load_dotenv()
+
+# Load MongoDB configuration
+if os.path.exists("mongodb.env"):
+    load_dotenv("mongodb.env")
 
 app = FastAPI(title="CLeviAI Backend")
 
@@ -32,9 +37,9 @@ scheduler_service = SchedulerService()
 
 # Startup Check (Reload Triggered)
 if analyzer_service.groq_service.client:
-    print("✅ Groq Fallback Activated: Ready to take over if Gemini fails.")
+    print("[OK] Groq Fallback Activated: Ready to take over if Gemini fails.")
 else:
-    print("⚠️ Groq API Key missing. Fallback system disabled. Checked: GROQ_API_KEY")
+    print("[WARNING] Groq API Key missing. Fallback system disabled. Checked: GROQ_API_KEY")
 
 @app.get("/")
 def read_root():
@@ -43,6 +48,12 @@ def read_root():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+@app.get("/health/mongodb")
+def mongodb_health_check():
+    """Check MongoDB connection status"""
+    mongo = MongoDBService()
+    return mongo.health_check()
 
 @app.post("/analyze-document", response_model=List[Topic])
 async def analyze_document(files: List[UploadFile] = File(...), language: str = Form("en")):
@@ -85,7 +96,7 @@ class PlanRequest(BaseModel):
     study_days: List[int] = [0,1,2,3,4,5,6]
 
 @app.post("/create-plan", response_model=StudyPlan)
-def create_plan(request: PlanRequest):
+def create_plan(request: PlanRequest, user_id: str = Query("default-user")):
     try:
         plan = scheduler_service.create_plan(
             topics=request.topics,
@@ -93,7 +104,8 @@ def create_plan(request: PlanRequest):
             parallel_courses=request.parallel_courses,
             title=request.title,
             daily_goal=request.daily_goal,
-            study_days=request.study_days
+            study_days=request.study_days,
+            user_id=user_id
         )
         return plan
     except ValueError as ve:
@@ -102,19 +114,21 @@ def create_plan(request: PlanRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/plans", response_model=List[StudyPlan])
-def get_plans():
-    return scheduler_service.store.get_all_plans()
+def get_plans(user_id: str = Query("default-user")):
+    return scheduler_service.store.get_all_plans(user_id)
 
 @app.get("/plans/{plan_id}", response_model=StudyPlan)
-def get_plan(plan_id: str):
-    plan = scheduler_service.store.get_plan(plan_id)
+def get_plan(plan_id: str, user_id: str = Query("default-user")):
+    plan = scheduler_service.store.get_plan(plan_id, user_id)
     if not plan:
         raise HTTPException(status_code=404, detail="Plan not found")
     return plan
 
 @app.delete("/plans/{plan_id}")
-def delete_plan(plan_id: str):
-    scheduler_service.store.delete_plan(plan_id)
+def delete_plan(plan_id: str, user_id: str = Query("default-user")):
+    deleted = scheduler_service.store.delete_plan(plan_id, user_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Plan not found")
     return {"status": "success", "message": "Plan deleted"}
 
 class PlanUpdate(BaseModel):
@@ -122,14 +136,14 @@ class PlanUpdate(BaseModel):
     # Add other fields here if we want to allow updating them (e.g. daily_goal)
     
 @app.patch("/plans/{plan_id}")
-def update_plan(plan_id: str, update: PlanUpdate):
+def update_plan(plan_id: str, update: PlanUpdate, user_id: str = Query("default-user")):
     # Filter out None values
     updates = {k: v for k, v in update.model_dump().items() if v is not None}
     
     if not updates:
         raise HTTPException(status_code=400, detail="No fields to update")
 
-    success = scheduler_service.store.update_plan(plan_id, updates)
+    success = scheduler_service.store.update_plan(plan_id, updates, user_id)
     if not success:
          raise HTTPException(status_code=404, detail="Plan not found")
     
@@ -139,9 +153,11 @@ class StatusUpdate(BaseModel):
     status: str
 
 @app.patch("/plans/{plan_id}/topics/{topic_id}")
-def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
+def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate, user_id: str = Query("default-user")):
     try:
-        scheduler_service.store.update_topic_status(plan_id, topic_id, update.status)
+        success = scheduler_service.store.update_topic_status(plan_id, topic_id, update.status, user_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Plan or topic not found")
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -1,93 +1,125 @@
+"""
+MongoDB-based storage for study plans
+Replaces JSON file storage with MongoDB Atlas
+"""
 
-import json
-import os
 from typing import List, Optional
 from models import StudyPlan
+from services.mongodb_service import MongoDBService
+from datetime import datetime
 
-DATA_DIR = "data"
-PLANS_FILE = os.path.join(DATA_DIR, "plans.json")
 
-class JSONStore:
+class MongoDBStore:
+    """Store for study plans using MongoDB"""
+    
     def __init__(self):
-        if not os.path.exists(DATA_DIR):
-            os.makedirs(DATA_DIR)
-        if not os.path.exists(PLANS_FILE):
-            with open(PLANS_FILE, "w") as f:
-                json.dump([], f)
-
-    def save_plan(self, plan: StudyPlan):
-        plans = self.get_all_plans()
-        # Remove existing if same ID (update)
-        plans = [p for p in plans if p.id != plan.id]
-        plans.append(plan)
+        self.mongo = MongoDBService()
+        self.collection = self.mongo.db.study_plans
+    
+    def save_plan(self, plan: StudyPlan, user_id: str = "default-user"):
+        """Save or update a study plan for a specific user"""
+        # Convert plan to dict
+        plan_data = plan.model_dump(mode='json')
         
-        with open(PLANS_FILE, "w") as f:
-            # Pydantic v2 dump (or .dict() for v1)
-            # Assuming recent Pydantic from requirements
-            json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
-
-    def get_all_plans(self) -> List[StudyPlan]:
-        if not os.path.exists(PLANS_FILE):
-            return []
+        # Add user_id and metadata
+        plan_data['user_id'] = user_id
+        plan_data['plan_id'] = plan.id
+        plan_data['updated_at'] = datetime.utcnow()
+        
+        # Upsert: update if exists, insert if new
+        self.collection.update_one(
+            {"user_id": user_id, "plan_id": plan.id},
+            {"$set": plan_data},
+            upsert=True
+        )
+    
+    def get_all_plans(self, user_id: str = "default-user") -> List[StudyPlan]:
+        """Get all plans for a specific user"""
         try:
-            with open(PLANS_FILE, "r") as f:
-                data = json.load(f)
-                return [StudyPlan(**item) for item in data]
-        except (json.JSONDecodeError, FileNotFoundError):
+            cursor = self.collection.find({"user_id": user_id})
+            plans = []
+            for doc in cursor:
+                # Remove MongoDB _id field
+                doc.pop('_id', None)
+                doc.pop('user_id', None)
+                doc.pop('plan_id', None)
+                doc.pop('updated_at', None)
+                plans.append(StudyPlan(**doc))
+            return plans
+        except Exception as e:
+            print(f"Error fetching plans: {e}")
             return []
-
-    def get_plan(self, plan_id: str) -> Optional[StudyPlan]:
-        plans = self.get_all_plans()
-        for p in plans:
-            if p.id == plan_id:
-                return p
-        return None
-
-    def delete_plan(self, plan_id: str):
-        plans = self.get_all_plans()
-        updated_plans = [p for p in plans if p.id != plan_id]
-        if len(plans) != len(updated_plans):
-            with open(PLANS_FILE, "w") as f:
-                json.dump([p.model_dump(mode='json') for p in updated_plans], f, indent=2)
-
-    def update_topic_status(self, plan_id: str, topic_id: str, new_status: str):
-        plans = self.get_all_plans()
+    
+    def get_plan(self, plan_id: str, user_id: str = "default-user") -> Optional[StudyPlan]:
+        """Get a specific plan for a user"""
+        try:
+            doc = self.collection.find_one({
+                "user_id": user_id,
+                "plan_id": plan_id
+            })
+            
+            if doc:
+                # Remove MongoDB metadata
+                doc.pop('_id', None)
+                doc.pop('user_id', None)
+                doc.pop('plan_id', None)
+                doc.pop('updated_at', None)
+                return StudyPlan(**doc)
+            return None
+        except Exception as e:
+            print(f"Error fetching plan {plan_id}: {e}")
+            return None
+    
+    def delete_plan(self, plan_id: str, user_id: str = "default-user"):
+        """Delete a plan for a specific user"""
+        result = self.collection.delete_one({
+            "user_id": user_id,
+            "plan_id": plan_id
+        })
+        return result.deleted_count > 0
+    
+    def update_topic_status(self, plan_id: str, topic_id: str, new_status: str, user_id: str = "default-user"):
+        """Update the status of a specific topic within a plan"""
+        # Get the plan
+        plan = self.get_plan(plan_id, user_id)
+        if not plan:
+            return False
+        
+        # Update topic status
         changed = False
-        
-        for plan in plans:
-            if plan.id == plan_id:
-                for day in plan.schedule:
-                    for topic in day.topics:
-                        if topic.id == topic_id:
-                            topic.status = new_status
-                            changed = True
-                            break
-                    if changed: break
-            if changed: break
-        
-        if changed:
-            with open(PLANS_FILE, "w") as f:
-                json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
-    def update_plan(self, plan_id: str, updates: dict):
-        plans = self.get_all_plans()
-        changed = False
-        
-        for plan in plans:
-            if plan.id == plan_id:
-                # Apply updates
-                updated_data = plan.model_dump()
-                updated_data.update(updates)
-                # Re-validate with Pydantic
-                new_plan = StudyPlan(**updated_data)
-                
-                # Replace logic: finding index and swapping
-                idx = plans.index(plan)
-                plans[idx] = new_plan
-                changed = True
+        for day in plan.schedule:
+            for topic in day.topics:
+                if topic.id == topic_id:
+                    topic.status = new_status
+                    changed = True
+                    break
+            if changed:
                 break
         
+        # Save updated plan
         if changed:
-            with open(PLANS_FILE, "w") as f:
-                json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
+            self.save_plan(plan, user_id)
             return True
         return False
+    
+    def update_plan(self, plan_id: str, updates: dict, user_id: str = "default-user"):
+        """Update specific fields of a plan"""
+        # Get existing plan
+        plan = self.get_plan(plan_id, user_id)
+        if not plan:
+            return False
+        
+        # Apply updates
+        plan_data = plan.model_dump()
+        plan_data.update(updates)
+        
+        # Re-validate with Pydantic
+        updated_plan = StudyPlan(**plan_data)
+        
+        # Save updated plan
+        self.save_plan(updated_plan, user_id)
+        return True
+
+
+# Backward compatibility alias
+JSONStore = MongoDBStore

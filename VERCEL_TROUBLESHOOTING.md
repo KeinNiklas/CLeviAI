@@ -42,7 +42,7 @@ Dieser Fehler tritt auf, wenn das Frontend das Backend nicht erreichen kann.
 
 **Backend Environment Variables:**
 ```
-MONGODB_URI=mongodb+srv://Vercel-Admin-clavidb:ISH7P6R9gRU7q6To@clavidb.qkkcbfh.mongodb.net/?retryWrites=true&w=majority&appName=clavidb
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?retryWrites=true&w=majority
 MONGODB_DATABASE=cleviaidb
 GEMINI_API_KEY=ihr_gemini_key
 GROQ_API_KEY=ihr_groq_key (optional)

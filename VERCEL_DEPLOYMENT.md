@@ -34,7 +34,7 @@
    - Go to your Vercel project → Settings → Environment Variables
    - Add the following:
      ```
-     MONGODB_URI=mongodb+srv://Vercel-Admin-clavidb:ISH7P6R9gRU7q6To@clavidb.qkkcbfh.mongodb.net/?retryWrites=true&w=majority&appName=clavidb
+     MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?retryWrites=true&w=majority
      MONGODB_DATABASE=cleviaidb
      GEMINI_API_KEY=your_gemini_api_key
      GROQ_API_KEY=your_groq_api_key (optional)

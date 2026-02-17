@@ -113,6 +113,51 @@ def analyze_file_uri(request: FileURIRequest):
             raise HTTPException(status_code=429, detail="Gemini API Quota Exceeded. Please try again later.")
         raise HTTPException(status_code=500, detail=str(e))
 
+# Import the file upload service
+from services.gemini_file_upload import GeminiFileUploadService
+gemini_upload_service = GeminiFileUploadService()
+
+class UploadResponse(BaseModel):
+    file_uri: str
+    filename: str
+
+class Base64FileRequest(BaseModel):
+    file_data: str  # Base64 encoded file
+    filename: str
+    mime_type: str = "application/pdf"
+
+@app.post("/upload-to-gemini-base64", response_model=UploadResponse)
+async def upload_to_gemini_base64(request: Base64FileRequest):
+    """
+    Uploads a base64-encoded file to Gemini File API and returns the file URI.
+    This works with Vercel by avoiding multipart form data.
+    The frontend sends the file as base64 in JSON.
+    """
+    try:
+        import base64
+        import tempfile
+        import os
+        import google.generativeai as genai
+        
+        # Decode base64
+        file_bytes = base64.b64decode(request.file_data)
+        
+        # Save to temp file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{request.filename}") as tmp_file:
+            tmp_file.write(file_bytes)
+            tmp_file_path = tmp_file.name
+        
+        try:
+            # Upload to Gemini
+            uploaded_file = genai.upload_file(tmp_file_path, display_name=request.filename)
+            return UploadResponse(file_uri=uploaded_file.name, filename=request.filename)
+        finally:
+            if os.path.exists(tmp_file_path):
+                os.unlink(tmp_file_path)
+                
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 class PlanRequest(BaseModel):
     topics: List[Topic]
     exam_date: date

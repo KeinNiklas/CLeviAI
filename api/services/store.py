@@ -4,13 +4,18 @@ import os
 from typing import List, Optional
 from . .models import StudyPlan
 
-DATA_DIR = "data"
+# Check if running on Vercel
+if os.environ.get("VERCEL"):
+    DATA_DIR = "/tmp"
+else:
+    DATA_DIR = "data"
+
 PLANS_FILE = os.path.join(DATA_DIR, "plans.json")
 
 class JSONStore:
     def __init__(self):
         if not os.path.exists(DATA_DIR):
-            os.makedirs(DATA_DIR)
+            os.makedirs(DATA_DIR, exist_ok=True)
         if not os.path.exists(PLANS_FILE):
             with open(PLANS_FILE, "r") as f:
                 json.dump([], f)

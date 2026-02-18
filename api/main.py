@@ -14,10 +14,9 @@ from dotenv import load_dotenv
 import os
 
 # Load environment variables
+# Load environment variables
 if os.path.exists("key.env"):
     load_dotenv("key.env")
-else:
-    load_dotenv()
 
 app = FastAPI(title="CLeviAI Backend")
 router = APIRouter()

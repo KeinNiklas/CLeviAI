@@ -12,7 +12,9 @@ class MongoStore:
         
         # Use certifi for SSL certificates to avoid connection errors on some platforms
         self.client = MongoClient(self.uri, tlsCAFile=certifi.where())
-        self.db = self.client.get_default_database()
+
+        # Hard Coded - muss mal ersetzt werden
+        self.db = self.client["study_plans"]
         self.plans_collection = self.db.study_plans
 
     def save_plan(self, plan: StudyPlan):

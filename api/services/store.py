@@ -12,7 +12,7 @@ class JSONStore:
         if not os.path.exists(DATA_DIR):
             os.makedirs(DATA_DIR)
         if not os.path.exists(PLANS_FILE):
-            with open(PLANS_FILE, "w") as f:
+            with open(PLANS_FILE, "r") as f:
                 json.dump([], f)
 
     def save_plan(self, plan: StudyPlan):
@@ -21,7 +21,7 @@ class JSONStore:
         plans = [p for p in plans if p.id != plan.id]
         plans.append(plan)
         
-        with open(PLANS_FILE, "w") as f:
+        with open(PLANS_FILE, "r") as f:
             # Pydantic v2 dump (or .dict() for v1)
             # Assuming recent Pydantic from requirements
             json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
@@ -47,7 +47,7 @@ class JSONStore:
         plans = self.get_all_plans()
         updated_plans = [p for p in plans if p.id != plan_id]
         if len(plans) != len(updated_plans):
-            with open(PLANS_FILE, "w") as f:
+            with open(PLANS_FILE, "r") as f:
                 json.dump([p.model_dump(mode='json') for p in updated_plans], f, indent=2)
 
     def update_topic_status(self, plan_id: str, topic_id: str, new_status: str):
@@ -66,7 +66,7 @@ class JSONStore:
             if changed: break
         
         if changed:
-            with open(PLANS_FILE, "w") as f:
+            with open(PLANS_FILE, "r") as f:
                 json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
     def update_plan(self, plan_id: str, updates: dict):
         plans = self.get_all_plans()
@@ -87,7 +87,7 @@ class JSONStore:
                 break
         
         if changed:
-            with open(PLANS_FILE, "w") as f:
+            with open(PLANS_FILE, "r") as f:
                 json.dump([p.model_dump(mode='json') for p in plans], f, indent=2)
             return True
         return False

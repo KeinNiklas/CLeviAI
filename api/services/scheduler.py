@@ -3,11 +3,13 @@ from typing import List
 from . .models import Topic, DaySchedule, StudyPlan
 import math
 
-from .store import JSONStore
+from .mongo_store import MongoStore
 
 class SchedulerService:
     def __init__(self):
-        self.store = JSONStore()
+        # This will raise ValueError if MONGODB_URI is not set, which is intended.
+        self.store = MongoStore()
+        print("Using MongoStore (study_plans)")
 
     def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, 
                     title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:

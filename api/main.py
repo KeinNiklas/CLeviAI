@@ -17,6 +17,14 @@ import os
 # Load environment variables
 if os.path.exists("key.env"):
     load_dotenv("key.env")
+if os.path.exists("mongodb.env"):
+    # Check if it's a standard env file or just a raw connection string
+    with open("mongodb.env", "r") as f:
+        content = f.read().strip()
+    if content.startswith("mongodb"):
+         os.environ["MONGODB_URI"] = content
+    else:
+         load_dotenv("mongodb.env")
 
 app = FastAPI(title="CLeviAI Backend")
 router = APIRouter()

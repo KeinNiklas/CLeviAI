@@ -248,7 +248,7 @@ def update_api_keys(keys: APIKeyUpdate, current_user: UserInDB = Depends(get_cur
         raise HTTPException(status_code=500, detail=str(e))
 
 from services.podcast_service import PodcastService
-podcast_service = PodcastService(analyzer_service.groq_service)
+podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):
     topic_title: str

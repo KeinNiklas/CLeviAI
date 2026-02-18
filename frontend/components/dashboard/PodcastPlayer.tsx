@@ -150,7 +150,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
         bufferLookahead(index);
 
         // Get Current Audio (Cache or Fetch)
-        let url: string | null = audioCache[index];
+        let url: string | null | undefined = audioCache[index];
 
         // If not cached, we are buffering THIS line
         if (!url) {

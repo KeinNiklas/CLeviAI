@@ -8,7 +8,6 @@ import { useState } from "react";
 
 export default function CourseLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ courseId: string }>;

@@ -1,11 +1,14 @@
+import os
 import json
 from typing import List
 from models import PodcastResponse, PodcastLine
 from services.groq_service import GroqService
+from services.gemini_service import GeminiService
 
 class PodcastService:
-    def __init__(self, groq_service: GroqService):
+    def __init__(self, groq_service: GroqService, gemini_service: GeminiService = None):
         self.groq_service = groq_service
+        self.gemini_service = gemini_service
 
     def generate_script(self, topic_title: str, topic_description: str, language: str = "en", preset: str = "classroom") -> PodcastResponse:
         if not self.groq_service.client:
@@ -62,6 +65,37 @@ class PodcastService:
         }}
         """
 
+        preferred = os.getenv("PREFERRED_MODEL", "gemini").lower()
+        
+        # 1. Try Gemini if preferred or Groq not available
+        if (preferred == "gemini" or not self.groq_service.client) and self.gemini_service:
+            print("🎙️ Using GEMINI for Podcast Script...")
+            try:
+                model = self.gemini_service.model
+                response = model.generate_content(prompt)
+                
+                # Clean up JSON
+                content = response.text
+                if "```json" in content:
+                    content = content.replace("```json", "").replace("```", "")
+                
+                data = json.loads(content)
+                script_data = data.get("script", [])
+                script = [PodcastLine(speaker=line["speaker"], text=line["text"]) for line in script_data]
+                
+                return PodcastResponse(
+                    title=data.get("title", f"Podcast: {topic_title}"),
+                    script=script
+                )
+            except Exception as e:
+                print(f"⚠️ Gemini Podcast Gen failed: {e}. Falling back to Groq...")
+                # Fall through to Groq
+
+        # 2. Use Groq (Preferred or Fallback)
+        if not self.groq_service.client:
+             raise Exception("Groq API not available for Podcast generation")
+
+        print("🎙️ Using GROQ for Podcast Script...")
         try:
             completion = self.groq_service.client.chat.completions.create(
                 model=self.groq_service.model,

@@ -14,7 +14,7 @@ class MongoStore:
         self.client = MongoClient(self.uri, tlsCAFile=certifi.where())
 
         # Hard Coded - muss mal ersetzt werden
-        self.db = self.client["study_plans"]
+        self.db = self.client["cleviaidb"]
         self.plans_collection = self.db.study_plans
 
     def save_plan(self, plan: StudyPlan):

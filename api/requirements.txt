@@ -6,4 +6,5 @@ python-docx
 pypdf
 google-generativeai
 groq
-httpxpymongo
+httpx
+pymongo

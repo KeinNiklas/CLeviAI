@@ -4,12 +4,7 @@ import os
 from typing import List, Optional
 from . .models import StudyPlan
 
-# Check if running on Vercel
-if os.environ.get("VERCEL"):
-    DATA_DIR = "/tmp"
-else:
-    DATA_DIR = "data"
-
+DATA_DIR = "data"
 PLANS_FILE = os.path.join(DATA_DIR, "plans.json")
 
 class JSONStore:

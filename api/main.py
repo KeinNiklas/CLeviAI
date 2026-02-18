@@ -254,4 +254,4 @@ def generate_audio(req: AudioRequest):
 
 # Mount router for Vercel and local dev
 app.include_router(router)
-app.include_router(router)
+app.include_router(router, prefix="/api")

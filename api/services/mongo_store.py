@@ -6,14 +6,14 @@ from ..models import StudyPlan
 
 class MongoStore:
     def __init__(self):
-        self.uri = "mongodb+srv://vercel_test:test123@clavidb.qkkcbfh.mongodb.net/clavidb" #os.getenv("MONGODB_URI")
+        self.uri = os.getenv("MONGODB_TEST_URI")
         if not self.uri:
-            raise ValueError("MONGODB_URI environment variable is not set")
+            raise ValueError("MONGODB_TEST_URI environment variable is not set")
         
         # Use certifi for SSL certificates to avoid connection errors on some platforms
         self.client = MongoClient(self.uri, tlsCAFile=certifi.where())
 
-        # Hard Coded - muss mal ersetzt werden
+        # Database selection
         self.db = self.client["cleviaidb"]
         self.plans_collection = self.db.study_plans
 

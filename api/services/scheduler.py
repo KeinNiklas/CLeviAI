@@ -7,7 +7,7 @@ from .mongo_store import MongoStore
 
 class SchedulerService:
     def __init__(self):
-        # This will raise ValueError if MONGODB_URI is not set, which is intended.
+        # This will raise ValueError if MONGODB_TEST_URI is not set, which is intended.
         self.store = MongoStore()
         print("Using MongoStore (study_plans)")
 

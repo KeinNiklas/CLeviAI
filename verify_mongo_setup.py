@@ -11,7 +11,7 @@ if os.path.exists("api/mongodb.env"):
     with open("api/mongodb.env", "r") as f:
         content = f.read().strip()
     if content.startswith("mongodb"):
-         os.environ["MONGODB_URI"] = content
+         os.environ["MONGODB_TEST_URI"] = content
     else:
          load_dotenv("api/mongodb.env")
 

@@ -7,3 +7,6 @@ pypdf
 google-generativeai
 groq
 httpx
+pymongo
+dnspython
+certifi

@@ -1,27 +1,38 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
-from models import Topic, StudyPlan, PodcastResponse
-from services.ingestion import IngestionService
-from services.analyzer import AnalyzerService
-from services.scheduler import SchedulerService
+try:
+    from models import Topic, StudyPlan, PodcastResponse
+except ImportError:
+    from .models import Topic, StudyPlan, PodcastResponse
+from .services.ingestion import IngestionService
+from .services.analyzer import AnalyzerService
+from .services.scheduler import SchedulerService
 from dotenv import load_dotenv
 import os
 
 # Load environment variables
+# Load environment variables
 if os.path.exists("key.env"):
     load_dotenv("key.env")
-else:
-    load_dotenv()
+if os.path.exists("mongodb.env"):
+    # Check if it's a standard env file or just a raw connection string
+    with open("mongodb.env", "r") as f:
+        content = f.read().strip()
+    if content.startswith("mongodb"):
+         os.environ["MONGODB_TEST_URI"] = content
+    else:
+         load_dotenv("mongodb.env")
 
 app = FastAPI(title="CLeviAI Backend")
+router = APIRouter()
 
 # Setup CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "https://*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,15 +47,15 @@ if analyzer_service.groq_service.client:
 else:
     print("⚠️ Groq API Key missing. Fallback system disabled. Checked: GROQ_API_KEY")
 
-@app.get("/")
+@router.get("/")
 def read_root():
     return {"message": "Welcome to CLeviAI API"}
 
-@app.get("/health")
+@router.get("/health")
 def health_check():
     return {"status": "healthy"}
 
-@app.post("/analyze-document", response_model=List[Topic])
+@router.post("/analyze-document", response_model=List[Topic])
 async def analyze_document(files: List[UploadFile] = File(...), language: str = Form("en")):
     try:
         # Pre-check API availability
@@ -84,7 +95,7 @@ class PlanRequest(BaseModel):
     daily_goal: float = 2.0
     study_days: List[int] = [0,1,2,3,4,5,6]
 
-@app.post("/create-plan", response_model=StudyPlan)
+@router.post("/create-plan", response_model=StudyPlan)
 def create_plan(request: PlanRequest):
     try:
         plan = scheduler_service.create_plan(
@@ -101,18 +112,18 @@ def create_plan(request: PlanRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/plans", response_model=List[StudyPlan])
+@router.get("/plans", response_model=List[StudyPlan])
 def get_plans():
     return scheduler_service.store.get_all_plans()
 
-@app.get("/plans/{plan_id}", response_model=StudyPlan)
+@router.get("/plans/{plan_id}", response_model=StudyPlan)
 def get_plan(plan_id: str):
     plan = scheduler_service.store.get_plan(plan_id)
     if not plan:
         raise HTTPException(status_code=404, detail="Plan not found")
     return plan
 
-@app.delete("/plans/{plan_id}")
+@router.delete("/plans/{plan_id}")
 def delete_plan(plan_id: str):
     scheduler_service.store.delete_plan(plan_id)
     return {"status": "success", "message": "Plan deleted"}
@@ -121,7 +132,7 @@ class PlanUpdate(BaseModel):
     title: Optional[str] = None
     # Add other fields here if we want to allow updating them (e.g. daily_goal)
     
-@app.patch("/plans/{plan_id}")
+@router.patch("/plans/{plan_id}")
 def update_plan(plan_id: str, update: PlanUpdate):
     # Filter out None values
     updates = {k: v for k, v in update.model_dump().items() if v is not None}
@@ -138,7 +149,7 @@ def update_plan(plan_id: str, update: PlanUpdate):
 class StatusUpdate(BaseModel):
     status: str
 
-@app.patch("/plans/{plan_id}/topics/{topic_id}")
+@router.patch("/plans/{plan_id}/topics/{topic_id}")
 def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
     try:
         scheduler_service.store.update_topic_status(plan_id, topic_id, update.status)
@@ -146,7 +157,7 @@ def update_topic_status(plan_id: str, topic_id: str, update: StatusUpdate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/settings/config")
+@router.get("/settings/config")
 def get_settings_config():
     """Return masked config and preferred model status"""
     # Force reload from file in case it was edited manually
@@ -169,7 +180,7 @@ class APIKeyUpdate(BaseModel):
     google_api_key: Optional[str] = None
     preferred_model: Optional[str] = None
 
-@app.post("/settings/keys")
+@router.post("/settings/keys")
 def update_api_keys(keys: APIKeyUpdate):
     try:
         # Read existing keys
@@ -205,7 +216,7 @@ def update_api_keys(keys: APIKeyUpdate):
     except Exception as e:
         print(f"Error updating keys: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-from services.podcast_service import PodcastService
+from .services.podcast_service import PodcastService
 podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):
@@ -214,7 +225,7 @@ class PodcastRequest(BaseModel):
     language: str = "en"
     preset: str = "classroom"
 
-@app.post("/podcast/generate", response_model=PodcastResponse)
+@router.post("/podcast/generate", response_model=PodcastResponse)
 def generate_podcast(req: PodcastRequest):
     try:
         return podcast_service.generate_script(req.topic_title, req.topic_description, req.language, req.preset)
@@ -229,7 +240,7 @@ class AudioRequest(BaseModel):
 from fastapi.responses import StreamingResponse
 import io
 
-@app.post("/podcast/audio")
+@router.post("/podcast/audio")
 def generate_audio(req: AudioRequest):
     try:
         audio_bytes = podcast_service.generate_audio_segment(req.text, req.speaker, req.language)
@@ -240,3 +251,7 @@ def generate_audio(req: AudioRequest):
              print(f"Rate Limit Hit: {e}")
              raise HTTPException(status_code=429, detail="Rate Limit Exceeded")
         raise HTTPException(status_code=500, detail=str(e))
+
+# Mount router for Vercel and local dev
+app.include_router(router)
+app.include_router(router, prefix="/api")

@@ -2,7 +2,7 @@ import os
 import json
 import google.generativeai as genai
 from typing import List
-from models import Topic, Flashcard, ChallengeType
+from . .models import Topic, Flashcard, ChallengeType
 
 class GeminiService:
     def __init__(self):
@@ -127,8 +127,6 @@ class GeminiService:
             return topics
 
         except Exception as e:
-            with open("gemini_debug.log", "a") as f:
-                f.write(f"Error calling Gemini: {e}\n")
             print(f"Error calling Gemini: {e}")
             # Fallback for demonstration/verification if API fails
             # Fallback removed - user requested explicit error

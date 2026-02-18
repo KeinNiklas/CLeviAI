@@ -216,7 +216,7 @@ def update_api_keys(keys: APIKeyUpdate):
     except Exception as e:
         print(f"Error updating keys: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-from services.podcast_service import PodcastService
+from .services.podcast_service import PodcastService
 podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):

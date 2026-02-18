@@ -12,7 +12,7 @@ echo -e "${CYAN}Setting up CLeviAI Environment...${NC}"
 
 # Backend Setup
 echo -e "${GREEN}--- Backend Setup ---${NC}"
-cd backend || { echo -e "${RED}Backend directory not found${NC}"; exit 1; }
+cd api || { echo -e "${RED}Backend directory not found${NC}"; exit 1; }
 
 if [ ! -d ".venv" ]; then
     echo "Creating Python virtual environment..."

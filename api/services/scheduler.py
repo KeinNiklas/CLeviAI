@@ -4,11 +4,15 @@ from models import Topic, DaySchedule, StudyPlan
 import math
 import uuid
 
-from services.store import JSONStore
+try:
+    from .mongo_store import MongoStore
+except ImportError:
+    from services.mongo_store import MongoStore
 
 class SchedulerService:
     def __init__(self):
-        self.store = JSONStore()
+        self.store = MongoStore()
+        print("Using MongoStore (study_plans)")
 
     def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, 
                     user_id: str, title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:

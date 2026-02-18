@@ -9,7 +9,7 @@ if (Test-Path $NodeDir) {
 
 # Start Backend
 Write-Host "Starting Backend (FastAPI)..." -ForegroundColor Green
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd backend; .\.venv\Scripts\activate; uvicorn main:app --reload --port 8000"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd api; .\.venv\Scripts\activate; uvicorn main:app --reload --port 8000"
 
 # Start Frontend
 Write-Host "Starting Frontend (Next.js)..." -ForegroundColor Blue

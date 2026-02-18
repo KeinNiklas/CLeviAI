@@ -11,7 +11,7 @@ echo "=========================================="
 echo ""
 echo "[1/2] Running Backend Tests (pytest)..."
 echo "------------------------------------------"
-cd backend
+cd api
 if [ ! -d ".venv" ]; then
     echo "Creating virtual environment..."
     python3 -m venv .venv

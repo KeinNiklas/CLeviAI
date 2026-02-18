@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/lib/LanguageContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const outfit = Outfit({
@@ -37,6 +38,7 @@ export default function RootLayout({
             {children}
           </LanguageProvider>
         </ThemeProvider>
+        <Analytics />
         <SpeedInsights />
       </body>
     </html >

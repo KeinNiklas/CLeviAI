@@ -2,9 +2,17 @@ import os
 import json
 from typing import List
 
-from . .models import PodcastResponse, PodcastLine
-from .groq_service import GroqService
-from .gemini_service import GeminiService
+try:
+    from ..models import PodcastResponse, PodcastLine
+except ImportError:
+    from models import PodcastResponse, PodcastLine
+
+try:
+    from .groq_service import GroqService
+    from .gemini_service import GeminiService
+except ImportError:
+    from services.groq_service import GroqService
+    from services.gemini_service import GeminiService
 
 class PodcastService:
     def __init__(self, groq_service: GroqService, gemini_service: GeminiService = None):

@@ -2,7 +2,10 @@ import os
 import json
 from groq import Groq
 from typing import List
-from . .models import Topic, Flashcard, ChallengeType
+try:
+    from ..models import Topic, Flashcard, ChallengeType
+except ImportError:
+    from models import Topic, Flashcard, ChallengeType
 
 class GroqService:
     def __init__(self):

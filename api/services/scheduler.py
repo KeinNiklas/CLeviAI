@@ -1,9 +1,16 @@
 from datetime import date, timedelta
 from typing import List
-from . .models import Topic, DaySchedule, StudyPlan
+try:
+    from ..models import Topic, DaySchedule, StudyPlan
+except ImportError:
+    from models import Topic, DaySchedule, StudyPlan
+
 import math
 
-from .mongo_store import MongoStore
+try:
+    from .mongo_store import MongoStore
+except ImportError:
+    from services.mongo_store import MongoStore
 
 class SchedulerService:
     def __init__(self):

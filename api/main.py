@@ -7,9 +7,14 @@ try:
     from models import Topic, StudyPlan, PodcastResponse
 except ImportError:
     from .models import Topic, StudyPlan, PodcastResponse
-from .services.ingestion import IngestionService
-from .services.analyzer import AnalyzerService
-from .services.scheduler import SchedulerService
+try:
+    from .services.ingestion import IngestionService
+    from .services.analyzer import AnalyzerService
+    from .services.scheduler import SchedulerService
+except ImportError:
+    from services.ingestion import IngestionService
+    from services.analyzer import AnalyzerService
+    from services.scheduler import SchedulerService
 from dotenv import load_dotenv
 import os
 
@@ -216,7 +221,10 @@ def update_api_keys(keys: APIKeyUpdate):
     except Exception as e:
         print(f"Error updating keys: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-from .services.podcast_service import PodcastService
+try:
+    from .services.podcast_service import PodcastService
+except ImportError:
+    from services.podcast_service import PodcastService
 podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):

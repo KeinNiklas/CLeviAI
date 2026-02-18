@@ -2,7 +2,10 @@ import os
 import json
 import google.generativeai as genai
 from typing import List
-from . .models import Topic, Flashcard, ChallengeType
+try:
+    from ..models import Topic, Flashcard, ChallengeType
+except ImportError:
+    from models import Topic, Flashcard, ChallengeType
 
 class GeminiService:
     def __init__(self):

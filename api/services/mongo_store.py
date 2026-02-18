@@ -2,7 +2,10 @@ import os
 import certifi
 from typing import List, Optional
 from pymongo import MongoClient
-from ..models import StudyPlan
+try:
+    from ..models import StudyPlan
+except ImportError:
+    from models import StudyPlan
 
 class MongoStore:
     def __init__(self):

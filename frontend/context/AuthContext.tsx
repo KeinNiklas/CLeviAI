@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { API_URL } from '@/lib/api';
 
 interface User {
     email: string;
@@ -32,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const fetchUser = async (authToken: string) => {
         try {
-            const response = await fetch(`${API_URL}/users/me`, {
+            const response = await fetch('/api/users/me', {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }

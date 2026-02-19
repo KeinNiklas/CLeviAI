@@ -7,7 +7,6 @@ import { Card } from "@/components/ui/Card";
 import { useAuth } from "@/context/AuthContext";
 
 import { useLanguage } from "@/lib/LanguageContext";
-import { API_URL } from '@/lib/api';
 
 interface FileUploaderProps {
     onUploadComplete: (data: any) => void;
@@ -81,7 +80,7 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         formData.append("language", language);
 
         try {
-            const response = await fetch(`${API_URL}/analyze-document`, {
+            const response = await fetch(`/api/analyze-document`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`

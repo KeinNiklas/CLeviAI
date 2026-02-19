@@ -10,7 +10,6 @@ import { GamifiedJourneyMap } from "@/components/dashboard/GamifiedJourneyMap";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAuth } from "@/context/AuthContext";
 import Link from 'next/link';
-import { API_URL } from '@/lib/api';
 
 interface StudyPlan {
     id: string;
@@ -49,7 +48,7 @@ export default function DashboardPage() {
     const fetchPlans = async () => {
         if (!token) return;
         try {
-            const response = await fetch(`${API_URL}/plans`, {
+            const response = await fetch('/api/plans', {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -82,7 +81,7 @@ export default function DashboardPage() {
         if (!editTitle.trim()) return;
 
         try {
-            const response = await fetch(`${API_URL}/plans/${planId}`, {
+            const response = await fetch(`/api/plans/${planId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -108,7 +107,7 @@ export default function DashboardPage() {
         if (!confirm("Are you sure you want to delete this journey?")) return;
 
         try {
-            const response = await fetch(`${API_URL}/plans/${planId}`, {
+            const response = await fetch(`/api/plans/${planId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`

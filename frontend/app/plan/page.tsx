@@ -10,7 +10,6 @@ import { Calendar, BookOpen, Clock, Loader2, Target, CheckCircle2, ChevronRight,
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useAuth } from "@/context/AuthContext";
-import { API_URL } from "@/lib/api";
 
 interface Topic {
     id: string;
@@ -49,7 +48,7 @@ export default function CreatePlanPage() {
             }
 
             try {
-                const res = await fetch(`${API_URL}/plans`, {
+                const res = await fetch('/api/plans', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -120,7 +119,7 @@ export default function CreatePlanPage() {
     const handleGeneratePlan = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${API_URL}/create-plan`, {
+            const response = await fetch('/api/create-plan', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

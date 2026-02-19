@@ -17,7 +17,6 @@ interface User {
 }
 
 import { useLanguage } from '@/lib/LanguageContext';
-import { API_URL } from '@/lib/api';
 
 export default function AdminUsersPage() {
     const { token } = useAuth();
@@ -31,7 +30,7 @@ export default function AdminUsersPage() {
     const fetchUsers = async () => {
         if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/users`, {
+            const res = await fetch('/api/users', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {
@@ -58,7 +57,7 @@ export default function AdminUsersPage() {
         if (!token) return;
         setActionLoading(user.id);
         try {
-            const res = await fetch(`${API_URL}/users/${user.id}`, {
+            const res = await fetch(`/api/users/${user.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +85,7 @@ export default function AdminUsersPage() {
 
         setActionLoading(user.id);
         try {
-            const res = await fetch(`${API_URL}/users/${user.id}`, {
+            const res = await fetch(`/api/users/${user.id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });

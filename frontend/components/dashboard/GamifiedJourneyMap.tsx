@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GameShell, Challenge } from "../game/GameShell";
 import { useLanguage } from "@/lib/LanguageContext";
-import { API_URL } from '@/lib/api';
 import { PodcastPlayer } from "./PodcastPlayer";
 
 interface Flashcard {
@@ -103,7 +102,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         setLocalPlan({ ...localPlan, schedule: updatedSchedule });
 
         try {
-            await fetch(`${API_URL}/plans/${plan.id}/topics/${topicId}`, {
+            await fetch(`/api/plans/${plan.id}/topics/${topicId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: newStatus }),

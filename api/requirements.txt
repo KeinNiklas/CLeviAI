@@ -10,10 +10,6 @@ argon2-cffi
 python-jose[cryptography]
 python-multipart
 uvicorn[standard]
-llama-index
-langchain
 pypdf
-chromadb
 python-docx
-pytest
 httpx

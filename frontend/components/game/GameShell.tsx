@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Heart, CheckCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import Confetti from "react-confetti";
+import confetti from "canvas-confetti";
 import { QuizChallenge } from "./QuizChallenge";
 import { MatchChallenge } from "./MatchChallenge";
 
@@ -62,10 +62,33 @@ export function GameShell({ title, challenges, onComplete, onClose }: GameShellP
         });
     };
 
+    // Trigger confetti when completed
+    useEffect(() => {
+        if (isCompleted) {
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+            const interval: any = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+            }, 250);
+        }
+    }, [isCompleted]);
+
     if (isCompleted) {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-md">
-                <Confetti numberOfPieces={200} recycle={false} />
+                {/* Confetti handled by useEffect */}
                 <Card className="p-8 text-center max-w-md border-orange-500/50 bg-secondary/30">
                     <h2 className="text-4xl font-bold mb-4 gradient-text">Lesson Complete!</h2>
                     <div className="text-6xl mb-6">🏆</div>

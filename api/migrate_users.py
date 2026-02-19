@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from services.mongo_store import MongoStore
-from models import User
+from models import UserInDB
 
 def load_mongo_env():
     if os.path.exists("mongodb.env"):
@@ -45,7 +45,8 @@ def migrate():
     for user_data in users_data:
         try:
             # Validate and Create User Object
-            user = User(**user_data)
+            # Use UserInDB to include hashed_password
+            user = UserInDB(**user_data)
             
             # Save to MongoDB
             store.save_user(user)

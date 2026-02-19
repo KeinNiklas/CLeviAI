@@ -11,9 +11,29 @@ except ImportError:
 class MongoStore:
     def __init__(self):
         self.uri = os.getenv("MONGODB_TEST_URI")
+        
         if not self.uri:
             # Try MONGODB_URI fallback
             self.uri = os.getenv("MONGODB_URI")
+        
+        # Fallback: Read from mongodb.env if not set
+        if not self.uri:
+            env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "mongodb.env")
+            if os.path.exists(env_path):
+                try:
+                    with open(env_path, "r") as f:
+                        content = f.read().strip()
+                        if "=" in content:
+                            # Handle KEY=VALUE format
+                            key, value = content.split("=", 1)
+                            if "MONGODB" in key:
+                                self.uri = value.strip()
+                        else:
+                            # Handle raw URI
+                            self.uri = content
+                except Exception as e:
+                    print(f"Error reading mongodb.env: {e}")
+
             
         if not self.uri:
             raise ValueError("MONGODB_TEST_URI or MONGODB_URI environment variable is not set")
@@ -108,6 +128,16 @@ class MongoStore:
         for doc in cursor:
             users.append(User(**doc))
         return users
+
+    def update_user(self, user_id: str, updates: dict) -> bool:
+        if not updates:
+            return False
+
+        result = self.users_collection.update_one(
+            {'id': user_id},
+            {'$set': updates}
+        )
+        return result.matched_count > 0
 
     def delete_user(self, user_id: str) -> bool:
         result = self.users_collection.delete_one({'id': user_id})

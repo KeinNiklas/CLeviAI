@@ -9,7 +9,7 @@ try:
     from services.analyzer import AnalyzerService
     from services.scheduler import SchedulerService
     from dependencies import get_current_user
-except:
+except ImportError:
     from .models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
     from .services.ingestion import IngestionService
     from .services.analyzer import AnalyzerService

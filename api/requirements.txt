@@ -13,3 +13,5 @@ uvicorn[standard]
 pypdf
 python-docx
 httpx
+pymongo
+certifi

@@ -61,7 +61,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
         setRateLimitError(null);
 
         try {
-            const res = await fetch("http://localhost:8000/podcast/generate", {
+            const res = await fetch(`${API_URL}/podcast/generate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

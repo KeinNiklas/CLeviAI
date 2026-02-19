@@ -55,7 +55,7 @@ export default function SubscriptionPage() {
         if (!confirm(t.subscription.confirm_cancel)) return;
         setIsProcessing(true);
         try {
-            const res = await fetch('http://localhost:8000/users/me/downgrade', {
+            const res = await fetch(`${API_URL}/users/me/downgrade`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

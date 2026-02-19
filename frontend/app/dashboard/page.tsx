@@ -49,7 +49,7 @@ export default function DashboardPage() {
     const fetchPlans = async () => {
         if (!token) return;
         try {
-            const response = await fetch("http://localhost:8000/plans", {
+            const response = await fetch(`${API_URL}/plans`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -108,7 +108,7 @@ export default function DashboardPage() {
         if (!confirm("Are you sure you want to delete this journey?")) return;
 
         try {
-            const response = await fetch(`http://localhost:8000/plans/${planId}`, {
+            const response = await fetch(`${API_URL}/plans/${planId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`

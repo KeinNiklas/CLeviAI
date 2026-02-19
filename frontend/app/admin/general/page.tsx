@@ -35,7 +35,7 @@ export default function AdminGeneralPage() {
         const fetchConfig = async () => {
             if (!token) return;
             try {
-                const res = await fetch('http://localhost:8000/settings/config', {
+                const res = await fetch(`${API_URL}/settings/config`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) {

@@ -31,7 +31,7 @@ export default function AdminUsersPage() {
     const fetchUsers = async () => {
         if (!token) return;
         try {
-            const res = await fetch('http://localhost:8000/users', {
+            const res = await fetch(`${API_URL}/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (res.ok) {
@@ -58,7 +58,7 @@ export default function AdminUsersPage() {
         if (!token) return;
         setActionLoading(user.id);
         try {
-            const res = await fetch(`http://localhost:8000/users/${user.id}`, {
+            const res = await fetch(`${API_URL}/users/${user.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ export default function CreatePlanPage() {
             }
 
             try {
-                const res = await fetch('http://localhost:8000/plans', {
+                const res = await fetch(`${API_URL}/plans`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) {

@@ -29,10 +29,10 @@ function getBackendBaseUrl(request: NextRequest): string {
     return `${proto}://${host}`;
 }
 
-async function handler(request: NextRequest, { params }: { params: { path: string[] } }) {
+async function handler(request: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
     const backendUrl = getBackendBaseUrl(request);
-    const path = params.path.join('/');
-    const targetUrl = `${backendUrl}/${path}${request.nextUrl.search}`;
+    const { path } = await params;
+    const targetUrl = `${backendUrl}/${path.join('/')}${request.nextUrl.search}`;
 
     // Forward headers (excluding host which is set automatically)
     const headers = new Headers();

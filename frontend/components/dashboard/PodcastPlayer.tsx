@@ -5,6 +5,7 @@ import { Play, Pause, X, Loader2, Volume2, Settings2, SkipForward, AlertTriangle
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useLanguage } from "@/lib/LanguageContext";
+import { API_URL } from '@/lib/api';
 import {
     Select,
     SelectContent,
@@ -89,7 +90,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
 
         try {
             const line = script[index];
-            const res = await fetch("http://localhost:8000/podcast/audio", {
+            const res = await fetch(`${API_URL}/podcast/audio`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

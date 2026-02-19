@@ -8,6 +8,7 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Loader2, Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { API_URL } from '@/lib/api';
 
 export default function RegisterPage() {
     const { t } = useLanguage();
@@ -31,7 +32,7 @@ export default function RegisterPage() {
         setIsLoading(true);
 
         try {
-            const res = await fetch('http://localhost:8000/auth/register', {
+            const res = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

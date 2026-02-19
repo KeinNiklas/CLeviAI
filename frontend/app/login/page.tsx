@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Loader2, Mail, Lock, ArrowRight } from 'lucide-react';
+import { API_URL } from '@/lib/api';
 
 export default function LoginPage() {
     const { t } = useLanguage();
@@ -28,7 +29,7 @@ export default function LoginPage() {
             formData.append('username', email);
             formData.append('password', password);
 
-            const res = await fetch('http://localhost:8000/auth/token', {
+            const res = await fetch(`${API_URL}/auth/token`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

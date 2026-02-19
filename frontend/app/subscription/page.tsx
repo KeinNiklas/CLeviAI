@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { useLanguage } from '@/lib/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import { API_URL } from '@/lib/api';
 
 export default function SubscriptionPage() {
     const { token, refreshUser, user } = useAuth();
@@ -26,7 +27,7 @@ export default function SubscriptionPage() {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         try {
-            const res = await fetch('http://localhost:8000/users/me/upgrade', {
+            const res = await fetch(`${API_URL}/users/me/upgrade`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

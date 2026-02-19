@@ -17,6 +17,7 @@ interface User {
 }
 
 import { useLanguage } from '@/lib/LanguageContext';
+import { API_URL } from '@/lib/api';
 
 export default function AdminUsersPage() {
     const { token } = useAuth();
@@ -85,7 +86,7 @@ export default function AdminUsersPage() {
 
         setActionLoading(user.id);
         try {
-            const res = await fetch(`http://localhost:8000/users/${user.id}`, {
+            const res = await fetch(`${API_URL}/users/${user.id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });

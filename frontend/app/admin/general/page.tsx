@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Save, Loader2, Key, Zap, Cpu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/lib/LanguageContext';
+import { API_URL } from '@/lib/api';
 
 export default function AdminGeneralPage() {
     const { token } = useAuth();
@@ -69,7 +70,7 @@ export default function AdminGeneralPage() {
         setStatusMessage('');
 
         try {
-            const res = await fetch('http://localhost:8000/settings/keys', {
+            const res = await fetch(`${API_URL}/settings/keys`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

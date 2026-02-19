@@ -11,6 +11,8 @@ from dependencies import get_current_user
 from dotenv import load_dotenv
 import os
 
+# Test
+
 def get_current_admin_user(current_user: UserInDB = Depends(get_current_user)):
     if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Not authorized")

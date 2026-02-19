@@ -4,9 +4,9 @@ from typing import List, Optional
 from pymongo import MongoClient
 
 try:
-    from ..models import StudyPlan, User
-except ImportError:
     from models import StudyPlan, User
+except ImportError:
+    from ..models import StudyPlan, User
 
 class MongoStore:
     def __init__(self):

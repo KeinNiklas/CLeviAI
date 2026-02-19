@@ -3,11 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date, timedelta
-from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
-from services.ingestion import IngestionService
-from services.analyzer import AnalyzerService
-from services.scheduler import SchedulerService
-from dependencies import get_current_user
+try:
+    from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
+    from services.ingestion import IngestionService
+    from services.analyzer import AnalyzerService
+    from services.scheduler import SchedulerService
+    from dependencies import get_current_user
+except:
+    from .models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
+    from .services.ingestion import IngestionService
+    from .services.analyzer import AnalyzerService
+    from .services.scheduler import SchedulerService
+    from .dependencies import get_current_user
 from dotenv import load_dotenv
 import os
 
@@ -250,7 +257,10 @@ def update_api_keys(keys: APIKeyUpdate, current_user: UserInDB = Depends(get_cur
         print(f"Error updating keys: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-from services.podcast_service import PodcastService
+try:
+    from services.podcast_service import PodcastService
+except ImportError:
+    from .services.podcast_service import PodcastService
 podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):
@@ -288,7 +298,10 @@ def generate_audio(req: AudioRequest, current_user: UserInDB = Depends(get_curre
 
 # --- Authentication ---
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from services.auth import AuthService
+try:
+    from services.auth import AuthService
+except ImportError:
+    from .services.auth import AuthService
 
 auth_service = AuthService()
 

@@ -1,9 +1,14 @@
 import os
 import json
 from typing import List
-from models import Topic
-from services.gemini_service import GeminiService
-from services.groq_service import GroqService
+try:
+    from models import Topic
+    from services.gemini_service import GeminiService
+    from services.groq_service import GroqService
+except ImportError:
+    from ..models import Topic
+    from .gemini_service import GeminiService
+    from .groq_service import GroqService
 
 class AnalyzerService:
     def __init__(self):

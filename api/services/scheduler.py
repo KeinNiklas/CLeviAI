@@ -1,6 +1,9 @@
 from datetime import date, timedelta
 from typing import List
-from models import Topic, DaySchedule, StudyPlan
+try:
+    from models import Topic, DaySchedule, StudyPlan
+except ImportError:
+    from ..models import Topic, DaySchedule, StudyPlan
 import math
 import uuid
 

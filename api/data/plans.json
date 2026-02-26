@@ -1,6 +1,7 @@
 [
   {
     "id": "plan_2026-02-01_6",
+    "user_id": "Dummy",
     "title": "VWL",
     "exam_date": "2026-07-09",
     "parallel_courses": 0,
@@ -255,6 +256,7 @@
   },
   {
     "id": "plan_2026-02-01_5",
+    "user_id": "Dummy",
     "title": "Test",
     "exam_date": "2026-03-11",
     "parallel_courses": 0,
@@ -469,6 +471,7 @@
   },
   {
     "id": "plan_2026-02-01_4",
+    "user_id": "Dummy",
     "title": "sdfsf",
     "exam_date": "2026-02-19",
     "parallel_courses": 0,
@@ -643,5 +646,931 @@
       }
     ],
     "created_at": "2026-02-01"
+  },
+  {
+    "id": "plan_2026-02-15_7",
+    "user_id": "cfc9899d-95c1-44ac-aa86-df2407b14da8",
+    "title": "DB 1",
+    "exam_date": "2026-02-22",
+    "parallel_courses": 0,
+    "daily_goal_hours": 3.0,
+    "study_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-16",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_0",
+            "title": "ER-Modellierung",
+            "description": "Erstellung von Entity-Relationship-Modellen (ERM) zur Darstellung von Datenbankstrukturen, einschlie\u00dflich der Identifizierung von Entit\u00e4ten, Attributen und Beziehungen.",
+            "estimated_hours": 3.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "answer": "Die Struktur einer Datenbank grafisch darzustellen"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "correct_answer": "Die Struktur einer Datenbank grafisch darzustellen",
+                "distractors": [
+                  "SQL-Abfragen zu schreiben",
+                  "Daten zu normalisieren",
+                  "Datenbanken zu implementieren"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe der ER-Modellierung ihren Definitionen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Entit\u00e4t:Ein eindeutig identifizierbares Objekt oder Konzept;Attribut:Eine Eigenschaft einer Entit\u00e4t;Beziehung:Eine Verbindung zwischen zwei oder mehr Entit\u00e4ten;Kardinalit\u00e4t:Die Anzahl der Entit\u00e4ten, die an einer Beziehung beteiligt sind"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_1",
+            "title": "Relationenmodell",
+            "description": "Umwandlung eines ER-Modells in ein relationales Modell, Identifizierung von Prim\u00e4r- und Fremdschl\u00fcsseln, Darstellung von Relationen in Tabellenform.",
+            "estimated_hours": 4.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist die Funktion eines Prim\u00e4rschl\u00fcssels in einer relationalen Datenbank?",
+                "answer": "Eindeutige Identifizierung eines Datensatzes"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist die Funktion eines Prim\u00e4rschl\u00fcssels in einer relationalen Datenbank?",
+                "correct_answer": "Eindeutige Identifizierung eines Datensatzes",
+                "distractors": [
+                  "Verkn\u00fcpfung von Tabellen",
+                  "Sortierung von Daten",
+                  "Filterung von Daten"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe des Relationenmodells ihren Definitionen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Relation:Eine Tabelle in einer relationalen Datenbank;Attribut:Eine Spalte in einer Tabelle;Prim\u00e4rschl\u00fcssel:Ein Attribut oder eine Kombination von Attributen, die jeden Datensatz eindeutig identifiziert;Fremdschl\u00fcssel:Ein Attribut in einer Tabelle, das auf den Prim\u00e4rschl\u00fcssel einer anderen Tabelle verweist"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 7.0
+      },
+      {
+        "date": "2026-02-17",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_2",
+            "title": "Normalisierung",
+            "description": "\u00dcberf\u00fchrung von Relationen in die 3. Normalform zur Vermeidung von Redundanzen und Inkonsistenzen.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Ziel der Normalisierung?",
+                "answer": "Datenredundanz und Inkonsistenzen vermeiden"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Ziel der Normalisierung?",
+                "correct_answer": "Datenredundanz und Inkonsistenzen vermeiden",
+                "distractors": [
+                  "Datenbankperformance verbessern",
+                  "Sicherheitsl\u00fccken schlie\u00dfen",
+                  "Benutzerfreundlichkeit erh\u00f6hen"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Normalformen ihren Definitionen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "1NF:Jedes Attribut enth\u00e4lt nur atomare Werte;2NF:Erf\u00fcllt 1NF und jedes Nicht-Schl\u00fcsselattribut ist voll funktional abh\u00e4ngig vom Prim\u00e4rschl\u00fcssel;3NF:Erf\u00fcllt 2NF und es gibt keine transitiven Abh\u00e4ngigkeiten von Nicht-Schl\u00fcsselattributen zum Prim\u00e4rschl\u00fcssel;BCNF:Jede Determinante ist ein Kandidatenschl\u00fcssel"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 5.0
+      },
+      {
+        "date": "2026-02-18",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_3",
+            "title": "Relationale Algebra",
+            "description": "Anwendung relationaler Algebraoperationen (Union, Differenz, Schnittmenge, Selektion, Projektion, Division, Join) auf Relationen.",
+            "estimated_hours": 6.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche relationale Algebraoperation w\u00e4hlt Zeilen aus einer Relation basierend auf einer Bedingung aus?",
+                "answer": "Selektion"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche relationale Algebraoperation w\u00e4hlt Zeilen aus einer Relation basierend auf einer Bedingung aus?",
+                "correct_answer": "Selektion",
+                "distractors": [
+                  "Projektion",
+                  "Union",
+                  "Join"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die relationalen Algebraoperationen ihren Beschreibungen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Union:Kombiniert die Datens\u00e4tze zweier Relationen;Differenz:Gibt die Datens\u00e4tze der ersten Relation zur\u00fcck, die nicht in der zweiten Relation vorhanden sind;Schnittmenge:Gibt die Datens\u00e4tze zur\u00fcck, die in beiden Relationen vorhanden sind;Projektion:W\u00e4hlt bestimmte Spalten aus einer Relation aus"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 6.0
+      },
+      {
+        "date": "2026-02-19",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_4",
+            "title": "SQL - Datendefinition",
+            "description": "Erstellung von Datenbankstrukturen mit SQL (DDL: Data Definition Language): Tabellen, Datentypen, Constraints, Integrit\u00e4tsbedingungen.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "answer": "CREATE TABLE"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "correct_answer": "CREATE TABLE",
+                "distractors": [
+                  "INSERT INTO",
+                  "UPDATE",
+                  "SELECT"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Datendefinitions-Befehle ihren Beschreibungen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "CREATE TABLE:Erstellt eine neue Tabelle;ALTER TABLE:\u00c4ndert die Struktur einer bestehenden Tabelle;DROP TABLE:L\u00f6scht eine Tabelle;CREATE INDEX:Erstellt einen Index auf einer Tabelle"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 5.0
+      },
+      {
+        "date": "2026-02-20",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_5",
+            "title": "SQL - Datenmanipulation",
+            "description": "Modifikation von Daten in der Datenbank mit SQL (DML: Data Manipulation Language): Einf\u00fcgen, Aktualisieren, L\u00f6schen, Abfragen von Daten.",
+            "estimated_hours": 7.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "answer": "INSERT INTO"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "correct_answer": "INSERT INTO",
+                "distractors": [
+                  "UPDATE",
+                  "DELETE",
+                  "SELECT"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Datenmanipulations-Befehle ihren Beschreibungen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INSERT INTO:F\u00fcgt neue Datens\u00e4tze in eine Tabelle ein;UPDATE:\u00c4ndert bestehende Datens\u00e4tze in einer Tabelle;DELETE:L\u00f6scht Datens\u00e4tze aus einer Tabelle;SELECT:W\u00e4hlt Datens\u00e4tze aus einer Tabelle aus"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_6",
+            "title": "SQL - Verbundabfragen",
+            "description": "Erstellung komplexer Abfragen mit Joins, Unterabfragen, Aggregatfunktionen und Gruppierungen.",
+            "estimated_hours": 8.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche Art von JOIN gibt alle Zeilen aus beiden Tabellen zur\u00fcck, auch wenn es keine \u00dcbereinstimmungen gibt?",
+                "answer": "FULL OUTER JOIN"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche Art von JOIN gibt alle Zeilen aus beiden Tabellen zur\u00fcck, auch wenn es keine \u00dcbereinstimmungen gibt?",
+                "correct_answer": "FULL OUTER JOIN",
+                "distractors": [
+                  "INNER JOIN",
+                  "LEFT JOIN",
+                  "RIGHT JOIN"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die JOIN-Typen ihren Beschreibungen zu.",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INNER JOIN:Gibt nur \u00fcbereinstimmende Datens\u00e4tze aus beiden Tabellen zur\u00fcck;LEFT JOIN:Gibt alle Datens\u00e4tze aus der linken Tabelle und die \u00fcbereinstimmenden Datens\u00e4tze aus der rechten Tabelle zur\u00fcck;RIGHT JOIN:Gibt alle Datens\u00e4tze aus der rechten Tabelle und die \u00fcbereinstimmenden Datens\u00e4tze aus der linken Tabelle zur\u00fcck;FULL OUTER JOIN:Gibt alle Datens\u00e4tze aus beiden Tabellen zur\u00fcck"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 15.0
+      }
+    ],
+    "created_at": "2026-02-15"
+  },
+  {
+    "id": "plan_2026-02-15_8",
+    "user_id": "cfc9899d-95c1-44ac-aa86-df2407b14da8",
+    "title": "DB 2",
+    "exam_date": "2026-02-22",
+    "parallel_courses": 0,
+    "daily_goal_hours": 3.0,
+    "study_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-16",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_0",
+            "title": "ER-Modellierung",
+            "description": "Erstellung eines Entity-Relationship-Modells (ERM) f\u00fcr eine Datenbank zur Abbildung von Gesch\u00e4ftsprozessen, z.B. f\u00fcr ein Autohaus.",
+            "estimated_hours": 3.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "answer": "Die Struktur einer Datenbank grafisch darzustellen"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "correct_answer": "Die Struktur einer Datenbank grafisch darzustellen",
+                "distractors": [
+                  "SQL-Abfragen zu optimieren",
+                  "Datenbanken zu normalisieren",
+                  "Benutzerschnittstellen zu gestalten"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe der ER-Modellierung zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Entit\u00e4t:Objekt der realen Welt, das in der Datenbank abgebildet wird;Attribut:Eigenschaft einer Entit\u00e4t;Beziehung:Verbindung zwischen Entit\u00e4ten;Kardinalit\u00e4t:Anzahl der Beziehungen zwischen Entit\u00e4ten"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_1",
+            "title": "Relationenmodell",
+            "description": "Umwandlung eines ERM in ein Relationenmodell, Identifizierung von Prim\u00e4r- und Fremdschl\u00fcsseln, Darstellung in Relationenschreibweise.",
+            "estimated_hours": 4.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist ein Prim\u00e4rschl\u00fcssel in einem Relationenmodell?",
+                "answer": "Ein Attribut oder eine Kombination von Attributen, das jeden Datensatz eindeutig identifiziert"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist ein Prim\u00e4rschl\u00fcssel in einem Relationenmodell?",
+                "correct_answer": "Ein Attribut oder eine Kombination von Attributen, das jeden Datensatz eindeutig identifiziert",
+                "distractors": [
+                  "Ein Attribut, das nur Zahlen enthalten darf",
+                  "Ein Attribut, das in jeder Tabelle vorhanden sein muss",
+                  "Ein Attribut, das eine Beziehung zu einer anderen Tabelle herstellt"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe des Relationenmodells zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Relation:Tabelle;Attribut:Spalte;Tupel:Zeile;Fremdschl\u00fcssel:Attribut, das auf den Prim\u00e4rschl\u00fcssel einer anderen Tabelle verweist"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_2",
+            "title": "Normalisierung",
+            "description": "\u00dcberf\u00fchrung eines relationalen Modells in die 3. Normalform zur Vermeidung von Redundanzen und Inkonsistenzen.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Ziel der Normalisierung in Datenbanken?",
+                "answer": "Datenredundanz zu reduzieren und die Datenintegrit\u00e4t zu gew\u00e4hrleisten"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Ziel der Normalisierung in Datenbanken?",
+                "correct_answer": "Datenredundanz zu reduzieren und die Datenintegrit\u00e4t zu gew\u00e4hrleisten",
+                "distractors": [
+                  "Die Datenbank schneller zu machen",
+                  "Den Speicherplatzbedarf zu verringern",
+                  "Die Anzahl der Tabellen zu minimieren"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Normalformen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "1NF:Jedes Attribut enth\u00e4lt nur atomare Werte;2NF:Erf\u00fcllt 1NF und alle Nicht-Schl\u00fcsselattribute sind voll funktional abh\u00e4ngig vom Prim\u00e4rschl\u00fcssel;3NF:Erf\u00fcllt 2NF und es gibt keine transitiven Abh\u00e4ngigkeiten;BCNF:Spezialfall der 3NF, der sich mit \u00fcberlappenden Schl\u00fcsselkandidaten befasst"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 12.0
+      },
+      {
+        "date": "2026-02-17",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_3",
+            "title": "Relationale Algebra",
+            "description": "Anwendung relationaler Algebra-Operationen wie Vereinigung, Differenz, Schnittmenge, Selektion, Projektion und Division.",
+            "estimated_hours": 6.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche relationale Algebra Operation w\u00e4hlt Zeilen aus einer Tabelle basierend auf einer Bedingung aus?",
+                "answer": "Selektion"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche relationale Algebra Operation w\u00e4hlt Zeilen aus einer Tabelle basierend auf einer Bedingung aus?",
+                "correct_answer": "Selektion",
+                "distractors": [
+                  "Projektion",
+                  "Vereinigung",
+                  "Division"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die relationalen Algebra Operationen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Vereinigung:Kombiniert die Zeilen zweier Tabellen;Differenz:Gibt die Zeilen zur\u00fcck, die in der ersten, aber nicht in der zweiten Tabelle vorkommen;Schnittmenge:Gibt die Zeilen zur\u00fcck, die in beiden Tabellen vorkommen;Projektion:W\u00e4hlt bestimmte Spalten aus einer Tabelle aus"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_4",
+            "title": "Relationale Algebra \u2013 Verbundoperationen",
+            "description": "Anwendung von Verbundoperationen (Join) in der relationalen Algebra, einschlie\u00dflich Kreuzprodukt, nat\u00fcrlicher Join und Theta-Join.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche Art von Join gibt alle Kombinationen von Zeilen aus zwei Tabellen zur\u00fcck?",
+                "answer": "Kreuzprodukt"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche Art von Join gibt alle Kombinationen von Zeilen aus zwei Tabellen zur\u00fcck?",
+                "correct_answer": "Kreuzprodukt",
+                "distractors": [
+                  "Nat\u00fcrlicher Join",
+                  "Theta-Join",
+                  "\u00c4u\u00dferer Join"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Verbundoperationen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Kreuzprodukt:Kombiniert jede Zeile der ersten Tabelle mit jeder Zeile der zweiten Tabelle;Nat\u00fcrlicher Join:Verbindet Tabellen basierend auf Spalten mit gleichen Namen und Datentypen;Theta-Join:Verbindet Tabellen basierend auf einer beliebigen Bedingung;\u00c4u\u00dferer Join:Beh\u00e4lt alle Zeilen aus einer Tabelle, auch wenn es keine \u00fcbereinstimmenden Zeilen in der anderen Tabelle gibt"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 11.0
+      },
+      {
+        "date": "2026-02-18",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_5",
+            "title": "SQL - Datendefinition",
+            "description": "Erstellung von Tabellen und Definition von Datentypen, Prim\u00e4rschl\u00fcsseln, Fremdschl\u00fcsseln und Integrit\u00e4tsbedingungen in SQL.",
+            "estimated_hours": 7.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "answer": "CREATE TABLE"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "correct_answer": "CREATE TABLE",
+                "distractors": [
+                  "INSERT INTO",
+                  "UPDATE",
+                  "DELETE FROM"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Datentypen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INT:Ganzzahl;VARCHAR:Zeichenkette variabler L\u00e4nge;DATE:Datum;BOOLEAN:Wahrheitswert"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 7.0
+      },
+      {
+        "date": "2026-02-19",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_6",
+            "title": "SQL - Datenmanipulation",
+            "description": "Einf\u00fcgen, \u00c4ndern, L\u00f6schen und Auslesen von Daten in SQL (CRUD-Operationen).",
+            "estimated_hours": 8.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "answer": "INSERT INTO"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "correct_answer": "INSERT INTO",
+                "distractors": [
+                  "UPDATE",
+                  "DELETE FROM",
+                  "SELECT"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Befehle zur Datenmanipulation zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INSERT:F\u00fcgt neue Datens\u00e4tze in eine Tabelle ein;UPDATE:\u00c4ndert bestehende Datens\u00e4tze in einer Tabelle;DELETE:L\u00f6scht Datens\u00e4tze aus einer Tabelle;SELECT:W\u00e4hlt Daten aus einer oder mehreren Tabellen aus"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 8.0
+      },
+      {
+        "date": "2026-02-20",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_7",
+            "title": "SQL - Verbundabfragen",
+            "description": "Erstellung komplexer SQL-Abfragen mit Joins \u00fcber mehrere Tabellen, um spezifische Informationen aus der Datenbank zu gewinnen.",
+            "estimated_hours": 9.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche Art von JOIN gibt nur die \u00fcbereinstimmenden Zeilen aus beiden Tabellen zur\u00fcck?",
+                "answer": "INNER JOIN"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche Art von JOIN gibt nur die \u00fcbereinstimmenden Zeilen aus beiden Tabellen zur\u00fcck?",
+                "correct_answer": "INNER JOIN",
+                "distractors": [
+                  "LEFT JOIN",
+                  "RIGHT JOIN",
+                  "FULL OUTER JOIN"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-JOIN-Arten zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INNER JOIN:Gibt nur \u00fcbereinstimmende Zeilen zur\u00fcck;LEFT JOIN:Gibt alle Zeilen der linken Tabelle und die \u00fcbereinstimmenden Zeilen der rechten Tabelle zur\u00fcck;RIGHT JOIN:Gibt alle Zeilen der rechten Tabelle und die \u00fcbereinstimmenden Zeilen der linken Tabelle zur\u00fcck;FULL OUTER JOIN:Gibt alle Zeilen aus beiden Tabellen zur\u00fcck"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 9.0
+      }
+    ],
+    "created_at": "2026-02-15"
+  },
+  {
+    "id": "plan_2026-02-15_9",
+    "user_id": "cfc9899d-95c1-44ac-aa86-df2407b14da8",
+    "title": "DB 3",
+    "exam_date": "2026-02-22",
+    "parallel_courses": 0,
+    "daily_goal_hours": 3.0,
+    "study_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "schedule": [
+      {
+        "date": "2026-02-16",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_0",
+            "title": "ER-Modellierung",
+            "description": "Erstellung eines Entity-Relationship-Modells (ERM) f\u00fcr eine Datenbank zur Abbildung von Gesch\u00e4ftsprozessen, z.B. f\u00fcr ein Autohaus.",
+            "estimated_hours": 3.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "answer": "Die Struktur einer Datenbank grafisch darzustellen"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Hauptziel der ER-Modellierung?",
+                "correct_answer": "Die Struktur einer Datenbank grafisch darzustellen",
+                "distractors": [
+                  "SQL-Abfragen zu optimieren",
+                  "Datenbanken zu normalisieren",
+                  "Benutzerschnittstellen zu gestalten"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe der ER-Modellierung zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Entit\u00e4t:Objekt der realen Welt, das in der Datenbank abgebildet wird;Attribut:Eigenschaft einer Entit\u00e4t;Beziehung:Verbindung zwischen Entit\u00e4ten;Kardinalit\u00e4t:Anzahl der Beziehungen zwischen Entit\u00e4ten"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_1",
+            "title": "Relationenmodell",
+            "description": "Umwandlung eines ERM in ein Relationenmodell, Identifizierung von Prim\u00e4r- und Fremdschl\u00fcsseln, Darstellung in Relationenschreibweise.",
+            "estimated_hours": 4.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist ein Prim\u00e4rschl\u00fcssel in einem Relationenmodell?",
+                "answer": "Ein Attribut oder eine Kombination von Attributen, das jeden Datensatz eindeutig identifiziert"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist ein Prim\u00e4rschl\u00fcssel in einem Relationenmodell?",
+                "correct_answer": "Ein Attribut oder eine Kombination von Attributen, das jeden Datensatz eindeutig identifiziert",
+                "distractors": [
+                  "Ein Attribut, das nur Zahlen enthalten darf",
+                  "Ein Attribut, das in jeder Tabelle vorhanden sein muss",
+                  "Ein Attribut, das eine Beziehung zu einer anderen Tabelle herstellt"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Begriffe des Relationenmodells zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Relation:Tabelle;Attribut:Spalte;Tupel:Zeile;Fremdschl\u00fcssel:Attribut, das auf den Prim\u00e4rschl\u00fcssel einer anderen Tabelle verweist"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_2",
+            "title": "Normalisierung",
+            "description": "\u00dcberf\u00fchrung eines relationalen Modells in die 3. Normalform zur Vermeidung von Redundanzen und Inkonsistenzen.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Was ist das Ziel der Normalisierung in Datenbanken?",
+                "answer": "Datenredundanz zu reduzieren und die Datenintegrit\u00e4t zu gew\u00e4hrleisten"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Was ist das Ziel der Normalisierung in Datenbanken?",
+                "correct_answer": "Datenredundanz zu reduzieren und die Datenintegrit\u00e4t zu gew\u00e4hrleisten",
+                "distractors": [
+                  "Die Datenbank schneller zu machen",
+                  "Den Speicherplatzbedarf zu verringern",
+                  "Die Anzahl der Tabellen zu minimieren"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Normalformen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "1NF:Jedes Attribut enth\u00e4lt nur atomare Werte;2NF:Erf\u00fcllt 1NF und alle Nicht-Schl\u00fcsselattribute sind voll funktional abh\u00e4ngig vom Prim\u00e4rschl\u00fcssel;3NF:Erf\u00fcllt 2NF und es gibt keine transitiven Abh\u00e4ngigkeiten;BCNF:Spezialfall der 3NF, der sich mit \u00fcberlappenden Schl\u00fcsselkandidaten befasst"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 12.0
+      },
+      {
+        "date": "2026-02-17",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_3",
+            "title": "Relationale Algebra",
+            "description": "Anwendung relationaler Algebra-Operationen wie Vereinigung, Differenz, Schnittmenge, Selektion, Projektion und Division.",
+            "estimated_hours": 6.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche relationale Algebra Operation w\u00e4hlt Zeilen aus einer Tabelle basierend auf einer Bedingung aus?",
+                "answer": "Selektion"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche relationale Algebra Operation w\u00e4hlt Zeilen aus einer Tabelle basierend auf einer Bedingung aus?",
+                "correct_answer": "Selektion",
+                "distractors": [
+                  "Projektion",
+                  "Vereinigung",
+                  "Division"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die relationalen Algebra Operationen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Vereinigung:Kombiniert die Zeilen zweier Tabellen;Differenz:Gibt die Zeilen zur\u00fcck, die in der ersten, aber nicht in der zweiten Tabelle vorkommen;Schnittmenge:Gibt die Zeilen zur\u00fcck, die in beiden Tabellen vorkommen;Projektion:W\u00e4hlt bestimmte Spalten aus einer Tabelle aus"
+              }
+            ],
+            "status": "OPEN"
+          },
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_4",
+            "title": "Relationale Algebra \u2013 Verbundoperationen",
+            "description": "Anwendung von Verbundoperationen (Join) in der relationalen Algebra, einschlie\u00dflich Kreuzprodukt, nat\u00fcrlicher Join und Theta-Join.",
+            "estimated_hours": 5.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche Art von Join gibt alle Kombinationen von Zeilen aus zwei Tabellen zur\u00fcck?",
+                "answer": "Kreuzprodukt"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche Art von Join gibt alle Kombinationen von Zeilen aus zwei Tabellen zur\u00fcck?",
+                "correct_answer": "Kreuzprodukt",
+                "distractors": [
+                  "Nat\u00fcrlicher Join",
+                  "Theta-Join",
+                  "\u00c4u\u00dferer Join"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die Verbundoperationen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "Kreuzprodukt:Kombiniert jede Zeile der ersten Tabelle mit jeder Zeile der zweiten Tabelle;Nat\u00fcrlicher Join:Verbindet Tabellen basierend auf Spalten mit gleichen Namen und Datentypen;Theta-Join:Verbindet Tabellen basierend auf einer beliebigen Bedingung;\u00c4u\u00dferer Join:Beh\u00e4lt alle Zeilen aus einer Tabelle, auch wenn es keine \u00fcbereinstimmenden Zeilen in der anderen Tabelle gibt"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 11.0
+      },
+      {
+        "date": "2026-02-18",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_5",
+            "title": "SQL - Datendefinition",
+            "description": "Erstellung von Tabellen und Definition von Datentypen, Prim\u00e4rschl\u00fcsseln, Fremdschl\u00fcsseln und Integrit\u00e4tsbedingungen in SQL.",
+            "estimated_hours": 7.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "answer": "CREATE TABLE"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um eine neue Tabelle zu erstellen?",
+                "correct_answer": "CREATE TABLE",
+                "distractors": [
+                  "INSERT INTO",
+                  "UPDATE",
+                  "DELETE FROM"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Datentypen zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INT:Ganzzahl;VARCHAR:Zeichenkette variabler L\u00e4nge;DATE:Datum;BOOLEAN:Wahrheitswert"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 7.0
+      },
+      {
+        "date": "2026-02-19",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_6",
+            "title": "SQL - Datenmanipulation",
+            "description": "Einf\u00fcgen, \u00c4ndern, L\u00f6schen und Auslesen von Daten in SQL (CRUD-Operationen).",
+            "estimated_hours": 8.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "answer": "INSERT INTO"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welcher SQL-Befehl wird verwendet, um Daten in eine Tabelle einzuf\u00fcgen?",
+                "correct_answer": "INSERT INTO",
+                "distractors": [
+                  "UPDATE",
+                  "DELETE FROM",
+                  "SELECT"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-Befehle zur Datenmanipulation zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INSERT:F\u00fcgt neue Datens\u00e4tze in eine Tabelle ein;UPDATE:\u00c4ndert bestehende Datens\u00e4tze in einer Tabelle;DELETE:L\u00f6scht Datens\u00e4tze aus einer Tabelle;SELECT:W\u00e4hlt Daten aus einer oder mehreren Tabellen aus"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 8.0
+      },
+      {
+        "date": "2026-02-20",
+        "topics": [
+          {
+            "id": "002_UebungWiederholungDatenbanken.pdf_7",
+            "title": "SQL - Verbundabfragen",
+            "description": "Erstellung komplexer SQL-Abfragen mit Joins \u00fcber mehrere Tabellen, um spezifische Informationen aus der Datenbank zu gewinnen.",
+            "estimated_hours": 9.0,
+            "material_id": "002_UebungWiederholungDatenbanken.pdf",
+            "flashcards": [
+              {
+                "question": "Welche Art von JOIN gibt nur die \u00fcbereinstimmenden Zeilen aus beiden Tabellen zur\u00fcck?",
+                "answer": "INNER JOIN"
+              }
+            ],
+            "games": [
+              {
+                "type": "QUIZ",
+                "question": "Welche Art von JOIN gibt nur die \u00fcbereinstimmenden Zeilen aus beiden Tabellen zur\u00fcck?",
+                "correct_answer": "INNER JOIN",
+                "distractors": [
+                  "LEFT JOIN",
+                  "RIGHT JOIN",
+                  "FULL OUTER JOIN"
+                ],
+                "pair": null
+              },
+              {
+                "type": "MATCH",
+                "question": "Ordnen Sie die SQL-JOIN-Arten zu:",
+                "correct_answer": "ignored",
+                "distractors": [],
+                "pair": "INNER JOIN:Gibt nur \u00fcbereinstimmende Zeilen zur\u00fcck;LEFT JOIN:Gibt alle Zeilen der linken Tabelle und die \u00fcbereinstimmenden Zeilen der rechten Tabelle zur\u00fcck;RIGHT JOIN:Gibt alle Zeilen der rechten Tabelle und die \u00fcbereinstimmenden Zeilen der linken Tabelle zur\u00fcck;FULL OUTER JOIN:Gibt alle Zeilen aus beiden Tabellen zur\u00fcck"
+              }
+            ],
+            "status": "OPEN"
+          }
+        ],
+        "total_hours": 9.0
+      }
+    ],
+    "created_at": "2026-02-15"
   }
 ]

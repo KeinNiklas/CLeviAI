@@ -3,9 +3,9 @@ import json
 import google.generativeai as genai
 from typing import List
 try:
-    from ..models import Topic, Flashcard, ChallengeType
-except ImportError:
     from models import Topic, Flashcard, ChallengeType
+except ImportError:
+    from ..models import Topic, Flashcard, ChallengeType
 
 class GeminiService:
     def __init__(self):

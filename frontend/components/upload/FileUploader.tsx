@@ -4,6 +4,7 @@ import * as React from "react";
 import { Upload, FileText, AlertCircle, Loader2, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useAuth } from "@/context/AuthContext";
 
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -13,6 +14,7 @@ interface FileUploaderProps {
 
 export function FileUploader({ onUploadComplete }: FileUploaderProps) {
     const { t, language } = useLanguage();
+    const { token } = useAuth();
     const [dragActive, setDragActive] = React.useState(false);
     const [files, setFiles] = React.useState<File[]>([]);
     const [loading, setLoading] = React.useState(false);
@@ -80,6 +82,9 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         try {
             const response = await fetch("/api/analyze-document", {
                 method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
                 body: formData,
             });
 

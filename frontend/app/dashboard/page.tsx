@@ -1,14 +1,15 @@
-
 "use client";
 
 import * as React from "react";
 import { format } from "date-fns";
 import { de, enUS as en } from "date-fns/locale";
-import { Calendar, ChevronRight, LayoutDashboard, Loader2, BookOpen, Trash2, Trophy, Pencil, Check, X } from "lucide-react";
+import { Calendar, ChevronRight, LayoutDashboard, Loader2, BookOpen, Trash2, Trophy, Pencil, Check, X, Lock, Plus, Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GamifiedJourneyMap } from "@/components/dashboard/GamifiedJourneyMap";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useAuth } from "@/context/AuthContext";
+import Link from 'next/link';
 
 interface StudyPlan {
     id: string;
@@ -21,11 +22,20 @@ interface StudyPlan {
     study_days?: number[];
 }
 
+
+
 export default function DashboardPage() {
     const { t, language } = useLanguage();
+    const { token, user } = useAuth(); // Get token and user
     const [plans, setPlans] = React.useState<StudyPlan[]>([]);
     const [selectedPlan, setSelectedPlan] = React.useState<StudyPlan | null>(null);
     const [loading, setLoading] = React.useState(true);
+
+    // Plan Limit Logic
+    const PLAN_LIMIT = 3;
+    const isStandard = user?.tier === 'standard' || !user?.tier; // Default to standard if missing
+    const planCount = plans.length;
+    const limitReached = isStandard && planCount >= PLAN_LIMIT;
 
     // Rename State
     const [editingPlanId, setEditingPlanId] = React.useState<string | null>(null);
@@ -33,11 +43,16 @@ export default function DashboardPage() {
 
     React.useEffect(() => {
         fetchPlans();
-    }, []);
+    }, [token]);
 
     const fetchPlans = async () => {
+        if (!token) return;
         try {
-            const response = await fetch("/api/plans");
+            const response = await fetch('/api/plans', {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
             if (response.ok) {
                 const data = await response.json();
                 setPlans(data);
@@ -68,7 +83,10 @@ export default function DashboardPage() {
         try {
             const response = await fetch(`/api/plans/${planId}`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 body: JSON.stringify({ title: editTitle }),
             });
 
@@ -91,6 +109,9 @@ export default function DashboardPage() {
         try {
             const response = await fetch(`/api/plans/${planId}`, {
                 method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             });
             if (response.ok) {
                 setPlans(plans.filter(p => p.id !== planId));
@@ -122,10 +143,48 @@ export default function DashboardPage() {
     return (
         <div className="min-h-screen bg-background text-foreground py-12 px-4">
             <div className="container mx-auto max-w-6xl space-y-8">
-                <header className="flex items-center space-x-4 mb-8 border-b border-border pb-6">
-                    <LayoutDashboard className="w-8 h-8 text-primary" />
-                    <h1 className="text-3xl font-bold">{t.dashboard.your_plans}</h1>
+                <header className="flex items-center justify-between mb-8 border-b border-border pb-6">
+                    <div className="flex items-center space-x-4">
+                        <LayoutDashboard className="w-8 h-8 text-primary" />
+                        <h1 className="text-3xl font-bold">{t.dashboard.your_plans}</h1>
+                    </div>
                 </header>
+
+                {/* Plan Limit Warning */}
+                {limitReached && !loading && !selectedPlan && (
+                    <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 flex items-start gap-4 mb-6">
+                        <div className="p-2 bg-yellow-500/20 rounded-lg">
+                            <Lock className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="font-semibold text-yellow-800 dark:text-yellow-200">{t.limits.warning_title}</h3>
+                            <p className="text-sm text-yellow-700/80 dark:text-yellow-300/80 mt-1">
+                                {t.limits.warning_desc.replace('{limit}', String(PLAN_LIMIT))}
+                                {' '}
+                                {t.limits.upgrade_prompt.split('{link}')[0]}
+                                <Link href="/subscription" className="underline font-bold hover:text-yellow-900">
+                                    {t.limits.upgrade_link}
+                                </Link>
+                                {t.limits.upgrade_prompt.split('{link}')[1]}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {!selectedPlan && (
+                    <div className="flex justify-end mb-4">
+                        <Link href={limitReached ? "/subscription" : "/plan"}>
+                            <Button
+                                size="lg"
+                                className={`shadow-lg shadow-primary/20 transition-all ${limitReached ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 border-0 text-white' : 'hover:shadow-primary/40 hover:scale-105'}`}
+                                title={limitReached ? t.limits.btn_upgrade : t.dashboard.start}
+                            >
+                                {limitReached ? <Star className="w-5 h-5 mr-2 fill-white" /> : <Plus className="w-5 h-5 mr-2" />}
+                                {limitReached ? t.limits.btn_upgrade : (t.dashboard.start || "Create New Plan")}
+                            </Button>
+                        </Link>
+                    </div>
+                )}
 
                 {loading ? (
                     <div className="flex justify-center py-20">
@@ -272,7 +331,7 @@ export default function DashboardPage() {
                         )}
                     </div>
                 )}
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }

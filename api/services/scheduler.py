@@ -1,11 +1,11 @@
 from datetime import date, timedelta
 from typing import List
 try:
-    from ..models import Topic, DaySchedule, StudyPlan
-except ImportError:
     from models import Topic, DaySchedule, StudyPlan
-
+except ImportError:
+    from ..models import Topic, DaySchedule, StudyPlan
 import math
+import uuid
 
 try:
     from .mongo_store import MongoStore
@@ -19,7 +19,7 @@ class SchedulerService:
         print("Using MongoStore (study_plans)")
 
     def create_plan(self, topics: List[Topic], exam_date: date, parallel_courses: int, 
-                    title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:
+                    user_id: str, title: str = "My Learning Journey", study_days: List[int] = [0,1,2,3,4,5,6], daily_goal: float = 2.0) -> StudyPlan:
         today = date.today()
         
         days_remaining = (exam_date - today).days
@@ -41,13 +41,7 @@ class SchedulerService:
 
         # 2. Calculate Pacing
         total_topics_hours = sum(t.estimated_hours for t in topics)
-        # Even spread: total hours / number of available days
         calculated_daily_pace = total_topics_hours / max(1, len(available_dates))
-        
-        # Use the *larger* of (calculated pace vs user goal) IF we want to force them to work harder?
-        # NO, we must ensure completion. So calculated_daily_pace is the MINIMUM requirement.
-        # If user Goal is HIGHER, we can front-load (finish early).
-        # Let's target the "calculated_daily_pace" to ensures smoothness.
         
         target_pace = calculated_daily_pace
 
@@ -98,11 +92,11 @@ class SchedulerService:
                     topic_idx += 1
                 last_day.total_hours = round(last_day.total_hours, 1)
             else:
-                 # Should not happen if available_dates > 0
                  pass
 
         plan = StudyPlan(
-            id=f"plan_{today.isoformat()}_{len(topics)}",
+            id=str(uuid.uuid4()),
+            user_id=user_id,
             title=title,
             exam_date=exam_date,
             parallel_courses=parallel_courses,

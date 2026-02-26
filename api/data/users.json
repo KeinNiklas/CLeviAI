@@ -1,0 +1,65 @@
+[
+    {
+        "id": "5c721343-246b-41d4-8cef-ac559c44380a",
+        "email": "test@user.com",
+        "full_name": "Test",
+        "role": "admin",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$odSas1aKcU4pRYgRwpiTcg$bbLEOnsUc/wD+QAfpDkrPMtdd7vOvSmXJaaf34KwCnA"
+    },
+    {
+        "id": "4221f6d4-e23d-40e9-b4e7-617b3f46bca0",
+        "email": "userA_89bcf8a1-7d5d-40ce-b9b2-ad0cd98781c2@example.com",
+        "full_name": "User A",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$/r9XyrnX+h8j5Pz/vzcmhA$oz3JwakAaq96dYRhswMyxfHRXV0Emzyb32d12F8KiDo"
+    },
+    {
+        "id": "b704fd81-b822-4b9b-86a0-7aeb8b2516b3",
+        "email": "userB_0c2b2273-e397-40e5-bd5f-be09b925380c@example.com",
+        "full_name": "User B",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$lXJOqXVOKQUAIERoLQWg9A$ZT2oGtk/qPUh51y2YmesY9HKZfSEGq6uPEoMrvNnjPc"
+    },
+    {
+        "id": "02cb53f1-2f3e-4dd4-a28f-dc1075c6b6a6",
+        "email": "rbac_test_eedb7a35-1bf2-4f88-86b0-95e9e43ec87e@example.com",
+        "full_name": "RBAC Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$dm6N0RpjLIVw7n1v7f2/1w$qOD944xOoD4a6UfbnM6hwhcAYNtzO2FLVrh7qHWuaNY"
+    },
+    {
+        "id": "1799e093-c72a-49fe-8c13-32c597ef4d80",
+        "email": "victim_b157cbb3-0dff-4abf-a136-3a22956cbb9e@example.com",
+        "full_name": "Victim User",
+        "role": "user",
+        "disabled": true,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$c24tpXSO8R5jDAFAKIUwpg$BGTPfriI6bAzpvmwev1xO4s2Ug4q7PDKp+2E4knBG8I"
+    },
+    {
+        "id": "cfc9899d-95c1-44ac-aa86-df2407b14da8",
+        "email": "testpro@user.com",
+        "full_name": "Test Pro",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$tDbmXCsl5JxzTsn5X6v1Pg$RgrUNrN25Kf7VAfBoGscuhUazPh5kwTmSVYRsX/SnbA"
+    },
+    {
+        "id": "3295c537-cf69-4265-bc61-6b93198dd444",
+        "email": "limit_test_cf4f07d8-0c24-440e-9914-6ec3fce6684e@example.com",
+        "full_name": "Limit Tester",
+        "role": "user",
+        "disabled": false,
+        "tier": "standard",
+        "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$ZAzBGKP0PmfsnXMuBcD4Hw$i3jIqQpewYQOZd1RxFoQCJLJC7UL4uI7UW4iOzo/zNo"
+    }
+]

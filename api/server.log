@@ -1,0 +1,113 @@
+/Users/I589343/Documents/CLeviAI/backend/venv/lib/python3.9/site-packages/google/api_core/_python_version_support.py:246: FutureWarning: You are using a non-supported Python version (3.9.6). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
+/Users/I589343/Documents/CLeviAI/backend/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+/Users/I589343/Documents/CLeviAI/backend/venv/lib/python3.9/site-packages/google/auth/__init__.py:54: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/I589343/Documents/CLeviAI/backend/venv/lib/python3.9/site-packages/google/oauth2/__init__.py:40: FutureWarning: You are using a Python version 3.9 past its end of life. Google will update google-auth with critical bug fixes on a best-effort basis, but not with any other fixes or features. Please upgrade your Python version, and then update google-auth.
+  warnings.warn(eol_message.format("3.9"), FutureWarning)
+/Users/I589343/Documents/CLeviAI/backend/services/gemini_service.py:3: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+INFO:     Started server process [21023]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+✅ Groq Fallback Activated: Ready to take over if Gemini fails.
+INFO:     127.0.0.1:56624 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56625 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56624 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56659 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56660 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56659 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56663 - "OPTIONS /users/me/downgrade HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56663 - "POST /users/me/downgrade HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56663 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56663 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56665 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56667 - "POST /users/me/upgrade HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56667 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56667 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56669 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56667 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56725 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56724 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56725 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56745 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56759 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56759 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56760 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56837 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "OPTIONS /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56884 - "OPTIONS /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /settings/config HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56884 - "GET /settings/config HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56883 - "GET /users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56884 - "GET /users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56893 - "GET /users/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56896 - "POST /auth/token HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56896 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56896 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56905 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56896 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56905 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56914 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56914 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56914 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57049 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57050 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57049 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57050 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57050 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57049 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57050 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57049 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57048 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57050 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57132 - "OPTIONS /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57132 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57132 - "OPTIONS /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57133 - "OPTIONS /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57132 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57133 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "POST /users/me/downgrade HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57138 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57138 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /users/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57138 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57138 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /plans HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57168 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57169 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57168 - "OPTIONS /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57169 - "OPTIONS /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57169 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57168 - "GET /users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57174 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57175 - "GET /settings/config HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [21023]

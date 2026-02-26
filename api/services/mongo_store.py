@@ -50,6 +50,9 @@ class MongoStore:
         # Convert to dict using Pydantic's mode='json' to handle dates etc.
         plan_dict = plan.model_dump(mode='json')
         
+        # We query by 'id' (the string ID) and upsert.
+        # We do NOT set '_id' manually anymore, letting Mongo handle it (or keeping existing if update).
+        
         self.plans_collection.update_one(
             {'id': plan.id},
             {'$set': plan_dict},
@@ -65,6 +68,7 @@ class MongoStore:
         return plans
 
     def get_plan(self, plan_id: str) -> Optional[StudyPlan]:
+        # Query by 'id', exclude '_id'
         doc = self.plans_collection.find_one({'id': plan_id}, {'_id': 0})
         if doc:
             return StudyPlan(**doc)
@@ -84,6 +88,15 @@ class MongoStore:
         return result.matched_count > 0
 
     def update_topic_status(self, plan_id: str, topic_id: str, new_status: str):
+        # Efficient update using array filters
+        # schedule -> days -> topics
+        # We need to match the plan by 'id'
+        # And find the nested topic.
+        
+        # Since the structure is nested (schedule list -> topics list), 
+        # standard array filters are hard if we don't know the day index.
+        # Fallback to fetch-modify-save pattern is safer and cleaner given the complexity.
+        
         # Fallback to fetch-modify-save pattern
         plan = self.get_plan(plan_id)
         if not plan:

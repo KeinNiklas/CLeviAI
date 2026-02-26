@@ -14,6 +14,7 @@ except ImportError:
 
 class SchedulerService:
     def __init__(self):
+        # This will raise ValueError if MONGODB_TEST_URI is not set, which is intended.
         self.store = MongoStore()
         print("Using MongoStore (study_plans)")
 
@@ -33,12 +34,20 @@ class SchedulerService:
                 available_dates.append(day_date)
         
         if not available_dates:
-             # Fallback
+             # Fallback if no days match (e.g. only Sunday selected but exam is Friday)
+             # Force add weekends or everything to avoid failure? 
+             # For now, let's just use all dates if filter results in 0
              available_dates = [today + timedelta(days=d) for d in range(days_remaining + 1)]
 
         # 2. Calculate Pacing
         total_topics_hours = sum(t.estimated_hours for t in topics)
+        # Even spread: total hours / number of available days
         calculated_daily_pace = total_topics_hours / max(1, len(available_dates))
+        
+        # Use the *larger* of (calculated pace vs user goal) IF we want to force them to work harder?
+        # NO, we must ensure completion. So calculated_daily_pace is the MINIMUM requirement.
+        # If user Goal is HIGHER, we can front-load (finish early).
+        # Let's target the "calculated_daily_pace" to ensures smoothness.
         
         target_pace = calculated_daily_pace
 
@@ -57,11 +66,13 @@ class SchedulerService:
                 topic = topics[topic_idx]
                 
                 # Check fit
+                # IF day is empty -> Add it
+                # IF (current + next) <= target * 1.3 (tolerance) -> Add it
                 if current_day_hours == 0:
                      current_day_topics.append(topic)
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
-                elif (current_day_hours + topic.estimated_hours) <= (target_pace * 1.35): # 35% tolerance
+                elif (current_day_hours + topic.estimated_hours) <= (target_pace * 1.35): # 35% tolerance for chunkiness
                      current_day_topics.append(topic)
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
@@ -75,6 +86,7 @@ class SchedulerService:
             ))
             
         # 4. Handle Leftovers (Panic Mode)
+        # If topics remain after running through all available dates
         if topic_idx < len(topics):
             # Add to the very last scheduled day (Cramming)
             if schedule:

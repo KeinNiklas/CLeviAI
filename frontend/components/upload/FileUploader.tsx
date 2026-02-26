@@ -80,7 +80,7 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         formData.append("language", language);
 
         try {
-            const response = await fetch(`/api/analyze-document`, {
+            const response = await fetch("/api/analyze-document", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`

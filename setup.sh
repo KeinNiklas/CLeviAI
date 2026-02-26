@@ -12,7 +12,7 @@ echo -e "${CYAN}Setting up CLeviAI Environment...${NC}"
 
 # Backend Setup
 echo -e "${GREEN}--- Backend Setup ---${NC}"
-cd api || { echo -e "${RED}Backend directory not found${NC}"; exit 1; }
+cd api || { echo -e "${RED}Backend/API directory not found${NC}"; exit 1; }
 
 if [ ! -d ".venv" ]; then
     echo "Creating Python virtual environment..."
@@ -23,7 +23,7 @@ fi
 
 echo "Installing Python dependencies..."
 source .venv/bin/activate || { echo -e "${RED}Failed to activate venv${NC}"; exit 1; }
-pip install -r requirements.txt || { echo -e "${RED}Failed to install requirements${NC}"; exit 1; }
+./.venv/bin/pip install -r requirements.txt || { echo -e "${RED}Failed to install requirements${NC}"; exit 1; }
 
 cd ..
 

@@ -28,7 +28,16 @@ if os.path.exists("key.env"):
     load_dotenv("key.env")
 else:
     load_dotenv()
-
+  
+if os.path.exists("mongodb.env"):
+    # Check if it's a standard env file or just a raw connection string
+    with open("mongodb.env", "r") as f:
+        content = f.read().strip()
+    if content.startswith("mongodb"):
+         os.environ["MONGODB_TEST_URI"] = content
+    else:
+         load_dotenv("mongodb.env")
+  
 app = FastAPI(title="CLeviAI Backend")
 
 # Setup CORS
@@ -36,8 +45,12 @@ origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localho
 origins = [origin.strip() for origin in origins_str.split(",") if origin.strip()]
 
 app.add_middleware(
+    router = APIRouter()
+
+# Setup CORS
+app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "https://*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -290,12 +303,15 @@ def generate_audio(req: AudioRequest, current_user: UserInDB = Depends(get_curre
         audio_bytes = podcast_service.generate_audio_segment(req.text, req.speaker, req.language)
         return StreamingResponse(io.BytesIO(audio_bytes), media_type="audio/wav")
     except Exception as e:
-        error_str = str(e)
+        error_str = str(e).lower()
         if "rate limit" in error_str or "429" in error_str:
              print(f"Rate Limit Hit: {e}")
              raise HTTPException(status_code=429, detail="Rate Limit Exceeded")
         raise HTTPException(status_code=500, detail=str(e))
 
+# Mount router for Vercel and local dev
+app.include_router(router)
+app.include_router(router, prefix="/api")
 # --- Authentication ---
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 try:

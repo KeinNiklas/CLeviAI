@@ -1,5 +1,6 @@
 fastapi
 uvicorn
+dnspython
 python-dotenv
 google-generativeai
 groq

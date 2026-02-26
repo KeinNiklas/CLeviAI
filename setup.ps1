@@ -2,7 +2,7 @@ Write-Host "Setting up CLeviAI Environment..." -ForegroundColor Cyan
 
 # Backend Setup
 Write-Host "--- Backend Setup ---" -ForegroundColor Green
-Push-Location backend
+Push-Location api
 try {
     if (-not (Test-Path .venv)) {
         Write-Host "Creating Python virtual environment..."

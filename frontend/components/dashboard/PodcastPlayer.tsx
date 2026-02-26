@@ -89,7 +89,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
 
         try {
             const line = script[index];
-            const res = await fetch(`/api/podcast/audio`, {
+            const res = await fetch("/api/podcast/audio", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

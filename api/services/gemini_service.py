@@ -130,8 +130,6 @@ class GeminiService:
             return topics
 
         except Exception as e:
-            with open("gemini_debug.log", "a") as f:
-                f.write(f"Error calling Gemini: {e}\n")
             print(f"Error calling Gemini: {e}")
             # Fallback for demonstration/verification if API fails
             # Fallback removed - user requested explicit error

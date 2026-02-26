@@ -46,6 +46,7 @@ class StudyPlan(BaseModel):
     study_days: List[int] = [0,1,2,3,4,5,6] # Default all days (0=Mon, 6=Sun)
     schedule: List[DaySchedule]
     # Metadata for the plan logic
+    # Metadata for the plan logic
     created_at: date
 
 class PodcastLine(BaseModel):

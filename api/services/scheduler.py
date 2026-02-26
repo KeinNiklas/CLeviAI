@@ -14,6 +14,7 @@ except ImportError:
 
 class SchedulerService:
     def __init__(self):
+        # This will raise ValueError if MONGODB_TEST_URI is not set, which is intended.
         self.store = MongoStore()
         print("Using MongoStore (study_plans)")
 
@@ -33,7 +34,9 @@ class SchedulerService:
                 available_dates.append(day_date)
         
         if not available_dates:
-             # Fallback
+             # Fallback if no days match (e.g. only Sunday selected but exam is Friday)
+             # Force add weekends or everything to avoid failure? 
+             # For now, let's just use all dates if filter results in 0
              available_dates = [today + timedelta(days=d) for d in range(days_remaining + 1)]
 
         # 2. Calculate Pacing
@@ -57,11 +60,13 @@ class SchedulerService:
                 topic = topics[topic_idx]
                 
                 # Check fit
+                # IF day is empty -> Add it
+                # IF (current + next) <= target * 1.3 (tolerance) -> Add it
                 if current_day_hours == 0:
                      current_day_topics.append(topic)
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
-                elif (current_day_hours + topic.estimated_hours) <= (target_pace * 1.35): # 35% tolerance
+                elif (current_day_hours + topic.estimated_hours) <= (target_pace * 1.35): # 35% tolerance for chunkiness
                      current_day_topics.append(topic)
                      current_day_hours += topic.estimated_hours
                      topic_idx += 1
@@ -75,6 +80,7 @@ class SchedulerService:
             ))
             
         # 4. Handle Leftovers (Panic Mode)
+        # If topics remain after running through all available dates
         if topic_idx < len(topics):
             # Add to the very last scheduled day (Cramming)
             if schedule:

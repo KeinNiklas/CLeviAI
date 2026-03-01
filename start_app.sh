@@ -14,7 +14,7 @@ echo -e "${CYAN}Starting CLeviAI...${NC}"
 
 # Start Backend in einem neuen Fenster
 echo -e "${GREEN}Starting Backend (FastAPI)...${NC}"
-osascript -e "tell application \"Terminal\" to do script \"cd '$(pwd)/api' && ./.venv/bin/uvicorn main:app --reload --port 8000\""
+osascript -e "tell application \"Terminal\" to do script \"cd '$(pwd)/api' && source .venv/bin/activate && uvicorn main:app --reload --port 8000\""
 
 # Start Frontend in einem neuen Fenster
 echo -e "${BLUE}Starting Frontend (Next.js)...${NC}"

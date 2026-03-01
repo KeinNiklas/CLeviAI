@@ -3,8 +3,9 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -34,13 +35,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <Navbar />
-            {children}
+            <AuthProvider>
+              <ProtectedRoute>
+                <Navbar />
+                {children}
+              </ProtectedRoute>
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>
-    </html >
+    </html>
   );
 }

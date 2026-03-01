@@ -10,6 +10,7 @@ export default function CourseLayout({
   children,
 }: {
   children: React.ReactNode;
+  params: Promise<{ courseId: string }>;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { t } = useLanguage();

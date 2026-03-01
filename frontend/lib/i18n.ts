@@ -75,7 +75,14 @@ export const translations = {
             topics_title: "Detected Topics",
             btn_calculate: "Calculating Schedule...",
             btn_routine: "Generate Routine",
-            btn_adjust: "Adjust Settings"
+            btn_adjust: "Adjust Settings",
+
+            // New fields
+            label_name: "Journey Name",
+            placeholder_name: "e.g. Finals Prep 2024",
+            label_goal: "Daily Goal (Hours)",
+            label_days: "Study Days",
+            go_dashboard: "Go to Dashboard"
         },
         settings: {
             title: "Settings",
@@ -97,6 +104,105 @@ export const translations = {
             light: "Light",
             dark: "Dark",
             system: "System"
+        },
+        auth: {
+            welcome: "Welcome Back",
+            subtitle_login: "Sign in to continue your learning journey",
+            create_account: "Create Account",
+            subtitle_register: "Join CLeviAI and start learning smarter",
+            email: "Email address",
+            password: "Password",
+            confirm_password: "Confirm Password",
+            full_name: "Full Name (Optional)",
+            sign_in: "Sign In",
+            sign_up: "Sign Up",
+            no_account: "Don't have an account?",
+            has_account: "Already have an account?",
+            register_here: "Create one now",
+            signin_here: "Sign in instead",
+            passwords_mismatch: "Passwords don't match",
+            login_failed: "Login failed",
+            registration_failed: "Registration failed",
+            email_placeholder: "you@example.com",
+            name_placeholder: "John Doe"
+        },
+        user_menu: {
+            settings: "Settings",
+            manage_subscription: "Manage Subscription"
+        },
+        subscription: {
+            title: "Upgrade to Pro",
+            description: "Unlock your full learning potential",
+            price: "9.99€",
+            month: "/ month",
+            subscribe_btn: "Subscribe Now",
+            processing: "Processing...",
+            success_title: "Payment Successful!",
+            success_msg: "Welcome to Pro! Redirecting you to dashboard...",
+
+            // Features
+            feat_unlimited: "Unlimited Study Plans",
+            feat_analytics: "Advanced Analytics & Insights",
+            feat_ai: "AI-Powered Recommendations",
+            feat_support: "Priority Support",
+
+            // Manage
+            manage_title: "Current Plan: Pro",
+            manage_desc: "You have full access",
+            status_label: "Status",
+            status_active: "Active",
+            next_billing: "Next Billing",
+            amount_label: "Amount",
+            cancel_btn: "Cancel Subscription",
+            confirm_cancel: "Are you sure you want to cancel your Pro subscription? You will lose access to premium features.",
+            cancel_success: "Subscription cancelled. You are now on the Standard plan.",
+            cancel_fail: "Failed to cancel subscription."
+        },
+        limits: {
+            warning_title: "Plan Limit Reached",
+            warning_desc: "You have reached the maximum of {limit} active study plans for the Standard tier.",
+            upgrade_prompt: "Please {link} to create unlimited plans.",
+            upgrade_link: "upgrade to Pro",
+            btn_upgrade: "Upgrade to Pro"
+        },
+        admin: {
+            title: "Administration",
+            nav_general: "General",
+            nav_users: "Users",
+
+            // Users Page
+            users_title: "User Management",
+            users_search: "Search users...",
+            users_all: "All Users",
+            table_name: "Name",
+            table_email: "Email",
+            table_role: "Role",
+            table_tier: "Tier",
+            table_status: "Status",
+            table_actions: "Actions",
+            role_admin: "Admin",
+            role_user: "User",
+            tier_pro: "PRO",
+            tier_standard: "Standard",
+            status_active: "Active",
+            status_disabled: "Disabled",
+
+            // Actions
+            promote_admin: "Promote to Admin",
+            demote_user: "Demote to User",
+            upgrade_pro: "Upgrade to PRO",
+            downgrade_standard: "Downgrade to Standard",
+            disable_account: "Disable Account",
+            enable_account: "Enable Account",
+            delete_user: "Delete User",
+            confirm_delete: "Are you sure you want to delete user",
+            confirm_delete_suffix: "? This will allow DELETE all their study plans as well.",
+
+            // General Page
+            general_title: "General Settings",
+            config_success: "Settings saved successfully",
+            config_fail: "Failed to save settings",
+            config_error: "Error saving settings"
         }
     },
     de: {
@@ -173,7 +279,14 @@ export const translations = {
             topics_title: "Erkannte Themen",
             btn_calculate: "Berechne Plan...",
             btn_routine: "Routine generieren",
-            btn_adjust: "Einstellungen anpassen"
+            btn_adjust: "Einstellungen anpassen",
+
+            // New fields
+            label_name: "Name der Reise",
+            placeholder_name: "z.B. Abi Vorbereitung 2024",
+            label_goal: "Tagesziel (Stunden)",
+            label_days: "Lerntage",
+            go_dashboard: "Zum Dashboard"
         },
         settings: {
             title: "Einstellungen",
@@ -195,6 +308,105 @@ export const translations = {
             light: "Hell",
             dark: "Dunkel",
             system: "System"
+        },
+        auth: {
+            welcome: "Willkommen zurück",
+            subtitle_login: "Melde dich an, um weiterzulernen",
+            create_account: "Konto erstellen",
+            subtitle_register: "Werde Teil von CLeviAI und lerne smarter",
+            email: "E-Mail-Adresse",
+            password: "Passwort",
+            confirm_password: "Passwort bestätigen",
+            full_name: "Vollständiger Name (Optional)",
+            sign_in: "Anmelden",
+            sign_up: "Registrieren",
+            no_account: "Noch kein Konto?",
+            has_account: "Bereits ein Konto?",
+            register_here: "Jetzt erstellen",
+            signin_here: "Hier anmelden",
+            passwords_mismatch: "Passwörter stimmen nicht überein",
+            login_failed: "Anmeldung fehlgeschlagen",
+            registration_failed: "Registrierung fehlgeschlagen",
+            email_placeholder: "du@beispiel.de",
+            name_placeholder: "Max Mustermann"
+        },
+        user_menu: {
+            settings: "Einstellungen",
+            manage_subscription: "Abo verwalten"
+        },
+        subscription: {
+            title: "Upgrade auf Pro",
+            description: "Entfessele dein volles Lernpotenzial",
+            price: "9,99€",
+            month: "/ Monat",
+            subscribe_btn: "Jetzt abonnieren",
+            processing: "Verarbeite...",
+            success_title: "Zahlung erfolgreich!",
+            success_msg: "Willkommen bei Pro! Weiterleitung zum Dashboard...",
+
+            // Features
+            feat_unlimited: "Unbegrenzte Lernpläne",
+            feat_analytics: "Erweiterte Analysen & Insights",
+            feat_ai: "KI-gestützte Empfehlungen",
+            feat_support: "Bevorzugter Support",
+
+            // Manage
+            manage_title: "Aktueller Plan: Pro",
+            manage_desc: "Du hast vollen Zugriff",
+            status_label: "Status",
+            status_active: "Aktiv",
+            next_billing: "Nächste Rechnung",
+            amount_label: "Betrag",
+            cancel_btn: "Abo kündigen",
+            confirm_cancel: "Bist du sicher, dass du dein Pro-Abo kündigen möchtest? Du verlierst den Zugriff auf Premium-Funktionen.",
+            cancel_success: "Abo gekündigt. Du bist jetzt im Standard-Tarif.",
+            cancel_fail: "Kündigung fehlgeschlagen."
+        },
+        limits: {
+            warning_title: "Plan-Limit erreicht",
+            warning_desc: "Du hast das Maximum von {limit} aktiven Lernplänen für den Standard-Tarif erreicht.",
+            upgrade_prompt: "Bitte {link}, um unbegrenzt Pläne zu erstellen.",
+            upgrade_link: "auf Pro upgraden",
+            btn_upgrade: "Upgrade auf Pro"
+        },
+        admin: {
+            title: "Verwaltung",
+            nav_general: "Allgemein",
+            nav_users: "Benutzer",
+
+            // Users Page
+            users_title: "Benutzerverwaltung",
+            users_search: "Benutzer suchen...",
+            users_all: "Alle Benutzer",
+            table_name: "Name",
+            table_email: "E-Mail",
+            table_role: "Rolle",
+            table_tier: "Level",
+            table_status: "Status",
+            table_actions: "Aktionen",
+            role_admin: "Admin",
+            role_user: "Nutzer",
+            tier_pro: "PRO",
+            tier_standard: "Standard",
+            status_active: "Aktiv",
+            status_disabled: "Deaktiviert",
+
+            // Actions
+            promote_admin: "Zum Admin befördern",
+            demote_user: "Zum Nutzer herabstufen",
+            upgrade_pro: "Auf PRO upgraden",
+            downgrade_standard: "Auf Standard herabstufen",
+            disable_account: "Konto deaktivieren",
+            enable_account: "Konto aktivieren",
+            delete_user: "Benutzer löschen",
+            confirm_delete: "Möchtest du den Benutzer",
+            confirm_delete_suffix: "wirklich löschen? Dies löscht auch alle Lernpläne.",
+
+            // General Page
+            general_title: "Allgemeine Einstellungen",
+            config_success: "Einstellungen erfolgreich gespeichert",
+            config_fail: "Fehler beim Speichern",
+            config_error: "Fehler aufgetreten"
         }
     },
 };

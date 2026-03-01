@@ -104,7 +104,7 @@ export default function DashboardPage() {
 
     const handleDelete = async (e: React.MouseEvent, planId: string) => {
         e.stopPropagation();
-        if (!confirm("Are you sure you want to delete this journey?")) return;
+        if (!confirm(t.dashboard.confirm_delete)) return;
 
         try {
             const response = await fetch(`/api/plans/${planId}`, {
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                             ) : (
                                 <div className="group flex items-center justify-center cursor-pointer" onClick={(e) => startEditing(e, selectedPlan)}>
                                     <h2 className="text-2xl font-semibold text-muted-foreground mr-2 group-hover:text-foreground transition-colors">
-                                        {selectedPlan.title || "My Learning Journey"}
+                                        {selectedPlan.title || t.dashboard.my_journey}
                                     </h2>
                                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground">
                                         <Pencil className="w-4 h-4" />
@@ -297,7 +297,7 @@ export default function DashboardPage() {
                                             </div>
                                         ) : (
                                             <h3 className="font-semibold text-lg mb-2 relative z-10 truncate pr-2" title={plan.title}>
-                                                {plan.title || "My Learning Journey"}
+                                                {plan.title || t.dashboard.my_journey}
                                             </h3>
                                         )}
 

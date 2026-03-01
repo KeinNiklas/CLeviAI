@@ -126,7 +126,7 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
         }
 
         if (challenges.length === 0) {
-            alert("No content available for this topic yet.");
+            alert(t.journey.no_content);
             return;
         }
 
@@ -229,18 +229,18 @@ export function GamifiedJourneyMap({ plan }: GamifiedJourneyMapProps) {
 
                         <div className="text-center mb-6">
                             <h3 className="text-xl font-bold mb-2">{selectedTopic.title}</h3>
-                            <p className="text-sm text-muted-foreground">{selectedTopic.description || "Ready to master this topic?"}</p>
+                            <p className="text-sm text-muted-foreground">{selectedTopic.description || t.journey.ready_to_master}</p>
                         </div>
 
                         <div className="space-y-3">
                             <Button className="w-full h-12 text-lg" onClick={startChallenges}>
                                 <Play className="w-5 h-5 mr-2 fill-current" />
-                                Start Questions
+                                {t.journey.start_questions}
                             </Button>
 
                             <Button variant="outline" className="w-full h-12 text-lg border-primary/20 hover:bg-primary/5" onClick={startPodcast}>
                                 <Headphones className="w-5 h-5 mr-2" />
-                                Listen to Podcast
+                                {t.journey.listen_podcast}
                             </Button>
                         </div>
                     </Card>

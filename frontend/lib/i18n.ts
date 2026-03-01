@@ -45,7 +45,9 @@ export const translations = {
             mastery: "Mastery",
             your_path: "Your Learning Path",
             goal: "Goal",
-            study_routine: "Your Study Routine"
+            study_routine: "Your Study Routine",
+            my_journey: "My Learning Journey",
+            confirm_delete: "Are you sure you want to delete this journey?",
         },
         navbar: {
             new_journey: "New Journey",
@@ -82,7 +84,14 @@ export const translations = {
             placeholder_name: "e.g. Finals Prep 2024",
             label_goal: "Daily Goal (Hours)",
             label_days: "Study Days",
-            go_dashboard: "Go to Dashboard"
+            go_dashboard: "Go to Dashboard",
+            day_mon: "M",
+            day_tue: "T",
+            day_wed: "W",
+            day_thu: "T",
+            day_fri: "F",
+            day_sat: "S",
+            day_sun: "S",
         },
         settings: {
             title: "Settings",
@@ -128,7 +137,9 @@ export const translations = {
         },
         user_menu: {
             settings: "Settings",
-            manage_subscription: "Manage Subscription"
+            manage_subscription: "Manage Subscription",
+            administration: "Administration",
+            logout: "Logout"
         },
         subscription: {
             title: "Upgrade to Pro",
@@ -156,7 +167,9 @@ export const translations = {
             cancel_btn: "Cancel Subscription",
             confirm_cancel: "Are you sure you want to cancel your Pro subscription? You will lose access to premium features.",
             cancel_success: "Subscription cancelled. You are now on the Standard plan.",
-            cancel_fail: "Failed to cancel subscription."
+            cancel_fail: "Failed to cancel subscription.",
+            payment_failed: "Payment failed. Please try again.",
+            error_occurred: "An error occurred. Please try again."
         },
         limits: {
             warning_title: "Plan Limit Reached",
@@ -197,13 +210,62 @@ export const translations = {
             delete_user: "Delete User",
             confirm_delete: "Are you sure you want to delete user",
             confirm_delete_suffix: "? This will allow DELETE all their study plans as well.",
+            delete_fail: "Failed to delete user",
 
             // General Page
             general_title: "General Settings",
             config_success: "Settings saved successfully",
             config_fail: "Failed to save settings",
             config_error: "Error saving settings"
-        }
+        },
+        flashcard: {
+            no_cards_title: "No Flashcards Generated",
+            no_cards_desc: "AI didn't generate flashcards for this topic.",
+            close: "Close",
+            question: "Question",
+            answer: "Answer",
+            click_flip: "Click to flip",
+            previous: "Previous",
+            next: "Next",
+            show_question: "Show Question",
+            show_answer: "Show Answer",
+        },
+        journey: {
+            start_questions: "Start Questions",
+            listen_podcast: "Listen to Podcast",
+            ready_to_master: "Ready to master this topic?",
+            no_content: "No content available for this topic yet.",
+        },
+        podcast: {
+            new_podcast: "New Podcast",
+            server_busy: "Server Busy",
+            rate_limit_error: "Rate Limit Reached (High Traffic). Please wait a moment before trying again.",
+            preset_label: "Preset",
+            preset_classroom: "🎓 Classroom (Student & Expert)",
+            preset_deep_dive: "🔬 Deep Dive (Two Experts)",
+            preset_story: "📖 Story Mode (Solo Narrator)",
+            regenerate: "Regenerate Episode",
+            writing_script: "Writing script...",
+            no_episodes: "No episodes yet. Generate one above!",
+            buffering: "Buffering next segment...",
+            play: "Play",
+            pause: "Pause",
+        },
+        study_timeline: {
+            export_calendar: "Export to Calendar",
+            practice: "Practice",
+            hours: "Hours",
+        },
+        game: {
+            lesson_complete: "Lesson Complete!",
+            mastered: "You mastered",
+            continue: "Continue",
+            skip: "Skip",
+            unknown_type: "Unknown Challenge Type",
+        },
+        quiz: {
+            check_answer: "Check Answer",
+        },
     },
     de: {
         hero: {
@@ -249,7 +311,9 @@ export const translations = {
             mastery: "Fortschritt",
             your_path: "Dein Lernpfad",
             goal: "Ziel",
-            study_routine: "Deine Lernroutine"
+            study_routine: "Deine Lernroutine",
+            my_journey: "Meine Lernreise",
+            confirm_delete: "Möchtest du diese Lernreise wirklich löschen?",
         },
         navbar: {
             new_journey: "Neuer Plan",
@@ -286,7 +350,14 @@ export const translations = {
             placeholder_name: "z.B. Abi Vorbereitung 2024",
             label_goal: "Tagesziel (Stunden)",
             label_days: "Lerntage",
-            go_dashboard: "Zum Dashboard"
+            go_dashboard: "Zum Dashboard",
+            day_mon: "M",
+            day_tue: "D",
+            day_wed: "M",
+            day_thu: "D",
+            day_fri: "F",
+            day_sat: "S",
+            day_sun: "S",
         },
         settings: {
             title: "Einstellungen",
@@ -332,7 +403,9 @@ export const translations = {
         },
         user_menu: {
             settings: "Einstellungen",
-            manage_subscription: "Abo verwalten"
+            manage_subscription: "Abo verwalten",
+            administration: "Verwaltung",
+            logout: "Abmelden"
         },
         subscription: {
             title: "Upgrade auf Pro",
@@ -360,7 +433,9 @@ export const translations = {
             cancel_btn: "Abo kündigen",
             confirm_cancel: "Bist du sicher, dass du dein Pro-Abo kündigen möchtest? Du verlierst den Zugriff auf Premium-Funktionen.",
             cancel_success: "Abo gekündigt. Du bist jetzt im Standard-Tarif.",
-            cancel_fail: "Kündigung fehlgeschlagen."
+            cancel_fail: "Kündigung fehlgeschlagen.",
+            payment_failed: "Zahlung fehlgeschlagen. Bitte erneut versuchen.",
+            error_occurred: "Ein Fehler ist aufgetreten. Bitte erneut versuchen."
         },
         limits: {
             warning_title: "Plan-Limit erreicht",
@@ -401,12 +476,61 @@ export const translations = {
             delete_user: "Benutzer löschen",
             confirm_delete: "Möchtest du den Benutzer",
             confirm_delete_suffix: "wirklich löschen? Dies löscht auch alle Lernpläne.",
+            delete_fail: "Benutzer konnte nicht gelöscht werden",
 
             // General Page
             general_title: "Allgemeine Einstellungen",
             config_success: "Einstellungen erfolgreich gespeichert",
             config_fail: "Fehler beim Speichern",
             config_error: "Fehler aufgetreten"
-        }
+        },
+        flashcard: {
+            no_cards_title: "Keine Karteikarten erstellt",
+            no_cards_desc: "KI hat für dieses Thema keine Karteikarten erstellt.",
+            close: "Schließen",
+            question: "Frage",
+            answer: "Antwort",
+            click_flip: "Zum Umdrehen klicken",
+            previous: "Zurück",
+            next: "Weiter",
+            show_question: "Frage anzeigen",
+            show_answer: "Antwort anzeigen",
+        },
+        journey: {
+            start_questions: "Fragen starten",
+            listen_podcast: "Podcast anhören",
+            ready_to_master: "Bereit, dieses Thema zu meistern?",
+            no_content: "Noch kein Inhalt für dieses Thema verfügbar.",
+        },
+        podcast: {
+            new_podcast: "Neuer Podcast",
+            server_busy: "Server ausgelastet",
+            rate_limit_error: "Ratenlimit erreicht (hohes Verkehrsaufkommen). Bitte warte einen Moment.",
+            preset_label: "Vorlage",
+            preset_classroom: "🎓 Klassenzimmer (Schüler & Experte)",
+            preset_deep_dive: "🔬 Tiefgang (Zwei Experten)",
+            preset_story: "📖 Story-Modus (Solo-Erzähler)",
+            regenerate: "Episode neu erstellen",
+            writing_script: "Skript wird geschrieben...",
+            no_episodes: "Noch keine Episoden. Erstelle eine oben!",
+            buffering: "Nächstes Segment wird geladen...",
+            play: "Abspielen",
+            pause: "Pausieren",
+        },
+        study_timeline: {
+            export_calendar: "In Kalender exportieren",
+            practice: "Üben",
+            hours: "Stunden",
+        },
+        game: {
+            lesson_complete: "Lektion abgeschlossen!",
+            mastered: "Du hast gemeistert",
+            continue: "Weiter",
+            skip: "Überspringen",
+            unknown_type: "Unbekannter Challenge-Typ",
+        },
+        quiz: {
+            check_answer: "Antwort prüfen",
+        },
     },
 };

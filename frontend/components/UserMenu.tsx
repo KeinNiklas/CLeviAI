@@ -86,7 +86,7 @@ export function UserMenu() {
                                     onClick={() => setIsOpen(false)}
                                 >
                                     <Shield className="w-4 h-4 text-primary" />
-                                    <span>Administration</span>
+                                    <span>{t.user_menu.administration}</span>
                                 </Link>
                             )}
 
@@ -96,7 +96,7 @@ export function UserMenu() {
                                 onClick={() => setIsOpen(false)}
                             >
                                 <Settings className="w-4 h-4 text-primary" />
-                                <span>Settings</span>
+                                <span>{t.user_menu.settings}</span>
                             </Link>
 
                             {user.tier === 'pro' && (
@@ -106,7 +106,7 @@ export function UserMenu() {
                                     onClick={() => setIsOpen(false)}
                                 >
                                     <CreditCard className="w-4 h-4 text-primary" />
-                                    <span>Manage Subscription</span>
+                                    <span>{t.user_menu.manage_subscription}</span>
                                 </Link>
                             )}
 
@@ -118,7 +118,7 @@ export function UserMenu() {
                                 className="flex w-full items-center space-x-3 px-4 py-3 rounded-lg hover:bg-destructive/10 hover:text-destructive transition-colors text-sm font-medium mt-1"
                             >
                                 <LogOut className="w-4 h-4" />
-                                <span>Logout</span>
+                                <span>{t.user_menu.logout}</span>
                             </button>
                         </div>
                     </motion.div>

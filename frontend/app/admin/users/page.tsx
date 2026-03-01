@@ -93,7 +93,7 @@ export default function AdminUsersPage() {
             if (res.ok) {
                 setUsers(users.filter(u => u.id !== user.id));
             } else {
-                alert("Failed to delete user");
+                alert(t.admin.delete_fail);
             }
         } catch (error) {
             console.error("Failed to delete user", error);

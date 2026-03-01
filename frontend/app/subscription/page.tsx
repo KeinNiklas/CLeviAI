@@ -40,12 +40,12 @@ export default function SubscriptionPage() {
                 await refreshUser(); // Update context to reflect new tier
                 router.push('/dashboard');
             } else {
-                alert("Payment failed. Please try again.");
+                alert(t.subscription.payment_failed);
                 setIsProcessing(false);
             }
         } catch (error) {
             console.error("Upgrade failed", error);
-            alert("An error occurred. Please try again.");
+            alert(t.subscription.error_occurred);
             setIsProcessing(false);
         }
     };
@@ -70,7 +70,7 @@ export default function SubscriptionPage() {
             }
         } catch (error) {
             console.error("Downgrade failed", error);
-            alert("An error occurred.");
+            alert(t.subscription.error_occurred);
         } finally {
             setIsProcessing(false);
         }

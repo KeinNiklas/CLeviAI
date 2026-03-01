@@ -25,7 +25,7 @@ interface PodcastLine {
 }
 
 export function PodcastPlayer({ topicTitle, topicDescription, onClose }: PodcastPlayerProps) {
-    const { language } = useLanguage();
+    const { language, t } = useLanguage();
 
     // State: Script
     const [loadingScript, setLoadingScript] = React.useState(false);
@@ -100,7 +100,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
             });
 
             if (res.status === 429) {
-                setRateLimitError("Rate Limit Reached (High Traffic). Please wait a moment before trying again.");
+                setRateLimitError(t.podcast.rate_limit_error);
                 shouldPlayRef.current = false;
                 setIsPlaying(false);
                 return null;
@@ -224,7 +224,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                             <Volume2 className="w-6 h-6 text-primary" />
                         </div>
                         <div>
-                            <h3 className="font-bold text-lg leading-tight w-64 truncate">{podcastTitle || "New Podcast"}</h3>
+                            <h3 className="font-bold text-lg leading-tight w-64 truncate">{podcastTitle || t.podcast.new_podcast}</h3>
                             <p className="text-xs text-muted-foreground truncate w-64">{topicTitle}</p>
                         </div>
                     </div>
@@ -243,7 +243,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                     <div className="bg-orange-500/10 border-l-4 border-orange-500 p-4 m-4 rounded flex items-start space-x-3">
                         <AlertTriangle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
                         <div>
-                            <p className="text-sm font-bold text-orange-600 dark:text-orange-400">Server Busy</p>
+                            <p className="text-sm font-bold text-orange-600 dark:text-orange-400">{t.podcast.server_busy}</p>
                             <p className="text-xs text-muted-foreground">{rateLimitError}</p>
                         </div>
                     </div>
@@ -253,15 +253,15 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                 {showSettings && (
                     <div className="p-4 bg-secondary/20 border-b border-border space-y-3">
                         <div className="flex flex-col space-y-1">
-                            <label className="text-sm font-medium">Preset</label>
+                            <label className="text-sm font-medium">{t.podcast.preset_label}</label>
                             <Select value={preset} onValueChange={setPreset}>
                                 <SelectTrigger>
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="classroom">🎓 Classroom (Student & Expert)</SelectItem>
-                                    <SelectItem value="deep_dive">🔬 Deep Dive (Two Experts)</SelectItem>
-                                    <SelectItem value="story">📖 Story Mode (Solo Narrator)</SelectItem>
+                                    <SelectItem value="classroom">{t.podcast.preset_classroom}</SelectItem>
+                                    <SelectItem value="deep_dive">{t.podcast.preset_deep_dive}</SelectItem>
+                                    <SelectItem value="story">{t.podcast.preset_story}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -270,7 +270,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                             onClick={() => generateScript(preset)}
                             disabled={loadingScript}
                         >
-                            {loadingScript ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : "Regenerate Episode"}
+                            {loadingScript ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : t.podcast.regenerate}
                         </Button>
                     </div>
                 )}
@@ -280,11 +280,11 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                     {loadingScript ? (
                         <div className="flex flex-col items-center justify-center h-full space-y-4 text-muted-foreground">
                             <Loader2 className="w-10 h-10 animate-spin text-primary" />
-                            <p className="text-sm font-medium">Writing script...</p>
+                            <p className="text-sm font-medium">{t.podcast.writing_script}</p>
                         </div>
                     ) : script.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-                            <p>No episodes yet. Generate one above!</p>
+                            <p>{t.podcast.no_episodes}</p>
                         </div>
                     ) : (
                         script.map((line, i) => (
@@ -320,7 +320,7 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                 {bufferingIndex !== null && isPlaying && !rateLimitError && (
                     <div className="absolute bottom-24 left-1/2 -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-1 rounded-full flex items-center shadow-lg backdrop-blur-md z-10 transition-all">
                         <Loader2 className="w-3 h-3 animate-spin mr-2" />
-                        Buffering next segment...
+                        {t.podcast.buffering}
                     </div>
                 )}
 
@@ -335,11 +335,11 @@ export function PodcastPlayer({ topicTitle, topicDescription, onClose }: Podcast
                         >
                             {isPlaying ? (
                                 <>
-                                    <Pause className="w-6 h-6 mr-3" /> Pause
+                                    <Pause className="w-6 h-6 mr-3" /> {t.podcast.pause}
                                 </>
                             ) : (
                                 <>
-                                    <Play className="w-6 h-6 mr-3" /> Play
+                                    <Play className="w-6 h-6 mr-3" /> {t.podcast.play}
                                 </>
                             )}
                         </Button>

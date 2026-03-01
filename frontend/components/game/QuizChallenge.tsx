@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { CheckCircle, XCircle } from "lucide-react";
 import confetti from "canvas-confetti";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface QuizChallengeProps {
     data: Challenge;
@@ -14,6 +15,7 @@ interface QuizChallengeProps {
 }
 
 export function QuizChallenge({ data, onSuccess, onFailure }: QuizChallengeProps) {
+    const { t } = useLanguage();
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -94,7 +96,7 @@ export function QuizChallenge({ data, onSuccess, onFailure }: QuizChallengeProps
                 className="w-full mt-8 text-xl py-8"
                 onClick={handleCheck}
             >
-                Check Answer
+                {t.quiz.check_answer}
             </Button>
         </div>
     );

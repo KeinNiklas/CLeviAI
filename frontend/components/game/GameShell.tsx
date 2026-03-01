@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/Card";
 import confetti from "canvas-confetti";
 import { QuizChallenge } from "./QuizChallenge";
 import { MatchChallenge } from "./MatchChallenge";
+import { useLanguage } from "@/lib/LanguageContext";
 
 // Define the interface to match backend
 export interface Challenge {
@@ -26,6 +27,7 @@ interface GameShellProps {
 }
 
 export function GameShell({ title, challenges, onComplete, onClose }: GameShellProps) {
+    const { t } = useLanguage();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [lives, setLives] = useState(3);
     const [streak, setStreak] = useState(0);
@@ -90,10 +92,10 @@ export function GameShell({ title, challenges, onComplete, onClose }: GameShellP
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-md">
                 {/* Confetti handled by useEffect */}
                 <Card className="p-8 text-center max-w-md border-orange-500/50 bg-secondary/30">
-                    <h2 className="text-4xl font-bold mb-4 gradient-text">Lesson Complete!</h2>
+                    <h2 className="text-4xl font-bold mb-4 gradient-text">{t.game.lesson_complete}</h2>
                     <div className="text-6xl mb-6">🏆</div>
-                    <p className="text-xl text-muted-foreground mb-8">You mastered {title}!</p>
-                    <Button size="lg" className="w-full" onClick={() => onComplete(true)}>Continue</Button>
+                    <p className="text-xl text-muted-foreground mb-8">{t.game.mastered} {title}!</p>
+                    <Button size="lg" className="w-full" onClick={() => onComplete(true)}>{t.game.continue}</Button>
                 </Card>
             </div>
         );
@@ -150,11 +152,11 @@ export function GameShell({ title, challenges, onComplete, onClose }: GameShellP
                                 onFailure={handleFailure}
                             />
                         )}
-                        {/* Fallback for unimplamented types */}
+                        {/* Fallback for unimplemented types */}
                         {(currentChallenge?.type !== "QUIZ" && currentChallenge?.type !== "MATCH") && (
                             <div className="text-center p-8 border rounded-xl">
-                                Unknown Challenge Type: {currentChallenge?.type}
-                                <Button onClick={handleSuccess} className="mt-4 block mx-auto">Skip</Button>
+                                {t.game.unknown_type}: {currentChallenge?.type}
+                                <Button onClick={handleSuccess} className="mt-4 block mx-auto">{t.game.skip}</Button>
                             </div>
                         )}
                     </motion.div>

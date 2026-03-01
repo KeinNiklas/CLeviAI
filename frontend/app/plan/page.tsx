@@ -25,7 +25,7 @@ export default function CreatePlanPage() {
     const [step, setStep] = React.useState<"UPLOAD" | "SETTINGS" | "RESULT">("UPLOAD");
     const [topics, setTopics] = React.useState<Topic[]>([]);
     const [examDate, setExamDate] = React.useState("");
-    const [planTitle, setPlanTitle] = React.useState("My Learning Journey");
+    const [planTitle, setPlanTitle] = React.useState(t.dashboard.my_journey);
     const [dailyGoal, setDailyGoal] = React.useState(2.0);
     const [studyDays, setStudyDays] = React.useState<number[]>([0, 1, 2, 3, 4]); // Mon-Fri default
     const [parallelCourses, setParallelCourses] = React.useState(0); // Legacy/Unused now but kept for compatibility
@@ -226,8 +226,8 @@ export default function CreatePlanPage() {
                                         // Let's use simple Map: 0=Mon...6=Sun.
                                         // The array above is visual. Let's make it data-driven:
                                         const days = [
-                                            { label: "M", val: 0 }, { label: "T", val: 1 }, { label: "W", val: 2 },
-                                            { label: "T", val: 3 }, { label: "F", val: 4 }, { label: "S", val: 5 }, { label: "S", val: 6 }
+                                            { label: t.plan.day_mon, val: 0 }, { label: t.plan.day_tue, val: 1 }, { label: t.plan.day_wed, val: 2 },
+                                            { label: t.plan.day_thu, val: 3 }, { label: t.plan.day_fri, val: 4 }, { label: t.plan.day_sat, val: 5 }, { label: t.plan.day_sun, val: 6 }
                                         ];
                                         const dayInfo = days[i];
                                         // Wait, the map index i will suffice if we define array correctly.

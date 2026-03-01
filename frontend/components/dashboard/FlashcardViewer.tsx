@@ -4,6 +4,7 @@
 import * as React from "react";
 import { X, ChevronLeft, ChevronRight, RotateCw, CheckCircle2, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface Flashcard {
     question: string;
@@ -17,6 +18,7 @@ interface FlashcardViewerProps {
 }
 
 export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardViewerProps) {
+    const { t } = useLanguage();
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const [isFlipped, setIsFlipped] = React.useState(false);
 
@@ -24,9 +26,9 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
                 <div className="bg-card border border-border p-6 rounded-xl shadow-2xl max-w-md w-full text-center">
-                    <h3 className="text-xl font-bold mb-2">No Flashcards Generated</h3>
-                    <p className="text-muted-foreground mb-6">AI didn't generate flashcards for this topic.</p>
-                    <Button onClick={onClose}>Close</Button>
+                    <h3 className="text-xl font-bold mb-2">{t.flashcard.no_cards_title}</h3>
+                    <p className="text-muted-foreground mb-6">{t.flashcard.no_cards_desc}</p>
+                    <Button onClick={onClose}>{t.flashcard.close}</Button>
                 </div>
             </div>
         );
@@ -77,9 +79,9 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
                                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                             >
                                 <HelpCircle className="w-10 h-10 text-primary mb-4 opacity-50" />
-                                <h4 className="text-xl font-medium text-muted-foreground mb-4 uppercase tracking-widest text-xs">Question</h4>
+                                <h4 className="text-xl font-medium text-muted-foreground mb-4 uppercase tracking-widest text-xs">{t.flashcard.question}</h4>
                                 <p className="text-2xl font-semibold leading-relaxed">{currentCard.question}</p>
-                                <p className="text-xs text-muted-foreground mt-8 opacity-60">Click to flip</p>
+                                <p className="text-xs text-muted-foreground mt-8 opacity-60">{t.flashcard.click_flip}</p>
                             </div>
 
                             {/* Back */}
@@ -88,7 +90,7 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
                                 style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                             >
                                 <CheckCircle2 className="w-10 h-10 text-primary mb-4" />
-                                <h4 className="text-xl font-medium text-primary mb-4 uppercase tracking-widest text-xs">Answer</h4>
+                                <h4 className="text-xl font-medium text-primary mb-4 uppercase tracking-widest text-xs">{t.flashcard.answer}</h4>
                                 <p className="text-xl leading-relaxed">{currentCard.answer}</p>
                             </div>
                         </div>
@@ -98,7 +100,7 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
                 {/* Controls */}
                 <div className="p-6 bg-card border-t border-border flex justify-between items-center">
                     <Button variant="outline" onClick={handlePrev} disabled={flashcards.length <= 1}>
-                        <ChevronLeft className="w-4 h-4 mr-2" /> Previous
+                        <ChevronLeft className="w-4 h-4 mr-2" /> {t.flashcard.previous}
                     </Button>
 
                     <div className="flex space-x-2">
@@ -106,12 +108,12 @@ export function FlashcardViewer({ topicTitle, flashcards, onClose }: FlashcardVi
                             className="w-32"
                             onClick={() => setIsFlipped(!isFlipped)}
                         >
-                            {isFlipped ? "Show Question" : "Show Answer"}
+                            {isFlipped ? t.flashcard.show_question : t.flashcard.show_answer}
                         </Button>
                     </div>
 
                     <Button variant="outline" onClick={handleNext} disabled={flashcards.length <= 1}>
-                        Next <ChevronRight className="w-4 h-4 ml-2" />
+                        {t.flashcard.next} <ChevronRight className="w-4 h-4 ml-2" />
                     </Button>
                 </div>
             </div>

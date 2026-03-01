@@ -47,7 +47,7 @@ export function StudyTimeline({ plan }: StudyTimelineProps) {
                 <h2 className="text-3xl font-bold">{t.dashboard.study_routine}</h2>
                 <Button variant="outline">
                     <Calendar className="w-4 h-4 mr-2" />
-                    Export to Calendar
+                    {t.study_timeline.export_calendar}
                 </Button>
             </div>
 
@@ -64,7 +64,7 @@ export function StudyTimeline({ plan }: StudyTimelineProps) {
                             </span>
                             <span className="text-sm font-medium text-muted-foreground bg-secondary px-2 py-1 rounded-md w-fit flex items-center">
                                 <Clock className="w-3 h-3 mr-1" />
-                                {day.total_hours} Hours
+                                {day.total_hours} {t.study_timeline.hours}
                             </span>
                         </div>
 
@@ -95,7 +95,7 @@ export function StudyTimeline({ plan }: StudyTimelineProps) {
                                             onClick={() => setSelectedTopic(topic)}
                                         >
                                             <RotateCw className="w-4 h-4 mr-2" />
-                                            Practice ({topic.flashcards?.length || 0})
+                                            {t.study_timeline.practice} ({topic.flashcards?.length || 0})
                                         </Button>
                                     </div>
                                 </Card>

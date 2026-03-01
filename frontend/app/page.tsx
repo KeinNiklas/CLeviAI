@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useLanguage } from "@/lib/LanguageContext";
-import { ArrowRight, BookOpen, Brain, Sparkles, Upload } from "lucide-react";
+import { StarfallAuroraBackground } from "@/components/ui/starfall-portfolio-landing";
+import { ArrowRight, BookOpen, Brain, Upload } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -11,19 +12,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
-      {/* Background Gradients - Warm/Fire Theme */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
+      {/* Animated Starfall Aurora Background */}
+      <StarfallAuroraBackground />
 
       <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
-        {/* Badge */}
-        <div className="inline-flex items-center space-x-2 bg-secondary/50 border border-border rounded-full px-3 py-1 mb-4 backdrop-blur-md animate-fade-in-up">
-          <Sparkles className="w-4 h-4 text-amber-500" />
-          <span className="text-sm font-medium text-muted-foreground">
-            {t.hero.badge}
-          </span>
-        </div>
-
         {/* Hero Title */}
         <h1 className="text-7xl md:text-9xl font-extrabold tracking-tighter animate-fade-in-up delay-75 mb-6">
           <span className="bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent">CLeviAI</span>
@@ -39,7 +31,7 @@ export default function Home() {
         </p>
 
         {/* CTA Actions */}
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4 animate-fade-in-up delay-300">
+        <div className="flex flex-row items-center gap-4 pt-4 animate-fade-in-up delay-300">
           <Link href="/plan">
             <Button size="lg" className="group">
               {t.hero.cta_start}

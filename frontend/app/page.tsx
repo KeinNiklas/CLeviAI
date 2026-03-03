@@ -11,9 +11,10 @@ export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground selection:bg-primary/20 py-12 md:py-24 px-4">
-      <main className="container mx-auto max-w-6xl z-10 flex flex-col items-center text-center space-y-8 py-20 md:py-32 relative overflow-hidden rounded-3xl border border-border/50 bg-background/50 shadow-2xl backdrop-blur-sm">
-        <ShaderBackground className="absolute inset-0 w-full h-full -z-10 opacity-70" />
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
+      <ShaderBackground className="fixed inset-0 w-full h-full -z-10" />
+
+      <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20 mt-10">
 
         {/* Hero Title */}
         <h1 className="text-7xl md:text-9xl font-extrabold tracking-tighter animate-fade-in-up delay-75 mb-6">
@@ -25,7 +26,7 @@ export default function Home() {
         </h2>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed animate-fade-in-up delay-200">
+        <p className="text-lg md:text-2xl text-foreground/90 font-medium max-w-2xl leading-relaxed animate-fade-in-up delay-200 drop-shadow-md">
           {t.hero.subtitle}
         </p>
 
@@ -38,7 +39,7 @@ export default function Home() {
             </Button>
           </Link>
           <Link href="/dashboard">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="border-orange-500/50 hover:border-orange-500 hover:bg-orange-500/10 bg-background/50 backdrop-blur-md shadow-lg font-medium text-foreground">
               {t.navbar.profile_dashboard}
             </Button>
           </Link>

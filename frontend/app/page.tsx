@@ -11,10 +11,9 @@ export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
-      <ShaderBackground />
-
-      <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground selection:bg-primary/20 py-12 md:py-24 px-4">
+      <main className="container mx-auto max-w-6xl z-10 flex flex-col items-center text-center space-y-8 py-20 md:py-32 relative overflow-hidden rounded-3xl border border-border/50 bg-background/50 shadow-2xl backdrop-blur-sm">
+        <ShaderBackground className="absolute inset-0 w-full h-full -z-10 opacity-70" />
 
         {/* Hero Title */}
         <h1 className="text-7xl md:text-9xl font-extrabold tracking-tighter animate-fade-in-up delay-75 mb-6">

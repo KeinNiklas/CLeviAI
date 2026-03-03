@@ -206,7 +206,6 @@ const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10"
 
             gl.useProgram(programInfo.program);
 
-            // WebGL contexts map resolution directly as two floats
             const resLocation = programInfo.uniformLocations.resolution;
             if (resLocation) {
                 gl.uniform2f(resLocation, canvas.width, canvas.height);
@@ -237,8 +236,12 @@ const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10"
         return () => {
             window.removeEventListener("resize", resizeCanvas);
             cancelAnimationFrame(animationFrameId);
+
+            // Release WebGL context aggressively on unmount/re-render to prevent exceeding active contexts
+            const ext = gl.getExtension("WEBGL_lose_context");
+            if (ext) ext.loseContext();
         };
-    }, [vsSource, fsSource]);
+    }, []);
 
     return (
         <canvas ref={canvasRef} className={className} />

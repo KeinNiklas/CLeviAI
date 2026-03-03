@@ -11,7 +11,7 @@ export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-primary/20">
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-transparent text-foreground selection:bg-primary/20">
       <ShaderBackground className="fixed inset-0 w-full h-full -z-10" />
 
       <main className="container mx-auto px-4 z-10 flex flex-col items-center text-center space-y-8 py-20 mt-10">

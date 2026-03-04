@@ -27,36 +27,77 @@ class GroqService:
         lang_instruction = "English" if language == "en" else "German"
 
         # Similar prompt to Gemini but optimized for Llama execution
+
         prompt = f"""
-        You are a helpful study assistant.
-        Analyze the following study material text and break it down into study topics.
-        
+        You are an expert instructional designer and AI study assistant.
+
+        Transform the following study material into a structured, high-quality learning journey.
+
         Text:
         {text[:25000]}... (truncated if too long)
-        
+
+        STEP 1 – STRUCTURE DETECTION
+        - If the text contains headings, numbered sections, bullet lists, or visible semantic structure, you MUST preserve and use this structure as the backbone of the learning journey.
+        - Maintain hierarchical relationships between topics and subtopics where appropriate.
+        - Only create new topics if the text lacks structure or if restructuring significantly improves learning clarity.
+        - Merge redundant sections where appropriate.
+
+        STEP 2 – TOPIC CREATION
         For each topic, provide:
-        1. A title
-        2. A brief description
-        3. An estimated number of hours to master it
-        4. A list of "Games" to test knowledge. These should be a mix of:
-            - "QUIZ": A multiple choice question with ONE correct answer and 3 distinct, plausible WRONG answers (distractors).
-            - "MATCH": A set of 4 term-definition pairs to match.
-        
-        IMPORTANT: Provide the response in {lang_instruction} language.
+        1. A clear and concise title
+        2. A structured description explaining:
+        - Core concepts
+        - Key definitions
+        - Relationships between ideas
+        - Why the topic matters
+        3. 2–5 explicit learning objectives using action verbs (e.g., explain, compare, apply, analyze)
+        4. An estimated number of hours required to master the topic
+        - Base this on density, abstraction level, and number of concepts.
+
+        STEP 3 – ADAPTIVE KNOWLEDGE GAMES
+        Generate a proportional number of games based on complexity:
+
+        - Topics under 1 hour → 3–5 games
+        - 1–3 hours → 5–8 games
+        - 3+ hours → 8–15 games
+
+        You MUST vary difficulty levels (recall, understanding, application, analysis).
+
+        IMPORTANT GAME RESTRICTION:
+        Only use the following game types:
+        - "QUIZ": One correct answer and exactly 3 distinct plausible distractors.
+        - "MATCH": Exactly 4 term-definition pairs in the format:
+        "Term1:Def1;Term2:Def2;Term3:Def3;Term4:Def4"
+
+        CRITICAL QUALITY RULES:
+        - Do NOT generate trivial recall-only questions for complex topics.
+        - At least 30% of questions must test application or reasoning for topics over 2 hours.
+        - Avoid repeating the same concept in multiple games.
+        - Distractors must be plausible and conceptually close.
+        - Use precise terminology from the text.
+        - Ensure factual correctness.
+
+        IMPORTANT:
+        Provide the response in {lang_instruction} language.
 
         Return ONLY valid JSON in the following format:
+
         {{
             "topics": [
                 {{
                     "title": "Topic Title ({lang_instruction})",
-                    "description": "Short description",
-                    "hours": 1.5,
+                    "description": "Structured explanation including core concepts, key definitions, relationships, and relevance",
+                    "learning_objectives": [
+                        "Objective 1",
+                        "Objective 2"
+                    ],
+                    "hours": 2.5,
                     "games": [
                         {{
                             "type": "QUIZ",
-                            "question": "What is X?",
-                            "correct_answer": "X is Y",
-                            "distractors": ["X is Z", "X is A", "X is B"] 
+                            "question": "Question text",
+                            "correct_answer": "Correct answer",
+                            "distractors": ["Distractor 1", "Distractor 2", "Distractor 3"]
                         }},
                         {{
                             "type": "MATCH",

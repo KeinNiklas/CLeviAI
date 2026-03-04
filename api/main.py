@@ -3,20 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date, timedelta
-try:
-    from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
-    from services.ingestion import IngestionService
-    from services.analyzer import AnalyzerService
-    from services.scheduler import SchedulerService
-    from dependencies import get_current_user
-except ImportError:
-    from .models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
-    from .services.ingestion import IngestionService
-    from .services.analyzer import AnalyzerService
-    from .services.scheduler import SchedulerService
-    from .dependencies import get_current_user
+from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
+from services.ingestion import IngestionService
+from services.analyzer import AnalyzerService
+from services.scheduler import SchedulerService
+from dependencies import get_current_user
 from dotenv import load_dotenv
 import os
+import vercel_blob
 
 def get_current_admin_user(current_user: UserInDB = Depends(get_current_user)):
     if current_user.role != "admin":
@@ -75,14 +69,31 @@ async def analyze_document(files: List[UploadFile] = File(...), language: str = 
 
         all_topics = []
         for file in files:
-            # 1. Ingest
-            text = await IngestionService.extract_text(file)
+            # 1. Read file content
+            content = await file.read()
+            
+            # 2. Upload to Vercel Blob
+            try:
+                # Create a unique filename with user ID to avoid collisions
+                blob_filename = f"user_{current_user.id}/{file.filename}"
+                # Upload to Blob storage
+                blob_result = vercel_blob.put(blob_filename, content, {"addRandomSuffix": "false"})
+                file_url = blob_result.get("url")
+                print(f"File uploaded to Blob: {file_url}")
+            except Exception as e:
+                print(f"Failed to upload to Blob, proceeding with analysis only. Error: {e}")
+                file_url = None
+
+            # 3. Extract Text for Analysis
+            text = await IngestionService.extract_text_from_bytes(content, file.filename)
             if not text or len(text.strip()) == 0:
                 print(f"Skipping empty or unreadable file: {file.filename}")
                 continue
             
-            # 2. Analyze
-            topics = analyzer_service.analyze_text(text, material_id=file.filename, language=language)
+            # 4. Analyze
+            # We pass the URL as material_id if available, otherwise filename
+            material_id = file_url if file_url else file.filename
+            topics = analyzer_service.analyze_text(text, material_id=material_id, language=language)
             all_topics.extend(topics)
             
         return all_topics
@@ -257,10 +268,7 @@ def update_api_keys(keys: APIKeyUpdate, current_user: UserInDB = Depends(get_cur
         print(f"Error updating keys: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-try:
-    from services.podcast_service import PodcastService
-except ImportError:
-    from .services.podcast_service import PodcastService
+from services.podcast_service import PodcastService
 podcast_service = PodcastService(analyzer_service.groq_service, analyzer_service.gemini_service)
 
 class PodcastRequest(BaseModel):
@@ -298,10 +306,7 @@ def generate_audio(req: AudioRequest, current_user: UserInDB = Depends(get_curre
 
 # --- Authentication ---
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-try:
-    from services.auth import AuthService
-except ImportError:
-    from .services.auth import AuthService
+from services.auth import AuthService
 
 auth_service = AuthService()
 

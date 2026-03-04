@@ -7,7 +7,11 @@ class IngestionService:
     @staticmethod
     async def extract_text(file: UploadFile) -> str:
         content = await file.read()
-        filename = file.filename.lower()
+        return IngestionService.extract_text_from_bytes(content, file.filename)
+
+    @staticmethod
+    def extract_text_from_bytes(content: bytes, filename: str) -> str:
+        filename = filename.lower()
         
         # Save temp file for libraries that need file path or file-like object
         # For simple in-memory processing:
@@ -16,7 +20,7 @@ class IngestionService:
         elif filename.endswith(".docx"):
             return IngestionService._read_docx(content)
         elif filename.endswith(".txt"):
-            return content.decode("utf-8")
+            return content.decode("utf-8", errors="ignore")
         else:
             return "Unsupported file format."
 

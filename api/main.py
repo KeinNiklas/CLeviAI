@@ -3,11 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date, timedelta
-from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
-from services.ingestion import IngestionService
-from services.analyzer import AnalyzerService
-from services.scheduler import SchedulerService
-from dependencies import get_current_user
+try:
+    from models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
+    from services.ingestion import IngestionService
+    from services.analyzer import AnalyzerService
+    from services.scheduler import SchedulerService
+    from dependencies import get_current_user
+except ImportError:
+    from .models import Topic, StudyPlan, PodcastResponse, UserInDB, Token, UserCreate, User, UserUpdate
+    from .services.ingestion import IngestionService
+    from .services.analyzer import AnalyzerService
+    from .services.scheduler import SchedulerService
+    from .dependencies import get_current_user
 from dotenv import load_dotenv
 import os
 import vercel_blob

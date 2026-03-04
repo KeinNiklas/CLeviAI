@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form, APIRouter
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, APIRouter, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -44,13 +44,22 @@ app.add_middleware(
 )
 
 analyzer_service = AnalyzerService()
-scheduler_service = SchedulerService()
+@app.on_event("startup")
+def startup():
+    app.state.scheduler_service = SchedulerService()
+
+def get_scheduler(request: Request) -> SchedulerService:
+    return request.app.state.scheduler_service
 
 # Startup Check (Reload Triggered)
 if analyzer_service.groq_service.client:
     print("✅ Groq Fallback Activated: Ready to take over if Gemini fails.")
 else:
     print("⚠️ Groq API Key missing. Fallback system disabled. Checked: GROQ_API_KEY")
+
+@router.get("/jobs")
+def get_jobs(scheduler: SchedulerService = Depends(get_scheduler)):
+    return scheduler.get_jobs()
 
 @router.get("/")
 def read_root():
@@ -101,7 +110,8 @@ class PlanRequest(BaseModel):
     study_days: List[int] = [0,1,2,3,4,5,6]
 
 @router.post("/create-plan", response_model=StudyPlan)
-def create_plan(request: PlanRequest):
+def create_plan(request: PlanRequest,
+                scheduler: SchedulerService = Depends(get_scheduler)):
     try:
         plan = scheduler_service.create_plan(
             topics=request.topics,

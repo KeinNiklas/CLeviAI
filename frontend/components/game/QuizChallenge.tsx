@@ -42,12 +42,12 @@ export function QuizChallenge({ data, onSuccess, onFailure }: QuizChallengeProps
                 origin: { y: 0.8 },
                 colors: ['#22c55e', '#ffffff'] // Green/White
             });
-            setTimeout(onSuccess, 1500);
+            setTimeout(onSuccess, 800);
         } else {
             // Shake effect or sound
             onFailure();
             // Don't auto advance on failure, let them see the correct one
-            setTimeout(onSuccess, 2000); // Advance anyway after showing error for flow
+            setTimeout(onSuccess, 1200); // Advance anyway after showing error for flow
         }
     };
 

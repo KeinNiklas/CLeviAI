@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 
-const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10" }: { className?: string }) => {
+const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10", isDark = true }: { className?: string; isDark?: boolean }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Vertex shader source code
@@ -83,9 +83,9 @@ const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10"
 
       vec4 lines = vec4(0.0);
       
-      // Orange gradient background
-      vec4 bgColor1 = vec4(0.15, 0.05, 0.0, 1.0);
-      vec4 bgColor2 = vec4(0.4, 0.15, 0.0, 1.0);
+      // Orange gradient background - much darker
+      vec4 bgColor1 = vec4(0.04, 0.01, 0.0, 1.0);
+      vec4 bgColor2 = vec4(0.09, 0.03, 0.0, 1.0);
 
       for(int l = 0; l < linesPerGroup; l++) {
         float normalizedLineIndex = float(l) / float(linesPerGroup);
@@ -108,7 +108,7 @@ const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10"
       fragColor = mix(bgColor1, bgColor2, uv.x);
       fragColor *= verticalFade;
       fragColor.a = 1.0;
-      fragColor += lines;
+      fragColor += lines * 0.5;
 
       gl_FragColor = fragColor;
     }
@@ -244,7 +244,20 @@ const ShaderBackground = ({ className = "fixed top-0 left-0 w-full h-full -z-10"
     }, []);
 
     return (
-        <canvas ref={canvasRef} className={className} />
+        <>
+            <canvas ref={canvasRef} className={className} />
+            {/* Light mode overlay - whites out the dark shader */}
+            {!isDark && (
+                <div
+                    className={className}
+                    style={{
+                        background: "linear-gradient(135deg, rgba(255,247,237,0.92) 0%, rgba(255,237,213,0.88) 40%, rgba(254,215,170,0.82) 100%)",
+                        backdropFilter: "blur(0px)",
+                        pointerEvents: "none",
+                    }}
+                />
+            )}
+        </>
     );
 };
 

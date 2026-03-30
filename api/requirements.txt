@@ -16,3 +16,4 @@ python-docx
 httpx
 pymongo
 certifi
+vercel-blob

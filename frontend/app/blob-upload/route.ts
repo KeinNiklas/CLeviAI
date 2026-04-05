@@ -43,6 +43,7 @@ export async function POST(request: Request): Promise<NextResponse> {
                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
                         'text/plain'
                     ],
+                    tokenPayload: JSON.stringify({ verified: true }) // CRITICAL: explicit token payload so Vercel doesn't implicitly copy the 300-byte JWT into its internal upload token, which breaks AWS HTTP header limits!
                 };
             },
             onUploadCompleted: async ({ blob, tokenPayload }) => {

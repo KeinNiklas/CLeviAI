@@ -1,5 +1,6 @@
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -23,16 +24,13 @@ export async function POST(request: Request): Promise<NextResponse> {
                     throw new Error("Unauthorized: No token provided via clientPayload");
                 }
                 
-                // Verify the JWT token securely using the Python backend
-                const verifyUrl = new URL('/api/users/me', request.url);
+                // Verify the JWT securely using native crypto instead of unstable network loopback
                 try {
-                    const authRes = await fetch(verifyUrl.toString(), {
-                        headers: { 'Authorization': `Bearer ${clientPayload}` }
-                    });
-                    if (!authRes.ok) {
-                        throw new Error("Invalid or expired token");
-                    }
+                    const secretKey = process.env.JWT_SECRET || "supersecretkey_change_me_in_prod";
+                    const secret = new TextEncoder().encode(secretKey);
+                    await jwtVerify(clientPayload, secret);
                 } catch (e) {
+                    console.error("JWT decoding failed:", e);
                     throw new Error(`Token validation failed: ${(e as Error).message}`);
                 }
 

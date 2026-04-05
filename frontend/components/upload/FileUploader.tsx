@@ -95,10 +95,10 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                     prev.map((tf, idx) => idx === i ? { ...tf, status: "uploading" } : tf)
                 );
 
-                // Direkt zu Vercel Blob hochladen via Next.js Backend (/blob-upload)
+                // Direkt zu Vercel Blob hochladen via Next.js Backend (/api/upload-token)
                 const blob = await upload(file.name, file, {
                     access: "public",
-                    handleUploadUrl: "/blob-upload",
+                    handleUploadUrl: `${window.location.origin}/api/upload-token`,
                     clientPayload: token || undefined // auth token safe transmission via vercel protocol
                 });
 

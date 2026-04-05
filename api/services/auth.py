@@ -13,7 +13,7 @@ except ImportError:
     from services.mongo_store import MongoStore
 
 # Secret key to sign JWTs (should be in env vars in prod)
-SECRET_KEY = "supersecretkey_change_me_in_prod"
+SECRET_KEY = "RvpeNCp2l9KvqJXWU7U1"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

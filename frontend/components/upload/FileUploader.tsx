@@ -5,7 +5,7 @@ import { Upload, FileText, AlertCircle, Loader2, Trash2, CheckCircle2 } from "lu
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useAuth } from "@/context/AuthContext";
-import { put } from "@vercel/blob/client";
+import { upload } from "@vercel/blob/client";
 import { useLanguage } from "@/lib/LanguageContext";
 
 interface FileUploaderProps {
@@ -95,24 +95,11 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                     prev.map((tf, idx) => idx === i ? { ...tf, status: "uploading" } : tf)
                 );
 
-                // Token vom Backend holen
-                const tokenRes = await fetch(
-                    `/api/upload/token?filename=${encodeURIComponent(file.name)}`,
-                    { 
-                        method: "POST",
-                        headers: { Authorization: `Bearer ${token}` } 
-                    }
-                );
-                if (!tokenRes.ok) {
-                    const err = await tokenRes.json().catch(() => ({}));
-                    throw new Error(err.detail || "Upload-Token konnte nicht geholt werden.");
-                }
-                const { clientToken } = await tokenRes.json();
-
-                // Direkt zu Vercel Blob hochladen (Dateiinhalt geht NICHT durch das Backend)
-                const blob = await put(file.name, file, {
+                // Direkt zu Vercel Blob hochladen via Next.js Backend (/blob-upload)
+                const blob = await upload(file.name, file, {
                     access: "public",
-                    token: clientToken,
+                    handleUploadUrl: "/blob-upload",
+                    headers: { Authorization: `Bearer ${token}` }
                 });
 
                 blobUrls.push(blob.url);

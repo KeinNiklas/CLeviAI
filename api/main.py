@@ -62,28 +62,6 @@ def read_root():
 def health_check():
     return {"status": "healthy"}
 
-# --- Vercel Blob: Upload Token Endpoint ---
-
-@app.post("/upload/token")
-async def get_upload_token(
-    filename: str = Query(..., description="Name der hochzuladenden Datei"),
-    current_user: UserInDB = Depends(get_current_user)
-):
-    """Gibt ein kurzlebiges Vercel Blob Client-Token zurück.
-    Der Browser lädt die Datei dann direkt zu Vercel Blob hoch,
-    ohne dass die Bytes durch diese Serverless Function fließen.
-    """
-    try:
-        pathname = f"user_{current_user.id}/{filename}"
-        token = vercel_blob.generate_client_token(
-            pathname,
-            {"access": "public", "maximumSizeInBytes": 20 * 1024 * 1024}  # 20 MB Limit
-        )
-        return {"clientToken": token, "pathname": pathname}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Konnte kein Upload-Token generieren: {e}")
-
-
 # --- Analyse-Endpoint (nimmt jetzt Blob-URLs statt Dateiinhalt) ---
 
 class AnalyzeRequest(BaseModel):

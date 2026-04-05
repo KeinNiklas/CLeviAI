@@ -37,12 +37,8 @@ export async function POST(request: Request): Promise<NextResponse> {
                 // Here we setup rules for the client upload token
                 return {
                     maximumSizeInBytes: 20 * 1024 * 1024, // 20 MB limit
-                    // wir erlauben PDF, DOCX und TXT
-                    allowedContentTypes: [
-                        'application/pdf', 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
-                        'text/plain'
-                    ],
+                    // Temporary fix: Removing strict allowedContentTypes because browser OS 
+                    // MIME tracking often violates Vercel's strict Edge checks causing 400 CORS drops
                     tokenPayload: JSON.stringify({ verified: true }) // CRITICAL: explicit token payload so Vercel doesn't implicitly copy the 300-byte JWT into its internal upload token, which breaks AWS HTTP header limits!
                 };
             },

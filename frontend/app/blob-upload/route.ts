@@ -13,17 +13,29 @@ export async function OPTIONS() {
 
 export async function POST(request: Request): Promise<NextResponse> {
     const body = (await request.json()) as HandleUploadBody;
-    const authHeader = request.headers.get('authorization');
-
-    if (!authHeader) {
-        return NextResponse.json({ error: 'Unauthorized: No token provided' }, { status: 401, headers: corsHeaders });
-    }
 
     try {
         const jsonResponse = await handleUpload({
             body,
             request,
-            onBeforeGenerateToken: async (pathname: string) => {
+            onBeforeGenerateToken: async (pathname: string, clientPayload: string | null) => {
+                if (!clientPayload) {
+                    throw new Error("Unauthorized: No token provided via clientPayload");
+                }
+                
+                // Verify the JWT token securely using the Python backend
+                const verifyUrl = new URL('/api/users/me', request.url);
+                try {
+                    const authRes = await fetch(verifyUrl.toString(), {
+                        headers: { 'Authorization': `Bearer ${clientPayload}` }
+                    });
+                    if (!authRes.ok) {
+                        throw new Error("Invalid or expired token");
+                    }
+                } catch (e) {
+                    throw new Error(`Token validation failed: ${(e as Error).message}`);
+                }
+
                 // Here we setup rules for the client upload token
                 return {
                     maximumSizeInBytes: 20 * 1024 * 1024, // 20 MB limit

@@ -99,7 +99,7 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                 const blob = await upload(file.name, file, {
                     access: "public",
                     handleUploadUrl: "/blob-upload",
-                    headers: { Authorization: `Bearer ${token}` }
+                    clientPayload: token || undefined // auth token safe transmission via vercel protocol
                 });
 
                 blobUrls.push(blob.url);

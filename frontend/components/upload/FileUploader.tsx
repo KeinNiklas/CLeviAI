@@ -1,24 +1,35 @@
 "use client";
 
 import * as React from "react";
-import { Upload, FileText, AlertCircle, Loader2, Trash2, X } from "lucide-react";
+import { Upload, FileText, AlertCircle, Loader2, Trash2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useAuth } from "@/context/AuthContext";
-
+import { upload } from "@vercel/blob/client";
 import { useLanguage } from "@/lib/LanguageContext";
 
 interface FileUploaderProps {
     onUploadComplete: (data: any) => void;
 }
 
+type FileStatus = "pending" | "uploading" | "done" | "error";
+
+interface TrackedFile {
+    file: File;
+    status: FileStatus;
+    blobUrl?: string;
+}
+
 export function FileUploader({ onUploadComplete }: FileUploaderProps) {
     const { t, language } = useLanguage();
     const { token } = useAuth();
     const [dragActive, setDragActive] = React.useState(false);
-    const [files, setFiles] = React.useState<File[]>([]);
+    const [trackedFiles, setTrackedFiles] = React.useState<TrackedFile[]>([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState<string | null>(null);
+
+    // Convenience: raw File[] for validation
+    const files = trackedFiles.map(tf => tf.file);
 
     const handleDrag = (e: React.DragEvent) => {
         e.preventDefault();
@@ -32,17 +43,17 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
 
     const validateAndAddFiles = (newFiles: File[]) => {
         setError(null);
-        if (files.length + newFiles.length > 10) {
+        if (trackedFiles.length + newFiles.length > 10) {
             setError(t.uploader.error_max);
             return;
         }
-
-        // Filter duplicates based on name and size
         const uniqueFiles = newFiles.filter(nf =>
-            !files.some(f => f.name === nf.name && f.size === nf.size)
+            !trackedFiles.some(tf => tf.file.name === nf.name && tf.file.size === nf.size)
         );
-
-        setFiles(prev => [...prev, ...uniqueFiles]);
+        setTrackedFiles(prev => [
+            ...prev,
+            ...uniqueFiles.map(f => ({ file: f, status: "pending" as FileStatus }))
+        ]);
     };
 
     const handleDrop = (e: React.DragEvent) => {
@@ -64,33 +75,65 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
     };
 
     const removeFile = (index: number) => {
-        setFiles(prev => prev.filter((_, i) => i !== index));
+        setTrackedFiles(prev => prev.filter((_, i) => i !== index));
     };
 
     const handleUpload = async () => {
-        if (files.length === 0) return;
-
+        if (trackedFiles.length === 0) return;
         setLoading(true);
         setError(null);
 
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append("files", file);
-        });
-        formData.append("language", language);
-
         try {
+            const blobUrls: string[] = [];
+
+            // Schritt 1 & 2: Jede Datei einzeln zu Vercel Blob hochladen
+            for (let i = 0; i < trackedFiles.length; i++) {
+                const { file } = trackedFiles[i];
+
+                // Status auf "uploading" setzen
+                setTrackedFiles(prev =>
+                    prev.map((tf, idx) => idx === i ? { ...tf, status: "uploading" } : tf)
+                );
+
+                // Token vom Backend holen
+                const tokenRes = await fetch(
+                    `/api/upload/token?filename=${encodeURIComponent(file.name)}`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                if (!tokenRes.ok) {
+                    const err = await tokenRes.json().catch(() => ({}));
+                    throw new Error(err.detail || "Upload-Token konnte nicht geholt werden.");
+                }
+                const { clientToken } = await tokenRes.json();
+
+                // Direkt zu Vercel Blob hochladen (Dateiinhalt geht NICHT durch das Backend)
+                const blob = await upload(file.name, file, {
+                    access: "public",
+                    handleUploadUrl: `/api/upload/token?filename=${encodeURIComponent(file.name)}`,
+                    clientPayload: clientToken,
+                });
+
+                blobUrls.push(blob.url);
+
+                // Status auf "done" setzen
+                setTrackedFiles(prev =>
+                    prev.map((tf, idx) => idx === i ? { ...tf, status: "done", blobUrl: blob.url } : tf)
+                );
+            }
+
+            // Schritt 3: Analyse mit den Blob-URLs
             const response = await fetch("/api/analyze-document", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
-                body: formData,
+                body: JSON.stringify({ blob_urls: blobUrls, language }),
             });
 
             if (!response.ok) {
                 const errorData = await response.json().catch(async () => ({ detail: await response.text() }));
-                throw new Error(errorData.detail || errorData.message || (typeof errorData === 'string' ? errorData : t.uploader.error_fail));
+                throw new Error(errorData.detail || errorData.message || (typeof errorData === "string" ? errorData : t.uploader.error_fail));
             }
 
             const data = await response.json();
@@ -98,6 +141,14 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         } catch (err: any) {
             setError(err.message || t.uploader.error_backend);
             console.error(err);
+            // Alle noch-pendenden oder uploadenden Dateien auf error setzen
+            setTrackedFiles(prev =>
+                prev.map(tf =>
+                    tf.status === "uploading" || tf.status === "pending"
+                        ? { ...tf, status: "error" }
+                        : tf
+                )
+            );
         } finally {
             setLoading(false);
         }
@@ -107,10 +158,11 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         <div className="w-full max-w-2xl mx-auto space-y-6">
             {/* Upload Area */}
             <div
-                className={`relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center text-center space-y-4 ${dragActive
-                    ? "border-primary bg-primary/5 scale-[1.02]"
-                    : "border-border hover:bg-secondary/50"
-                    }`}
+                className={`relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center text-center space-y-4 ${
+                    dragActive
+                        ? "border-primary bg-primary/5 scale-[1.02]"
+                        : "border-border hover:bg-secondary/50"
+                }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
@@ -167,18 +219,31 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
             </Button>
 
             {/* File List Table */}
-            {files.length > 0 && (
+            {trackedFiles.length > 0 && (
                 <Card className="overflow-hidden border-border/50 shadow-md">
                     <div className="bg-secondary/30 px-4 py-3 border-b border-border/50 flex justify-between items-center">
                         <h3 className="font-semibold text-sm">{t.uploader.table_title}</h3>
-                        <span className="text-xs text-muted-foreground">{files.length} / 10</span>
+                        <span className="text-xs text-muted-foreground">{trackedFiles.length} / 10</span>
                     </div>
                     <div className="divide-y divide-border/20">
-                        {files.map((file, index) => (
+                        {trackedFiles.map(({ file, status }, index) => (
                             <div key={`${file.name}-${index}`} className="flex items-center justify-between p-3 hover:bg-secondary/20 transition-colors">
                                 <div className="flex items-center space-x-3 overflow-hidden">
-                                    <div className="p-2 bg-primary/10 rounded-lg">
-                                        <FileText className="w-4 h-4 text-primary" />
+                                    <div className={`p-2 rounded-lg ${
+                                        status === "done" ? "bg-green-500/10" :
+                                        status === "error" ? "bg-destructive/10" :
+                                        status === "uploading" ? "bg-primary/10 animate-pulse" :
+                                        "bg-primary/10"
+                                    }`}>
+                                        {status === "done" ? (
+                                            <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                        ) : status === "uploading" ? (
+                                            <Loader2 className="w-4 h-4 text-primary animate-spin" />
+                                        ) : status === "error" ? (
+                                            <AlertCircle className="w-4 h-4 text-destructive" />
+                                        ) : (
+                                            <FileText className="w-4 h-4 text-primary" />
+                                        )}
                                     </div>
                                     <div className="flex flex-col min-w-0">
                                         <span className="text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]" title={file.name}>
@@ -186,6 +251,9 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                                         </span>
                                         <span className="text-xs text-muted-foreground">
                                             {(file.size / 1024).toFixed(1)} KB
+                                            {status === "uploading" && " · Wird hochgeladen…"}
+                                            {status === "done" && " · Hochgeladen ✓"}
+                                            {status === "error" && " · Fehler"}
                                         </span>
                                     </div>
                                 </div>

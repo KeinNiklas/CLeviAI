@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Depends
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -18,6 +18,7 @@ except ImportError:
 from dotenv import load_dotenv
 import os
 import vercel_blob
+import httpx
 
 def get_current_admin_user(current_user: UserInDB = Depends(get_current_user)):
     if current_user.role != "admin":
@@ -61,53 +62,86 @@ def read_root():
 def health_check():
     return {"status": "healthy"}
 
+# --- Vercel Blob: Upload Token Endpoint ---
+
+@app.post("/upload/token")
+async def get_upload_token(
+    filename: str = Query(..., description="Name der hochzuladenden Datei"),
+    current_user: UserInDB = Depends(get_current_user)
+):
+    """Gibt ein kurzlebiges Vercel Blob Client-Token zurück.
+    Der Browser lädt die Datei dann direkt zu Vercel Blob hoch,
+    ohne dass die Bytes durch diese Serverless Function fließen.
+    """
+    try:
+        pathname = f"user_{current_user.id}/{filename}"
+        token = vercel_blob.generate_client_token(
+            pathname,
+            {"access": "public", "maximumSizeInBytes": 20 * 1024 * 1024}  # 20 MB Limit
+        )
+        return {"clientToken": token, "pathname": pathname}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Konnte kein Upload-Token generieren: {e}")
+
+
+# --- Analyse-Endpoint (nimmt jetzt Blob-URLs statt Dateiinhalt) ---
+
+class AnalyzeRequest(BaseModel):
+    blob_urls: List[str]
+    language: str = "en"
+
 @app.post("/analyze-document", response_model=List[Topic])
-async def analyze_document(files: List[UploadFile] = File(...), language: str = Form("en"), current_user: UserInDB = Depends(get_current_user)):
+async def analyze_document(request: AnalyzeRequest, current_user: UserInDB = Depends(get_current_user)):
+    """Analysiert Dateien, die bereits via Client-seitigem Upload in Vercel Blob liegen.
+    Erwartet eine Liste von Blob-URLs und optional die Sprache.
+    """
     try:
         # Pre-check API availability
-        # If Gemini is down/quota limited, we check if Groq is available as fallback
         try:
-             analyzer_service.gemini_service.check_availability()
+            analyzer_service.gemini_service.check_availability()
         except Exception as e:
-             if not analyzer_service.groq_service.client:
-                  # If both are down/missing, raise the error
-                  raise e
-             print("Gemini check failed, but Groq is available. Proceeding with fallback.")
+            if not analyzer_service.groq_service.client:
+                raise e
+            print("Gemini check failed, but Groq is available. Proceeding with fallback.")
 
         all_topics = []
-        for file in files:
-            # 1. Read file content
-            content = await file.read()
-            
-            # 2. Upload to Vercel Blob
+        for url in request.blob_urls:
+            # 1. Datei von Vercel Blob herunterladen
             try:
-                # Create a unique filename with user ID to avoid collisions
-                blob_filename = f"user_{current_user.id}/{file.filename}"
-                # Upload to Blob storage
-                blob_result = vercel_blob.put(blob_filename, content, {"addRandomSuffix": "false"})
-                file_url = blob_result.get("url")
-                print(f"File uploaded to Blob: {file_url}")
+                resp = httpx.get(url, timeout=30.0, follow_redirects=True)
+                resp.raise_for_status()
+                content = resp.content
             except Exception as e:
-                print(f"Failed to upload to Blob, proceeding with analysis only. Error: {e}")
-                file_url = None
+                print(f"Fehler beim Herunterladen der Blob-Datei {url}: {e}")
+                raise HTTPException(status_code=502, detail=f"Datei konnte nicht von Blob geladen werden: {e}")
 
-            # 3. Extract Text for Analysis
-            text = await IngestionService.extract_text_from_bytes(content, file.filename)
+            # 2. Dateiname aus URL extrahieren (letzter Pfadabschnitt ohne Query-Params)
+            filename = url.split("/")[-1].split("?")[0]
+
+            # 3. Text extrahieren
+            text = IngestionService.extract_text_from_bytes(content, filename)
             if not text or len(text.strip()) == 0:
-                print(f"Skipping empty or unreadable file: {file.filename}")
+                print(f"Skipping empty or unreadable file: {filename}")
                 continue
-            
-            # 4. Analyze
-            # We pass the URL as material_id if available, otherwise filename
-            material_id = file_url if file_url else file.filename
-            topics = analyzer_service.analyze_text(text, material_id=material_id, language=language)
+
+            # 4. Analysieren
+            topics = analyzer_service.analyze_text(text, material_id=url, language=request.language)
             all_topics.extend(topics)
-            
+
+            # 5. Blob nach erfolgreicher Analyse löschen (spart Speicher)
+            try:
+                vercel_blob.delete([url])
+                print(f"Blob gelöscht: {url}")
+            except Exception as e:
+                print(f"Blob konnte nicht gelöscht werden (nicht kritisch): {e}")
+
         return all_topics
+    except HTTPException:
+        raise
     except Exception as e:
         error_msg = str(e)
         if "429" in error_msg or "Quota exceeded" in error_msg:
-             raise HTTPException(status_code=429, detail=f"Gemini API Quota Exceeded. Please try again later.")
+            raise HTTPException(status_code=429, detail="Gemini API Quota Exceeded. Please try again later.")
         raise HTTPException(status_code=500, detail=str(e))
 
 class PlanRequest(BaseModel):

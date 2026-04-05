@@ -5,7 +5,7 @@ import { jwtVerify } from 'jose';
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-vercel-signature',
 };
 
 export async function OPTIONS() {
@@ -23,7 +23,7 @@ export async function POST(request: Request): Promise<NextResponse> {
                 if (!clientPayload) {
                     throw new Error("Unauthorized: No token provided via clientPayload");
                 }
-                
+
                 // Verify the JWT securely using native crypto instead of unstable network loopback
                 try {
                     const secretKey = process.env.JWT_SECRET || "supersecretkey_change_me_in_prod";

@@ -5,7 +5,7 @@ import { Upload, FileText, AlertCircle, Loader2, Trash2, CheckCircle2 } from "lu
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useAuth } from "@/context/AuthContext";
-import { upload } from "@vercel/blob/client";
+import { put } from "@vercel/blob/client";
 import { useLanguage } from "@/lib/LanguageContext";
 
 interface FileUploaderProps {
@@ -98,7 +98,10 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                 // Token vom Backend holen
                 const tokenRes = await fetch(
                     `/api/upload/token?filename=${encodeURIComponent(file.name)}`,
-                    { headers: { Authorization: `Bearer ${token}` } }
+                    { 
+                        method: "POST",
+                        headers: { Authorization: `Bearer ${token}` } 
+                    }
                 );
                 if (!tokenRes.ok) {
                     const err = await tokenRes.json().catch(() => ({}));
@@ -107,10 +110,9 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                 const { clientToken } = await tokenRes.json();
 
                 // Direkt zu Vercel Blob hochladen (Dateiinhalt geht NICHT durch das Backend)
-                const blob = await upload(file.name, file, {
+                const blob = await put(file.name, file, {
                     access: "public",
-                    handleUploadUrl: `/api/upload/token?filename=${encodeURIComponent(file.name)}`,
-                    clientPayload: clientToken,
+                    token: clientToken,
                 });
 
                 blobUrls.push(blob.url);

@@ -40,6 +40,11 @@ export async function POST(request: Request): Promise<NextResponse> {
                     // Wir lassen tokenPayload weg, um Headersize-Probleme am Edge zu vermeiden
                 };
             },
+            // Zwingend erforderlicher Callback für den Abschluss des Uploads
+            onUploadCompleted: async ({ blob, tokenPayload }) => {
+                console.log("Upload erfolgreich abgeschlossen:", blob.url);
+                // Platz für weitere Logik, z. B. Datenbankeinträge
+            }
         });
 
         return NextResponse.json(jsonResponse, { headers: corsHeaders });

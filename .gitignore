@@ -28,3 +28,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 api/gemini_debug.log
+.env*.local

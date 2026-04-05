@@ -100,7 +100,7 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                     access: "public",
                     handleUploadUrl: `${window.location.origin}/api/upload-token`,
                     clientPayload: token || undefined, // auth token safe transmission via vercel protocol
-                    contentType: file.type // Explizit für stabilere CORS-Checks am Vercel-Edge
+                    contentType: file.type || "application/octet-stream" // Explizit für stabilere CORS-Checks am Vercel-Edge
                 });
 
                 blobUrls.push(blob.url);
@@ -148,11 +148,10 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
         <div className="w-full max-w-2xl mx-auto space-y-6">
             {/* Upload Area */}
             <div
-                className={`relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center text-center space-y-4 ${
-                    dragActive
+                className={`relative border-2 border-dashed rounded-xl p-8 transition-all flex flex-col items-center justify-center text-center space-y-4 ${dragActive
                         ? "border-primary bg-primary/5 scale-[1.02]"
                         : "border-border hover:bg-secondary/50"
-                }`}
+                    }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
@@ -219,12 +218,11 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                         {trackedFiles.map(({ file, status }, index) => (
                             <div key={`${file.name}-${index}`} className="flex items-center justify-between p-3 hover:bg-secondary/20 transition-colors">
                                 <div className="flex items-center space-x-3 overflow-hidden">
-                                    <div className={`p-2 rounded-lg ${
-                                        status === "done" ? "bg-green-500/10" :
-                                        status === "error" ? "bg-destructive/10" :
-                                        status === "uploading" ? "bg-primary/10 animate-pulse" :
-                                        "bg-primary/10"
-                                    }`}>
+                                    <div className={`p-2 rounded-lg ${status === "done" ? "bg-green-500/10" :
+                                            status === "error" ? "bg-destructive/10" :
+                                                status === "uploading" ? "bg-primary/10 animate-pulse" :
+                                                    "bg-primary/10"
+                                        }`}>
                                         {status === "done" ? (
                                             <CheckCircle2 className="w-4 h-4 text-green-500" />
                                         ) : status === "uploading" ? (

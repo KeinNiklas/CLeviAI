@@ -105,6 +105,7 @@ class AuthService:
         return self.store.update_user(user_id, updates)
 
     def create_access_token(self, data: dict, expires_delta: Optional[timedelta] = None):
+        print(f"[DEBUG Python] Creating access token with SECRET_KEY: {SECRET_KEY[:4]}...{SECRET_KEY[-4:]} (Len: {len(SECRET_KEY)})")
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
@@ -112,6 +113,7 @@ class AuthService:
             expire = datetime.utcnow() + timedelta(minutes=15)
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        print(f"[DEBUG Python] Token created: {encoded_jwt[:20]}...")
         return encoded_jwt
 
     def delete_user(self, user_id: str) -> bool:

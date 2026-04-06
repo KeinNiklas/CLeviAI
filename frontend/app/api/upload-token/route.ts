@@ -23,33 +23,25 @@ export async function POST(request: Request): Promise<NextResponse> {
                 // [DEBUG] Received clientPayload from frontend
                 console.log("[DEBUG] Token Validation - Received clientPayload:", clientPayload ? `${clientPayload.substring(0, 20)}...` : "null");
 
-                // Verify the JWT securely using native crypto instead of unstable network loopback
+                let verifiedPayload;
                 try {
                     const secretKey = process.env.JWT_SECRET || "RvpeNCp2l9KvqJXWU7U1";
-                    
-                    // [DEBUG] Log which secret source is being used
                     console.log("[DEBUG] Using JWT Secret:", process.env.JWT_SECRET ? "from process.env.JWT_SECRET" : "using hardcoded fallback");
                     
                     const secret = new TextEncoder().encode(secretKey);
+                    const { payload } = await jwtVerify(clientPayload!, secret, { algorithms: ['HS256'] });
+                    verifiedPayload = payload;
                     
-                    // Attempt verification
-                    const { payload } = await jwtVerify(clientPayload!, secret, {
-                        algorithms: ['HS256']
-                    });
-                    
-                    // [DEBUG] Log successful payload content (safe fields only)
                     console.log("[DEBUG] JWT Verification successful for user:", payload.sub);
                 } catch (e: any) {
                     console.error("[DEBUG] JWT decoding FAILED. Details:", e.code || e.message);
-                    
-                    // This error will be returned to the frontend in the 400 response
                     throw new Error(`Token validation failed: ${e.message}`);
                 }
 
                 // Here we setup rules for the client upload token
                 return {
                     maximumSizeInBytes: 20 * 1024 * 1024, // 20 MB limit
-                    // Wir lassen tokenPayload weg, um Headersize-Probleme am Edge zu vermeiden
+                    tokenPayload: verifiedPayload.sub as string, // User-ID aus JWT (schlank)
                 };
             },
             // Zwingend erforderlicher Callback für den Abschluss des Uploads

@@ -14,21 +14,30 @@ export async function OPTIONS() {
 
 export async function POST(request: Request): Promise<NextResponse> {
     const body = (await request.json()) as HandleUploadBody;
-
     try {
-        // --- FIX: Webhook URL bereinigen ---
-        const publicUrl = new URL(request.url);
-        publicUrl.pathname = '/api/upload-token'; // Erzwingt den öffentlichen Pfad
+        // 1. Die korrekte, öffentliche Basis-URL ermitteln
+        // Vercel setzt den 'x-forwarded-host' Header, der die tatsächliche Domain enthält.
+        const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+        // Das Protokoll ist in der Regel https in Vercel, lokal http.
+        const protocol = request.headers.get('x-forwarded-proto') || 'https';
 
-        // Neuen Request mit sauberer URL und originalen Headern erstellen
-        const fixedRequest = new Request(publicUrl.toString(), {
+        const publicBaseUrl = `${protocol}://${host}`;
+
+        // 2. Die finale Webhook-URL konstruieren
+        const webhookUrl = `${publicBaseUrl}/api/upload-token`;
+
+        console.log("[DEBUG] Configured Webhook URL:", webhookUrl);
+
+        // 3. Einen manipulierten Request erstellen, der die saubere URL enthält
+        const fixedRequest = new Request(webhookUrl, {
             method: request.method,
             headers: request.headers,
+            // Wichtig: Body wird nicht direkt an Request übergeben, da handleUpload ihn als separates Argument 'body' erwartet.
         });
 
         const jsonResponse = await handleUpload({
             body,
-            request: fixedRequest, // Hier den manipulierten Request übergeben
+            request: fixedRequest, // Verwenden Sie den manipulierten Request
             onBeforeGenerateToken: async (pathname: string, clientPayload: string | null) => {
                 // [DEBUG Node.js] Start Token Validation
                 console.log(`[DEBUG Node.js] Endpoint reached for pathname: ${pathname}`);

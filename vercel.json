@@ -9,7 +9,7 @@
     "rewrites": [
         {
             "source": "/api/upload-token",
-            "destination": "/api/upload-token"
+            "destination": "/frontend/api/upload-token"
         },
         {
             "source": "/api/(.*)",

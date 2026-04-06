@@ -95,6 +95,9 @@ export function FileUploader({ onUploadComplete }: FileUploaderProps) {
                     prev.map((tf, idx) => idx === i ? { ...tf, status: "uploading" } : tf)
                 );
 
+                // [DEBUG] Logging token state before upload
+                console.log("[DEBUG] FileUploader - token state:", token ? `${token.substring(0, 20)}...` : "null");
+
                 // Direkt zu Vercel Blob hochladen via Next.js Backend (/api/upload-token)
                 const blob = await upload(file.name, file, {
                     access: "public",

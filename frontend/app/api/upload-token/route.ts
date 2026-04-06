@@ -20,17 +20,25 @@ export async function POST(request: Request): Promise<NextResponse> {
             body,
             request,
             onBeforeGenerateToken: async (pathname: string, clientPayload: string | null) => {
-                if (!clientPayload) {
-                    throw new Error("Unauthorized: No token provided via clientPayload");
-                }
+                // [DEBUG] Received clientPayload from frontend
+                console.log("[DEBUG] Token Validation - Received clientPayload:", clientPayload ? `${clientPayload.substring(0, 20)}...` : "null");
 
                 // Verify the JWT securely using native crypto instead of unstable network loopback
                 try {
-                    const secretKey = process.env.JWT_SECRET || "supersecretkey_change_me_in_prod";
+                    const secretKey = process.env.JWT_SECRET || "RvpeNCp2l9KvqJXWU7U1";
+                    
+                    // [DEBUG] Log which secret source is being used
+                    console.log("[DEBUG] Using JWT Secret:", process.env.JWT_SECRET ? "from process.env.JWT_SECRET" : "using hardcoded fallback");
+                    
                     const secret = new TextEncoder().encode(secretKey);
-                    await jwtVerify(clientPayload, secret);
+                    
+                    // Attempt verification
+                    const { payload } = await jwtVerify(clientPayload!, secret);
+                    
+                    // [DEBUG] Log successful payload content (safe fields only)
+                    console.log("[DEBUG] JWT Verification successful for user:", payload.sub);
                 } catch (e) {
-                    console.error("JWT decoding failed:", e);
+                    console.error("[DEBUG] JWT decoding FAILED:", (e as Error).message);
                     throw new Error(`Token validation failed: ${(e as Error).message}`);
                 }
 

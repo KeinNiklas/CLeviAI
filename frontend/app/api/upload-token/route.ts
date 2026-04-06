@@ -33,13 +33,17 @@ export async function POST(request: Request): Promise<NextResponse> {
                     const secret = new TextEncoder().encode(secretKey);
                     
                     // Attempt verification
-                    const { payload } = await jwtVerify(clientPayload!, secret);
+                    const { payload } = await jwtVerify(clientPayload!, secret, {
+                        algorithms: ['HS256']
+                    });
                     
                     // [DEBUG] Log successful payload content (safe fields only)
                     console.log("[DEBUG] JWT Verification successful for user:", payload.sub);
-                } catch (e) {
-                    console.error("[DEBUG] JWT decoding FAILED:", (e as Error).message);
-                    throw new Error(`Token validation failed: ${(e as Error).message}`);
+                } catch (e: any) {
+                    console.error("[DEBUG] JWT decoding FAILED. Details:", e.code || e.message);
+                    
+                    // This error will be returned to the frontend in the 400 response
+                    throw new Error(`Token validation failed: ${e.message}`);
                 }
 
                 // Here we setup rules for the client upload token

@@ -15,6 +15,10 @@ export async function OPTIONS() {
 export async function POST(request: Request): Promise<NextResponse> {
     const body = (await request.json()) as HandleUploadBody;
     try {
+        console.log(`[DEBUG Route] Request type: ${body?.type}`);
+        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+            throw new Error("Missing BLOB_READ_WRITE_TOKEN in environment variables.");
+        }
         // 1. Die korrekte, öffentliche Basis-URL ermitteln
         // Vercel setzt den 'x-forwarded-host' Header, der die tatsächliche Domain enthält.
         const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
@@ -39,6 +43,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             body,
             request: fixedRequest, // Verwenden Sie den manipulierten Request
             onBeforeGenerateToken: async (pathname: string, clientPayload: string | null) => {
+                console.log(`[DEBUG Route] Token Validation Start for: ${pathname}`);
                 // [DEBUG Node.js] Start Token Validation
                 console.log(`[DEBUG Node.js] Endpoint reached for pathname: ${pathname}`);
                 console.log(`[DEBUG Node.js] Validating token (start): ${clientPayload?.substring(0, 20)}...`);
@@ -53,6 +58,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
                     const secret = new TextEncoder().encode(secretKey);
                     const { payload } = await jwtVerify(clientPayload!, secret, { algorithms: ['HS256'] });
+                    console.log(`[DEBUG Route] JWT Validated for user: ${payload.sub}`);
                     verifiedPayload = payload;
 
                     console.log("[DEBUG Node.js] JWT Verification SUCCESS for user:", payload.sub);

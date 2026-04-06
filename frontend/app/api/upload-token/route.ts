@@ -16,9 +16,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     const body = (await request.json()) as HandleUploadBody;
 
     try {
+        // --- FIX: Webhook URL bereinigen ---
+        const publicUrl = new URL(request.url);
+        publicUrl.pathname = '/api/upload-token'; // Erzwingt den öffentlichen Pfad
+
+        // Neuen Request mit sauberer URL und originalen Headern erstellen
+        const fixedRequest = new Request(publicUrl.toString(), {
+            method: request.method,
+            headers: request.headers,
+        });
+
         const jsonResponse = await handleUpload({
             body,
-            request,
+            request: fixedRequest, // Hier den manipulierten Request übergeben
             onBeforeGenerateToken: async (pathname: string, clientPayload: string | null) => {
                 // [DEBUG Node.js] Start Token Validation
                 console.log(`[DEBUG Node.js] Endpoint reached for pathname: ${pathname}`);
@@ -27,15 +37,15 @@ export async function POST(request: Request): Promise<NextResponse> {
                 let verifiedPayload;
                 try {
                     const secretKey = process.env.JWT_SECRET || "RvpeNCp2l9KvqJXWU7U1";
-                    
+
                     // [DEBUG Node.js] Log Secret Details
                     console.log(`[DEBUG Node.js] Using Secret: ${secretKey.substring(0, 4)}...${secretKey.substring(secretKey.length - 4)} (Len: ${secretKey.length})`);
                     console.log(`[DEBUG Node.js] Secret Source: ${process.env.JWT_SECRET ? "env" : "hardcoded fallback"}`);
-                    
+
                     const secret = new TextEncoder().encode(secretKey);
                     const { payload } = await jwtVerify(clientPayload!, secret, { algorithms: ['HS256'] });
                     verifiedPayload = payload;
-                    
+
                     console.log("[DEBUG Node.js] JWT Verification SUCCESS for user:", payload.sub);
                 } catch (e: any) {
                     console.error("[DEBUG Node.js] JWT decoding FAILED. Error Code/Message:", e.code || e.message);
